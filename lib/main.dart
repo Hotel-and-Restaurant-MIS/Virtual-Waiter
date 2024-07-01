@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:virtual_waiter/Screens/welcomeScreen.dart';
+import 'package:virtual_waiter/views/welcomeScreen.dart';
 
 void main() => runApp(virtual_waiter());
 

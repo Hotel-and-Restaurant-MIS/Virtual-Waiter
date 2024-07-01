@@ -8,6 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  socket_io_client: ^2.0.3+1
 
 cupertino_icons: ^1.0.2
 
@@ -17,6 +18,7 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
   animated_text_kit: ^4.2.2
+  get: ^4.6.6
 
 
 flutter:
@@ -28,6 +30,6 @@ flutter:
   fonts:
     - family: Saira
       fonts:
-        - asset: fonts/Saira-SemiBoldItalic.ttf
+        - asset: fonts/Saira-SemiBold.ttf
           style: italic
 
