@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:virtual_waiter/components/alert_dialog_box.dart';
+import 'package:virtual_waiter/components/dialog_box.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
+
+import '../controllers/views/welcome_screen_controller.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -12,7 +16,54 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
+      floatingActionButton: TextButton(
+        onPressed: () => showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialogBox(
+            alertDialogTitle: 'Need Help ?',
+            alertDialogDiscription:
+                'We can provide you help from \nhuman waiter',
+            onOKPresses: () async {
+              try {
+                await WelcomeScreenController.instance.tapBtnToRequestHelp();
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return DialogBox(
+                        massege: 'Human waiter will come to your table soon!');
+                  },
+                );
+                print('help is coming');
+              } catch (e) {
+                Navigator.pop(
+                    context); // Close the AlertDialog before showing DialogBox
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return DialogBox(massege: 'An Un Expected error occurs ');
+                  },
+                );
+                // DialogBox(massege: 'An unexpected error occurs');
+              }
+            },
+          ),
+        ),
+        child: Container(
+          child: Center(
+              child: Text(
+            'Help',
+            style: TextConstants.kSubTextStyle(
+                fontSize: 20.0, textColour: Colors.white),
+          )),
+          decoration: BoxDecoration(
+            color: Colors.amber,
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          width: 70.0,
+          height: 70.0,
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(

@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class AlertDialogBox extends StatelessWidget {
   final String alertDialogTitle;
   final String alertDialogDiscription;
+  final VoidCallback? onOKPresses;
 
   AlertDialogBox({
     required this.alertDialogTitle,
     required this.alertDialogDiscription,
+    this.onOKPresses,
   });
 
   Widget build(BuildContext context) {
@@ -20,7 +22,13 @@ class AlertDialogBox extends StatelessWidget {
           child: const Text('Cancel'),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
+          onPressed: () {
+            if (onOKPresses != null) {
+              onOKPresses!();
+            } else {
+              Navigator.pop(context, 'OK');
+            }
+          },
           child: const Text('OK'),
         ),
       ],
