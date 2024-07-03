@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:virtual_waiter/controllers/network/web_socket_controller.dart';
+import 'package:virtual_waiter/controllers/network/webSocketController.dart';
 
 
 class WelcomeScreenController extends GetxController {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:virtual_waiter/components/alert_dialog_box.dart';
-import 'package:virtual_waiter/components/dialog_box.dart';
-import 'package:virtual_waiter/constants/text_constants.dart';
-
-import '../controllers/views/welcome_screen_controller.dart';
+import 'package:virtual_waiter/components/alertDialogBox.dart';
+import 'package:virtual_waiter/components/dialogBox.dart';
+import 'package:virtual_waiter/constants/textConstants.dart';
+import 'package:virtual_waiter/constant.dart';
+import '../controllers/views/welcomeScreenController.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kBackgroundClour,
       floatingActionButton: TextButton(
         onPressed: () => showDialog<String>(
           context: context,
@@ -57,11 +57,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 fontSize: 20.0, textColour: Colors.white),
           )),
           decoration: BoxDecoration(
-            color: Colors.amber,
-            borderRadius: BorderRadius.circular(15.0),
+            color: kButtonClour,
+            borderRadius: BorderRadius.circular(10.0),
           ),
           width: 70.0,
-          height: 70.0,
+          height: 50.0,
         ),
       ),
       body: SafeArea(
@@ -82,7 +82,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         TyperAnimatedText(
                           'I am your \n   virtual waiter',
                           textStyle: TextConstants.kMainTextStyle(
-                            textColour: Colors.black,
+                            textColour: Colors.white,
                             fontSize: 45.0,
                           ),
                           speed: const Duration(milliseconds: 100),
@@ -109,13 +109,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 width: 250.0,
                 height: 50.0,
                 decoration: BoxDecoration(
-                  color: Colors.amberAccent,
+                  color: kButtonClour,
                   borderRadius: BorderRadius.circular(50.0),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.7),
-                      spreadRadius: 5.0,
-                      blurRadius: 7.0,
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 3.0,
+                      blurRadius: 5.0,
                       offset: Offset(0, 4),
                     ),
                   ],
@@ -126,11 +126,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Text(
                       'Proceed to Order',
                       style: TextConstants.kSubTextStyle(
-                          fontSize: 20, textColour: Colors.black),
+                          fontSize: 20, textColour: Colors.white),
                     ),
                     Icon(
                       Icons.arrow_forward_ios_rounded,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ],
                 ),
