@@ -22,7 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     print(orientation);
     return Scaffold(
 
-      backgroundColor: kBackgroundClour,
+      backgroundColor: kBackgroundClour.withOpacity(0.4),
       floatingActionButton: TextButton(
         onPressed: () => showDialog<String>(
           context: context,

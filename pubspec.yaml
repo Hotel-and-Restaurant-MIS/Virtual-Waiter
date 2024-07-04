@@ -15,6 +15,7 @@ dependencies:
   intl: ^0.17.0
   obs: ^0.0.4
   cached_network_image: ^3.3.1
+  reward_popup: ^0.0.7
 
 dev_dependencies:
   flutter_test:

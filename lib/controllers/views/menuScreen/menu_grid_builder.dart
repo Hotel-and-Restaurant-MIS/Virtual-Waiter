@@ -28,7 +28,8 @@ class MenuGridBuilder extends GetxController {
           padding: const EdgeInsets.all(20),
           sliver: SliverGrid.count(
             crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+            childAspectRatio: 320/270,
+            mainAxisSpacing: 30,
             crossAxisCount: 2,
             children: children,
           ),

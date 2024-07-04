@@ -84,7 +84,7 @@ class MenuScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
+              ),//end
             ),
             SizedBox(height: 35.0,),
             SingleChildScrollView(
