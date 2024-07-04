@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/components/menu_item_tile.dart';
 import 'package:virtual_waiter/controllers/data/menu_data_controller.dart';
+import 'package:virtual_waiter/views/single_menu_item_screen.dart';
 
 class MenuGridBuilder extends GetxController {
   static MenuGridBuilder instance = Get.find();
@@ -17,7 +18,9 @@ class MenuGridBuilder extends GetxController {
           price: menuItem.price,
           availableQuantity: menuItem.availableQuantity,
           imageUrl: menuItem.imageUrl,
-          onTap: (){},
+          onTap: (){
+            Get.to(() =>SingleMenuItemScreen(menuItem: menuItem));
+          },
         ),
       );
     });

@@ -8,6 +8,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2500.0,
     availableQuantity: 15,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 1,
@@ -16,6 +17,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2500.0,
     availableQuantity: 15,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 1,
@@ -24,6 +26,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2500.0,
     availableQuantity: 15,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 1,
@@ -32,6 +35,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2500.0,
     availableQuantity: 15,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 1,
@@ -40,6 +44,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2500.0,
     availableQuantity: 0,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 1,
@@ -48,6 +53,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2500.0,
     availableQuantity: 1,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 2,
@@ -56,6 +62,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 3250.0,
     availableQuantity: 12,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 3,
@@ -64,6 +71,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 1350.0,
     availableQuantity: 18,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 4,
@@ -72,6 +80,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 1800.0,
     availableQuantity: 10,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 5,
@@ -80,6 +89,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2900.0,
     availableQuantity: 8,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 6,
@@ -88,6 +98,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 1500.0,
     availableQuantity: 20,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 7,
@@ -96,6 +107,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2200.0,
     availableQuantity: 12,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 8,
@@ -104,6 +116,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 2700.0,
     availableQuantity: 6,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 9,
@@ -112,6 +125,7 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 500.0,
     availableQuantity: 18,
+    tags: ['Vegan', 'Vegetarian'],
   ),
   MenuItem(
     id: 10,
@@ -120,5 +134,6 @@ final List<MenuItem> kMenuItemList = [
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 1100.0,
     availableQuantity: 25,
+    tags: ['Vegan', 'Vegetarian'],
   ),
 ];

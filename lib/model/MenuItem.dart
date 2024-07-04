@@ -5,8 +5,10 @@ class MenuItem {
   final String category;
   final String imageUrl;
   final int availableQuantity;
+  final List<String> tags;
 
   MenuItem({
+    required this.tags,
     required this.id,
     required this.name,
     required this.price,
@@ -24,6 +26,7 @@ class MenuItem {
       category: map['category'],
       imageUrl: map['imageUrl'] ?? 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
       availableQuantity: map['availableQuantity'],
+      tags: List<String>.from(map['tags']),
     );
   }
 
@@ -36,6 +39,7 @@ class MenuItem {
       'category': category,
       'imageUrl': imageUrl,
       'availableQuantity': availableQuantity,
+      'tags':tags,
     };
   }
 }

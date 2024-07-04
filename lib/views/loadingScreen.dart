@@ -28,9 +28,11 @@ class Loadingscreen extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Scaffold(
               body: SafeArea(
-                child: Text(
-                  'An Unexpected error occurs.',
-                  style: TextConstants.kMainTextStyle(textColour: Colors.red),
+                child: Center(
+                  child: Text(
+                    'An Unexpected error occurs.',
+                    style: TextConstants.kMainTextStyle(textColour: Colors.red),
+                  ),
                 ),
               ),
             );
