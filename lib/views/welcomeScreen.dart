@@ -6,7 +6,6 @@ import 'package:virtual_waiter/components/dialogBox.dart';
 import 'package:virtual_waiter/constants/textConstants.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/views/menuScreen.dart';
-import 'package:virtual_waiter/views/menuTabScreen.dart';
 import '../controllers/views/welcomeScreenController.dart';
 
 class WelcomeScreen extends StatefulWidget {
