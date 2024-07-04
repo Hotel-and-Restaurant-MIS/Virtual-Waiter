@@ -6,6 +6,7 @@ import 'package:virtual_waiter/components/dialogBox.dart';
 import 'package:virtual_waiter/constants/textConstants.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/views/menuScreen.dart';
+import 'package:virtual_waiter/views/menu_screen_test.dart';
 import '../controllers/views/welcomeScreenController.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -129,7 +130,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 child: GestureDetector(
                   onTap: (){
-                    Get.to(()=>MenuTabScreen());
+                    Get.to(()=>MenuScreenTest());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

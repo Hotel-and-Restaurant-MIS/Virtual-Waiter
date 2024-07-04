@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
+import 'package:virtual_waiter/controllers/data/menu_data_controller.dart';
+import 'package:virtual_waiter/controllers/network/menu_data_network_controller.dart';
+import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
 
 import 'controllers/network/webSocketController.dart';
-import 'controllers/views/menuScreen/menuTabController.dart';
+import 'controllers/views/menuScreen/categoryButtonColorController.dart';
+import 'controllers/views/menuScreen/categoryTabController.dart';
 import 'controllers/views/welcomeScreenController.dart';
 
 class ControllerInitializer {
@@ -13,9 +17,12 @@ class ControllerInitializer {
     try {
       await Get.putAsync(() => WebSocketController.create());
 
+      await Get.putAsync(() => MenuDataNetworkController.create());
+      Get.put(MenuDataController());
+      Get.put(MenuGridBuilder());
       Get.put(WelcomeScreenController());
-      Get.put(MenuTabController());
-
+      Get.put(CategoryTabController());
+      Get.put(CategoryButtonColorController());
 
       _isIntialized = true;
     } catch (e) {

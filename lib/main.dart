@@ -3,6 +3,7 @@ import 'package:virtual_waiter/controllers/network/webSocketController.dart';
 import 'package:virtual_waiter/controllers/views/welcomeScreenController.dart';
 import 'package:virtual_waiter/views/loadingScreen.dart';
 import 'package:virtual_waiter/views/welcomeScreen.dart';
+import 'package:virtual_waiter/views/menuScreen.dart';
 import 'package:get/get.dart';
 
 void main() async {
@@ -20,7 +21,6 @@ class virtual_waiter extends StatelessWidget {
     );
   }
 }
-//
 // import 'package:flutter/material.dart';
 //
 // void main() => runApp(MyApp());
