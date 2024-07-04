@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:get/get.dart';
 import 'package:virtual_waiter/components/alertDialogBox.dart';
 import 'package:virtual_waiter/components/dialogBox.dart';
 import 'package:virtual_waiter/constants/textConstants.dart';
 import 'package:virtual_waiter/constant.dart';
+import 'package:virtual_waiter/views/menuScreen.dart';
+import 'package:virtual_waiter/views/menuTabScreen.dart';
 import '../controllers/views/welcomeScreenController.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
+
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
+    print(orientation);
     return Scaffold(
+
       backgroundColor: kBackgroundClour,
       floatingActionButton: TextButton(
         onPressed: () => showDialog<String>(
@@ -23,6 +30,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             alertDialogTitle: 'Need Help ?',
             alertDialogDiscription:
                 'We can provide you help from \nhuman waiter',
+            // backgroundColour: Colors.grey.shade300,
             onOKPresses: () async {
               try {
                 await WelcomeScreenController.instance.tapBtnToRequestHelp();
@@ -72,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 height: 80,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 200.0, left: 60),
@@ -120,21 +128,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Proceed to Order',
-                      style: TextConstants.kSubTextStyle(
-                          fontSize: 20, textColour: Colors.white),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Colors.white,
-                    ),
-                  ],
+                child: GestureDetector(
+                  onTap: (){
+                    Get.to(()=>MenuTabScreen());
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Proceed to Order',
+                        style: TextConstants.kSubTextStyle(
+                            fontSize: 20, textColour: Colors.white),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.white,
+
+                      ),
+                    ],
+                  ),
                 ),
               ),
+
             ],
           ),
         ),

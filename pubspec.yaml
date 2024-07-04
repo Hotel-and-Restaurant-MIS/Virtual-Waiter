@@ -12,6 +12,8 @@ dependencies:
   get: ^4.6.6
   cupertino_icons: ^1.0.2
   loading_animation_widget: ^1.2.1
+  intl: ^0.17.0
+  obs: ^0.0.4
 
 dev_dependencies:
   flutter_test:
@@ -33,4 +35,8 @@ flutter:
       fonts:
         - asset: fonts/Saira-SemiBold.ttf
           style: italic
-
+    - family: Balow
+      fonts:
+        - asset: fonts/Barlow-Regular.ttf
+        - asset: fonts/Barlow-Light.ttf
+        - asset: fonts/Barlow-Medium.ttf

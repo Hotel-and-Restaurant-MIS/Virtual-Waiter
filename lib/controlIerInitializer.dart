@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
 import 'controllers/network/webSocketController.dart';
+import 'controllers/views/menuScreen/categoryButtonColorController.dart';
+import 'controllers/views/menuScreen/menuTabController.dart';
 import 'controllers/views/welcomeScreenController.dart';
 
 class ControllerInitializer {
@@ -13,6 +15,8 @@ class ControllerInitializer {
       await Get.putAsync(() => WebSocketController.create());
 
       Get.put(WelcomeScreenController());
+      Get.put(MenuTabController());
+      //Get.put(CategoryButtonColorController());
 
       _isIntialized = true;
     } catch (e) {

@@ -91,6 +91,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.6"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -171,6 +179,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.0"
+  obs:
+    dependency: "direct main"
+    description:
+      name: obs
+      sha256: "49713bbee31b06da3425ee474aa0c265f4765041de05c1dc7ff587f41042ed59"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   path:
     dependency: transitive
     description:
