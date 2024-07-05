@@ -1,22 +1,21 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/model/MenuItem.dart';
 
 class SmisStateController extends GetxController {
   static SmisStateController instance = Get.find();
-  Map<String, int> _selectedAddOnsDataMap = {};
-  Map<String, RxInt> _selectedAddOnsQuantityMap = {};
-
+  List<String> _selectedAddOnList = [];
+  // Map<String, RxInt> _selectedAddOnsQuantityMap = {};
+  Map<String, RxBool> _checkBoxAddOnsMap = {};
 
   MenuItem? _menuItem;
   MenuItem get menuItem => _menuItem!;
 
   set menuItem(MenuItem item) {
     _menuItem = item;
-    _selectedAddOnsDataMap = {};
+    _selectedAddOnList = [];
 
-   _selectedAddOnsQuantityMap = {};
+    // _selectedAddOnsQuantityMap = {};
     _totalAmount.value = item.price;
   }
 
@@ -34,10 +33,7 @@ class SmisStateController extends GetxController {
     }
   }
 
-
-
-
-  void incrementQuantiy() {
+  void incrementQuantity() {
     itemNullCheck();
     int temp = _quantity.value;
     temp++;
@@ -45,7 +41,7 @@ class SmisStateController extends GetxController {
     update();
   }
 
-  void decrementQuantiy() {
+  void decrementQuantity() {
     itemNullCheck();
     int temp = _quantity.value;
     if (temp > 1) {
@@ -55,19 +51,21 @@ class SmisStateController extends GetxController {
     update();
   }
 
-  void addAddOns({required String addOnId}){
+  void addAddOns({required String addOnId}) {
     itemNullCheck();
-    _selectedAddOnsDataMap[addOnId] = 1;
-  _calculateTotal();
-  }
-
-  void removeAddOns({required String addOnId}){
-    itemNullCheck();
-    _selectedAddOnsDataMap.remove(addOnId);
+    _selectedAddOnList.add(addOnId);
+    print(_selectedAddOnList);
     _calculateTotal();
   }
 
+  void removeAddOns({required String addOnId}) {
+    itemNullCheck();
+    if (_selectedAddOnList.any((currAddOn) => currAddOn == addOnId)) {
+      _selectedAddOnList.remove(addOnId);
+    }
 
+    _calculateTotal();
+  }
 
   String? _specialNotes = '';
   String? get specialNotes => _specialNotes;
@@ -78,23 +76,25 @@ class SmisStateController extends GetxController {
     _menuItem = null;
     _quantity.value = 1;
     //_selectedAddOnsQuantityMap = {};
-    _selectedAddOnsDataMap = {};
+    // _selectedAddOnList = {};
     _totalAmount.value = 0;
-
   }
-
 
   RxDouble _totalAmount = 0.0.obs;
   double get totalAmount => _totalAmount.value;
 
-  void _calculateTotal(){
+  void _calculateTotal() {
     itemNullCheck();
     double total = menuItem.price * _quantity.value;
 
-    for(String addOnId in _selectedAddOnsDataMap.keys){
-      double addOnPrice = menuItem.addOns.where((addOn)=>addOn['id']).toList().first['price'];
-      total+=addOnPrice;
+    for (String addOnId in _selectedAddOnList) {
+      double addOnPrice = menuItem.addOns
+          .where((addOn) => addOn['id'] == addOnId)
+          .toList()
+          .first['price'];
+      total += addOnPrice;
     }
     _totalAmount.value = total;
+    print(_totalAmount.value);
   }
 }
