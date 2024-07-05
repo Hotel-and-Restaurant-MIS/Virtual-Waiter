@@ -9,6 +9,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2500.0,
     availableQuantity: 15,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Crispy and fresh spring rolls filled with a delightful mix of vegetables and spices, perfect for a light appetizer. Each bite delivers a satisfying crunch and a burst of flavor.',
+    addOns: [
+      {'id': 'b1', 'name': 'Extra Chicken', 'price': 3.00},
+      {'id': 'b2', 'name': 'Side Salad', 'price': 2.50},
+    ],
   ),
   MenuItem(
     id: 1,
@@ -18,6 +23,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2500.0,
     availableQuantity: 15,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Golden-brown spring rolls with a crunchy exterior and a flavorful vegetable filling, ideal for starting your meal. Enjoy the perfect combination of taste and texture.',
+    addOns: [
+      {'id': 'b3', 'name': 'Dipping Sauce', 'price': 1.00},
+      {'id': 'b4', 'name': 'Extra Vegetables', 'price': 2.00},
+    ],
   ),
   MenuItem(
     id: 1,
@@ -27,6 +37,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2500.0,
     availableQuantity: 15,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'A refreshing appetizer, these spring rolls are packed with a variety of fresh vegetables and served with a tangy dipping sauce. Perfect for sharing with friends.',
+    addOns: [
+      {'id': 'b5', 'name': 'Soy Sauce', 'price': 1.00},
+      {'id': 'b6', 'name': 'Extra Lettuce', 'price': 1.50},
+    ],
   ),
   MenuItem(
     id: 1,
@@ -36,6 +51,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2500.0,
     availableQuantity: 15,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Delicious and light spring rolls with a crisp bite, filled with a medley of finely chopped vegetables. Enjoy them as a healthy and tasty starter.',
+    addOns: [
+      {'id': 'b7', 'name': 'Extra Sauce', 'price': 1.50},
+      {'id': 'b8', 'name': 'Spring Roll Wrapper', 'price': 2.00},
+    ],
   ),
   MenuItem(
     id: 1,
@@ -45,6 +65,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2500.0,
     availableQuantity: 0,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Exquisite vegetable spring rolls, offering a perfect balance of crunchy texture and savory flavor. A delightful treat for your taste buds.',
+    addOns: [
+      {'id': 'b9', 'name': 'Extra Sauce', 'price': 1.00},
+      {'id': 'b10', 'name': 'Pickled Vegetables', 'price': 2.00},
+    ],
   ),
   MenuItem(
     id: 1,
@@ -54,6 +79,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2500.0,
     availableQuantity: 1,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Healthy and tasty spring rolls, filled with a variety of fresh, seasonal vegetables and wrapped in a light rice paper. A perfect appetizer for any occasion.',
+    addOns: [
+      {'id': 'b11', 'name': 'Sweet Chili Sauce', 'price': 1.50},
+      {'id': 'b12', 'name': 'Extra Carrots', 'price': 1.00},
+    ],
   ),
   MenuItem(
     id: 2,
@@ -63,6 +93,11 @@ final List<MenuItem> kMenuItemList = [
     price: 3250.0,
     availableQuantity: 12,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Tender and juicy grilled chicken breast, seasoned to perfection and served with a side of fresh vegetables. This hearty dish is both nutritious and delicious.',
+    addOns: [
+      {'id': 'b13', 'name': 'Extra Chicken', 'price': 3.00},
+      {'id': 'b14', 'name': 'Mashed Potatoes', 'price': 2.50},
+    ],
   ),
   MenuItem(
     id: 3,
@@ -72,6 +107,11 @@ final List<MenuItem> kMenuItemList = [
     price: 1350.0,
     availableQuantity: 18,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'A comforting bowl of tomato basil soup, made with ripe tomatoes and fresh basil, served hot and perfect for any season. Enjoy the rich and savory flavors in every spoonful.',
+    addOns: [
+      {'id': 'b15', 'name': 'Breadsticks', 'price': 1.50},
+      {'id': 'b16', 'name': 'Extra Basil', 'price': 1.00},
+    ],
   ),
   MenuItem(
     id: 4,
@@ -81,6 +121,11 @@ final List<MenuItem> kMenuItemList = [
     price: 1800.0,
     availableQuantity: 10,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'A classic Caesar salad with crisp romaine lettuce, creamy dressing, and crunchy croutons. Topped with parmesan cheese, it’s a timeless favorite.',
+    addOns: [
+      {'id': 'b17', 'name': 'Extra Croutons', 'price': 1.50},
+      {'id': 'b18', 'name': 'Grilled Chicken', 'price': 3.00},
+    ],
   ),
   MenuItem(
     id: 5,
@@ -90,6 +135,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2900.0,
     availableQuantity: 8,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Succulent BBQ ribs, slow-cooked to perfection and coated in a rich, tangy barbecue sauce. These ribs are fall-off-the-bone tender and packed with flavor.',
+    addOns: [
+      {'id': 'b19', 'name': 'Extra BBQ Sauce', 'price': 1.50},
+      {'id': 'b20', 'name': 'Corn on the Cob', 'price': 2.00},
+    ],
   ),
   MenuItem(
     id: 6,
@@ -99,6 +149,11 @@ final List<MenuItem> kMenuItemList = [
     price: 1500.0,
     availableQuantity: 20,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'A decadent chocolate lava cake with a gooey center, served warm with a scoop of vanilla ice cream. Perfect for satisfying your sweet tooth.',
+    addOns: [
+      {'id': 'b21', 'name': 'Extra Ice Cream', 'price': 2.00},
+      {'id': 'b22', 'name': 'Whipped Cream', 'price': 1.00},
+    ],
   ),
   MenuItem(
     id: 7,
@@ -108,6 +163,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2200.0,
     availableQuantity: 12,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Fresh and flavorful spicy tuna roll, made with high-quality tuna and a hint of spice for a kick. Perfect for sushi lovers looking for something with a bit of heat.',
+    addOns: [
+      {'id': 'b23', 'name': 'Extra Tuna', 'price': 3.50},
+      {'id': 'b24', 'name': 'Wasabi', 'price': 1.00},
+    ],
   ),
   MenuItem(
     id: 8,
@@ -117,6 +177,11 @@ final List<MenuItem> kMenuItemList = [
     price: 2700.0,
     availableQuantity: 6,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Rich and creamy lobster bisque, featuring tender pieces of lobster and a smooth, velvety broth. A luxurious treat that is perfect for special occasions.',
+    addOns: [
+      {'id': 'b25', 'name': 'Extra Lobster', 'price': 4.00},
+      {'id': 'b26', 'name': 'Garlic Bread', 'price': 1.50},
+    ],
   ),
   MenuItem(
     id: 9,
@@ -126,6 +191,11 @@ final List<MenuItem> kMenuItemList = [
     price: 500.0,
     availableQuantity: 18,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'Warm and crispy garlic breadsticks, perfect for dipping in marinara sauce or enjoying on their own. A simple yet irresistible addition to any meal.',
+    addOns: [
+      {'id': 'b27', 'name': 'Marinara Sauce', 'price': 1.00},
+      {'id': 'b28', 'name': 'Parmesan Cheese', 'price': 1.50},
+    ],
   ),
   MenuItem(
     id: 10,
@@ -135,5 +205,10 @@ final List<MenuItem> kMenuItemList = [
     price: 1100.0,
     availableQuantity: 25,
     tags: ['Vegan', 'Vegetarian'],
+    description: 'A delightful ice cream sundae with rich chocolate syrup, whipped cream, and a cherry on top. Indulge in this classic dessert to complete your meal.',
+    addOns: [
+      {'id': 'b29', 'name': 'Extra Chocolate Syrup', 'price': 1.00},
+      {'id': 'b30', 'name': 'Sprinkles', 'price': 0.50},
+    ],
   ),
 ];
