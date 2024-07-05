@@ -2,19 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:virtual_waiter/components/add_sub_button.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/textConstants.dart';
+import 'package:virtual_waiter/controllers/views/menuScreen/checkBoxController.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
 import '../model/MenuItem.dart';
+import 'orderList.dart';
 
 class SingleMenuItemScreen extends StatelessWidget {
   final MenuItem menuItem;
   late SmisStateController _smisStateController;
-  bool checkBoxValue = false;
+  RxBool isChecked = false.obs;
 
   SingleMenuItemScreen({required this.menuItem}) {
     _smisStateController = SmisStateController.instance;
+  }
+
+  void toggleCheckbox(bool? value) {
+    isChecked.value = value ?? false;
   }
 
   @override
@@ -60,7 +67,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                         fontFamily: 'Barlow',
                         fontSize: 25.0,
                         fontWeight: FontWeight.w500,
-                        color: kButtonClour,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -134,12 +141,15 @@ class SingleMenuItemScreen extends StatelessWidget {
                           SizedBox(
                             height: 15.0,
                           ),
-                          Text(
-                            'LKR ${menuItem.price.toStringAsFixed(2)}',
-                            style: TextConstants.kSubTextStyle(
-                              fontWeight: FontWeight.w400,
-                              textColour: Colors.white,
-                              fontSize: 27.0,
+                          Obx(
+                            () => Text(
+                              // 'LKR ${menuItem.price.toStringAsFixed(2)}',
+                              'LKR ${_smisStateController.totalAmount.toStringAsFixed(2)}',
+                              style: TextConstants.kSubTextStyle(
+                                fontWeight: FontWeight.w400,
+                                textColour: Colors.white,
+                                fontSize: 27.0,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -173,9 +183,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
+                      kSizedBoxUnderTitle,
                       Text(
                         menuItem.description,
                         style: TextConstants.kSubTextStyle(
@@ -183,9 +191,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      SizedBox(
-                        height: 25.0,
-                      ),
+                      kSizedBoxUnderContent,
                       Row(
                         children: [
                           Icon(
@@ -203,9 +209,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
+                      kSizedBoxUnderTitle,
                       Row(
                         children: <Widget>[
                           Text(
@@ -220,15 +224,13 @@ class SingleMenuItemScreen extends StatelessWidget {
                             () => AddSubButton(
                                 value: _smisStateController.quantity,
                                 onAddPress:
-                                    _smisStateController.incrementQuantiy,
+                                    _smisStateController.incrementQuantity,
                                 onSubPress:
-                                    _smisStateController.decrementQuantiy),
+                                    _smisStateController.decrementQuantity),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
+                      kSizedBoxUnderContent,
                       Row(
                         children: <Widget>[
                           Icon(
@@ -246,8 +248,14 @@ class SingleMenuItemScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      kSizedBoxUnderTitle,
                       Column(
                         children: menuItem.addOns.map<Widget>((addon) {
+                          String checkBoxContTag =
+                              'add-on-check-box-cont-${menuItem.id}-${addon['id']}';
+                          Get.put(CheckboxController(), tag: checkBoxContTag);
+                          CheckboxController _checkboxController =
+                              Get.find(tag: checkBoxContTag);
                           return Container(
                             padding: EdgeInsets.only(
                               top: 10.0,
@@ -283,18 +291,18 @@ class SingleMenuItemScreen extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.add_box,
-                                  size: 30.0,
+                                  size: 25.0,
                                 ),
                                 SizedBox(
                                   width: 20.0,
                                 ),
                                 Text(
-                                  '\$',
+                                  'LKR ',
                                   style: TextConstants.kSubTextStyle(
                                       fontSize: 25.0,
                                       fontWeight: FontWeight.w400),
                                 ),
-                                //SizedBox(width: 15.0,),
+                                SizedBox(width: 5.0,),
                                 Text(
                                   '${addon['price']}',
                                   style: TextConstants.kSubTextStyle(
@@ -302,18 +310,104 @@ class SingleMenuItemScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400),
                                 ),
                                 SizedBox(
-                                  width: 20.0,
+                                  width: orientation == Orientation.portrait
+                                      ? deviceWidth * 0.1
+                                      : deviceWidth * 0.2,
                                 ),
-                               // AddSubButton(value: _smisStateController., onAddPress: onAddPress, onSubPress: onSubPress)
-                                
+                                Obx(
+                                  () => Checkbox(
+                                    activeColor: kButtonClour,
+                                    value: _checkboxController.isChecked.value,
+                                    onChanged: (value) {
+                                      //before toggle
+                                      if (!_checkboxController
+                                          .isChecked.value) {
+                                        _smisStateController.addAddOns(
+                                            addOnId: addon['id']);
+                                        Get.snackbar('Add On Added',
+                                            'Add On ${addon['name']} added.',
+                                            snackPosition:
+                                                SnackPosition.BOTTOM);
+                                      } else {
+                                        _smisStateController.removeAddOns(
+                                            addOnId: addon['id']);
+                                      }
+                                     _checkboxController.toggleCheckbox(value);
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           );
                         }).toList(),
                       ),
+                      kSizedBoxUnderContent,
+                      Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.send,
+                                size: 30.0,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 20.0,
+                              ),
+                              Text(
+                                'Add Special Note to Chef',
+                                style: TextConstants.kSubTextStyle(
+                                    fontSize: 27.0,
+                                    fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          ),
+                          kSizedBoxUnderTitle,
+                          TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Type here...',
+                              hintStyle: TextConstants.kSubTextStyle(
+                                  fontSize: 18.0, fontWeight: FontWeight.w400),
+                            ),
+
+                            //onSubmitted: (){},
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 100.0,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(() =>
+                          OrderList()); //TODO: change this screen to, singleview of item
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 70.0,
+                      width: 250.0,
+                      margin: EdgeInsets.only(right: 20.0),
+                      decoration: BoxDecoration(
+                        color: kButtonClour.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Add to My Orders',
+                          style: TextStyle(
+                              fontFamily: 'Barlow',
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           );
