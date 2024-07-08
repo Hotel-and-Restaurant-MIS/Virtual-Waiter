@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_waiter/constants/categoryNames.dart';
-import 'package:virtual_waiter/controllers/views/menuScreen/categoryButtonColorController.dart';
-import 'package:virtual_waiter/components/categoryButton.dart';
+import 'package:virtual_waiter/constants/category_names.dart';
+import 'package:virtual_waiter/controllers/views/menuScreen/category_button_color_controller.dart';
+import 'package:virtual_waiter/components/category_button.dart';
 
 class CategoryTabController extends GetxController {
   List<Widget> _categoryList = [];

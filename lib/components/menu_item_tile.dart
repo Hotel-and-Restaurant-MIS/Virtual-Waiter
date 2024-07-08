@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/constant.dart';
 
-import '../views/orderList.dart';
+import '../views/order_list.dart';
 
 class MenuItemTile extends StatelessWidget {
   MenuItemTile({

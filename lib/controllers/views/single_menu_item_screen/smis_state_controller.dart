@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtual_waiter/model/MenuItem.dart';
+import 'package:virtual_waiter/model/menu-item.dart';
 
 class SmisStateController extends GetxController {
   static SmisStateController instance = Get.find();
@@ -39,6 +39,7 @@ class SmisStateController extends GetxController {
     temp++;
     _quantity.value = temp;
     update();
+    _calculateTotal();
   }
 
   void decrementQuantity() {
@@ -49,6 +50,7 @@ class SmisStateController extends GetxController {
       _quantity.value = temp;
     }
     update();
+    _calculateTotal();
   }
 
   void addAddOns({required String addOnId}) {

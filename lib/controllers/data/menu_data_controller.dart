@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/network/menu_data_network_controller.dart';
-import 'package:virtual_waiter/model/MenuItem.dart';
+import 'package:virtual_waiter/model/menu-item.dart';
 
 class MenuDataController extends GetxController {
   static MenuDataController instance = Get.find();
