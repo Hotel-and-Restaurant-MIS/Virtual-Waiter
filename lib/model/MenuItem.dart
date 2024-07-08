@@ -4,15 +4,21 @@ class MenuItem {
   final double price;
   final String category;
   final String imageUrl;
+  final String description;
   final int availableQuantity;
+  final List<String> tags;
+  List<Map<String, dynamic>> addOns;
 
   MenuItem({
+    required this.description,
+    required this.tags,
     required this.id,
     required this.name,
     required this.price,
     required this.category,
     required this.imageUrl,
     required this.availableQuantity,
+    required this.addOns,
   });
 
   // Factory constructor to create an instance of MenuItem from a map
@@ -24,6 +30,9 @@ class MenuItem {
       category: map['category'],
       imageUrl: map['imageUrl'] ?? 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
       availableQuantity: map['availableQuantity'],
+      tags: List<String>.from(map['tags']),
+      description: map['description'],
+      addOns: List<Map<String, dynamic>>.from(map['addOns'] ?? []),
     );
   }
 
@@ -36,6 +45,9 @@ class MenuItem {
       'category': category,
       'imageUrl': imageUrl,
       'availableQuantity': availableQuantity,
+      'tags':tags,
+      'description':description,
+      'addOns':addOns,
     };
   }
 }

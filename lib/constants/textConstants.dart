@@ -9,8 +9,8 @@ class TextConstants {
     return TextStyle(
       fontSize: fontSize ?? 40.0,
       fontWeight: fontWeight ?? FontWeight.w700,
-      fontFamily: fontFamily ?? 'Saira',
-      color: textColour,
+      fontFamily: fontFamily ?? 'Barlow',
+      color: textColour?? Colors.white,
     );
   }
 
@@ -22,8 +22,8 @@ class TextConstants {
     return TextStyle(
       fontSize: fontSize ?? 30.0,
       fontWeight: fontWeight ?? FontWeight.w500,
-      fontFamily: fontFamily ?? 'Saira',
-      color: textColour,
+      fontFamily: fontFamily ?? 'Barlow',
+      color: textColour?? Colors.white,
     );
   }
 }

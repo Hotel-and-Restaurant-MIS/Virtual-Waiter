@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/menu_data_controller.dart';
 import 'package:virtual_waiter/controllers/network/menu_data_network_controller.dart';
+import 'package:virtual_waiter/controllers/views/menuScreen/checkBoxController.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
+import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
 
 import 'controllers/network/webSocketController.dart';
 import 'controllers/views/menuScreen/categoryButtonColorController.dart';
@@ -23,6 +25,8 @@ class ControllerInitializer {
       Get.put(WelcomeScreenController());
       Get.put(CategoryTabController());
       Get.put(CategoryButtonColorController());
+      Get.put(SmisStateController());
+      Get.put(CheckboxController());
 
       _isIntialized = true;
     } catch (e) {
