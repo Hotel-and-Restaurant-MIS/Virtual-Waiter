@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
+import 'package:virtual_waiter/model/OrderItem.dart';
 import 'package:virtual_waiter/model/menu-item.dart';
 
 class SmisStateController extends GetxController {
   static SmisStateController instance = Get.find();
   List<String> _selectedAddOnList = [];
-  // Map<String, RxInt> _selectedAddOnsQuantityMap = {};
-  Map<String, RxBool> _checkBoxAddOnsMap = {};
 
   MenuItem? _menuItem;
   MenuItem get menuItem => _menuItem!;
 
+  final OrderDataController _orderDataController = OrderDataController.instance;
+
   set menuItem(MenuItem item) {
     _menuItem = item;
     _selectedAddOnList = [];
-
-    // _selectedAddOnsQuantityMap = {};
     _totalAmount.value = item.price;
   }
 
@@ -34,12 +34,14 @@ class SmisStateController extends GetxController {
   }
 
   void incrementQuantity() {
+
     itemNullCheck();
     int temp = _quantity.value;
     temp++;
     _quantity.value = temp;
     update();
     _calculateTotal();
+    print('AddSubButton Value :${_quantity.value}');
   }
 
   void decrementQuantity() {
@@ -69,14 +71,20 @@ class SmisStateController extends GetxController {
     _calculateTotal();
   }
 
-  String? _specialNotes = '';
+  String? _specialNotes = 'first as init';
   String? get specialNotes => _specialNotes;
 
-  set specialNotes(String? value) => _specialNotes = value;
+  //set specialNotes(String? value) => _specialNotes = value;
+
+  void specialNote(String note) {
+    itemNullCheck();
+    _specialNotes = note;
+    update();
+  }
 
   void resetData() {
     _menuItem = null;
-    _quantity.value = 1;
+    _quantity.value = 0;
     //_selectedAddOnsQuantityMap = {};
     // _selectedAddOnList = {};
     _totalAmount.value = 0;
@@ -99,4 +107,19 @@ class SmisStateController extends GetxController {
     _totalAmount.value = total;
     print(_totalAmount.value);
   }
+
+  void addOrderList() {
+    itemNullCheck();
+    _orderDataController.addOrderItem(
+        orderItem: OrderItem(
+          imageURL: menuItem.imageUrl,
+          unitPrice: menuItem.price,
+          itemName: menuItem.name,
+            quantity: _quantity.value,
+            menuItemId: menuItem.id,
+            addonList: _selectedAddOnList,
+            specialNote: _specialNotes,
+            totalPrice: _totalAmount.value));
+  }
+
 }

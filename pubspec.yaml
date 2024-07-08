@@ -42,3 +42,4 @@ flutter:
         - asset: fonts/Barlow-Regular.ttf
         - asset: fonts/Barlow-Light.ttf
         - asset: fonts/Barlow-Medium.ttf
+        - asset: fonts/Barlow-SemiBold.ttf

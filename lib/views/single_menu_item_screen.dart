@@ -15,6 +15,7 @@ class SingleMenuItemScreen extends StatelessWidget {
   final MenuItem menuItem;
   late SmisStateController _smisStateController;
   RxBool isChecked = false.obs;
+  TextEditingController _textFieldController = TextEditingController();
 
   SingleMenuItemScreen({required this.menuItem}) {
     _smisStateController = SmisStateController.instance;
@@ -141,17 +142,6 @@ class SingleMenuItemScreen extends StatelessWidget {
                           SizedBox(
                             height: 15.0,
                           ),
-                          // Obx(
-                          //   () => Text(
-                          //     'LKR ${menuItem.price.toStringAsFixed(2)}',
-                          //     //'LKR ${_smisStateController.totalAmount.toStringAsFixed(2)}',
-                          //     style: TextConstants.kSubTextStyle(
-                          //       fontWeight: FontWeight.w400,
-                          //       textColour: Colors.white,
-                          //       fontSize: 27.0,
-                          //     ),
-                          //   ),
-                          // ),
                           Text(
                             'LKR ${menuItem.price.toStringAsFixed(2)}',
                             //'LKR ${_smisStateController.totalAmount.toStringAsFixed(2)}',
@@ -335,10 +325,11 @@ class SingleMenuItemScreen extends StatelessWidget {
                                           .isChecked.value) {
                                         _smisStateController.addAddOns(
                                             addOnId: addon['id']);
-                                        Get.snackbar('Add On Added',
+                                        Get.snackbar('Add On Added',duration: Duration(seconds: 1 ),
                                             'Add On ${addon['name']} added.',
                                             snackPosition:
                                                 SnackPosition.TOP);
+
                                       } else {
                                         _smisStateController.removeAddOns(
                                             addOnId: addon['id']);
@@ -380,8 +371,8 @@ class SingleMenuItemScreen extends StatelessWidget {
                               hintStyle: TextConstants.kSubTextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.w400),
                             ),
-
-                            //onSubmitted: (){},
+                            controller: _textFieldController,
+                            onSubmitted: _smisStateController.specialNote,
                           )
                         ],
                       ),
@@ -405,7 +396,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                         ),
                         Obx(
                           () => Text(
-                            'LKR.${_smisStateController.totalAmount.toStringAsFixed(2)}',
+                            'LKR  ${_smisStateController.totalAmount.toStringAsFixed(2)}',
                             style: TextConstants.kSubTextStyle(
                                 fontSize: 35.0, fontWeight: FontWeight.w400),
                           ),
@@ -415,9 +406,10 @@ class SingleMenuItemScreen extends StatelessWidget {
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(() =>
-                              OrderList()); //TODO: change this screen to, singleview of item
-                        },
+                          _smisStateController.addOrderList();
+                          Get.back();
+                          _smisStateController.resetData();
+                           },
                         child: Container(
                           alignment: Alignment.center,
                           height: 60.0,

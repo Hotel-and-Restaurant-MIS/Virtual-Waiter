@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/menu_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
 import 'package:virtual_waiter/controllers/network/menu_data_network_controller.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/check_box_controller.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
@@ -20,6 +21,7 @@ class ControllerInitializer {
       await Get.putAsync(() => WebSocketController.create());
 
       await Get.putAsync(() => MenuDataNetworkController.create());
+      Get.put(OrderDataController());
       Get.put(MenuDataController());
       Get.put(MenuGridBuilder());
       Get.put(WelcomeScreenController());
@@ -27,6 +29,7 @@ class ControllerInitializer {
       Get.put(CategoryButtonColorController());
       Get.put(SmisStateController());
       Get.put(CheckboxController());
+
 
       _isIntialized = true;
     } catch (e) {

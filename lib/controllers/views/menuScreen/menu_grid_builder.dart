@@ -13,6 +13,7 @@ class MenuGridBuilder extends GetxController {
     _mdc.menuDataMap[category]!.forEach((menuItem) {
       children.add(
         MenuItemTile(
+          tags:menuItem.tags,
           id: menuItem.id,
           name: menuItem.name,
           price: menuItem.price,
