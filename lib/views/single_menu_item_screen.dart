@@ -9,7 +9,7 @@ import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/check_box_controller.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
 import '../model/menu-item.dart';
-import 'order_list.dart';
+import 'order_list_screen.dart';
 
 class SingleMenuItemScreen extends StatelessWidget {
   final MenuItem menuItem;

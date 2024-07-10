@@ -9,23 +9,50 @@ class OrderDataController extends GetxController{
 
   List<OrderItem> _orderList =[];
 
-  RxList<OrderItem> reactiveOrderList = <OrderItem>[].obs;
+  RxList<OrderItem> reactiveOrderList = <OrderItem>[].obs;  //this duplicate order List is create for change the quantity at the orderList
 
-  List get orderList => _orderList;
+  List<OrderItem> get orderList => _orderList;
+
 
   void addOrderItem({required OrderItem orderItem}){
     _orderList.add(orderItem);
     reactiveOrderList.add(orderItem);
   }
 
-  bool _orderExists({required int itemId}){
+  bool orderExists({required int itemId}){
     return _orderList.any((order) => order.menuItemId == itemId);
   }
 
   void incrementQuantity({required itemId}) {
-    if(_orderExists(itemId: itemId)){
+    if(orderExists(itemId: itemId)){
       OrderItem item = _orderList.where((order) => order.menuItemId == itemId).toList().first;
       item.quantity++;
+      _orderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
+       reactiveOrderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
+    }
+  }
+
+
+
+
+  void decrementQuantity({required itemId}) {
+    if(orderExists(itemId: itemId)){
+      OrderItem item = _orderList.where((order) => order.menuItemId == itemId).toList().first;
+      if(item.quantity > 1)
+        {
+          item.quantity--;
+        }
+      _orderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
+       reactiveOrderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
+    }
+  }
+
+  void subTotal({required itemId}) {
+    if(orderExists(itemId: itemId)){
+      OrderItem item = _orderList.where((order) => order.menuItemId == itemId).toList().first;
+      // item.quantity++;
+
+      item.totalPrice=item.totalPrice+item.unitPrice;
       _orderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
       //where
       //indexWhere
@@ -35,24 +62,8 @@ class OrderDataController extends GetxController{
     }
   }
 
-  //reactive list
-  //reactive list object(quantity) <fail
-  //list -> obeject -> update <fail
-
-  void reset(){
-
-  }
-
-  void decrementQuantity({required itemId}) {
-    if(_orderExists(itemId: itemId)){
-      OrderItem item = _orderList.where((order) => order.menuItemId == itemId).toList().first;
-      if(item.quantity > 1)
-        {
-          item.quantity--;
-        }
-      _orderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
-      reactiveOrderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
-    }
+  void removeItem({required int itemId}) {
+    reactiveOrderList.removeWhere((order) => order.menuItemId == itemId);
   }
 
 }

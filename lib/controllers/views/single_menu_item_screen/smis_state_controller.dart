@@ -84,7 +84,7 @@ class SmisStateController extends GetxController {
 
   void resetData() {
     _menuItem = null;
-    _quantity.value = 0;
+    _quantity.value = 1;
     //_selectedAddOnsQuantityMap = {};
     // _selectedAddOnList = {};
     _totalAmount.value = 0;
@@ -112,6 +112,7 @@ class SmisStateController extends GetxController {
     itemNullCheck();
     _orderDataController.addOrderItem(
         orderItem: OrderItem(
+          menuItem: menuItem,
           imageURL: menuItem.imageUrl,
           unitPrice: menuItem.price,
           itemName: menuItem.name,

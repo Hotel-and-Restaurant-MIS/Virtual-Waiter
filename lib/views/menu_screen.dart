@@ -7,7 +7,7 @@ import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.da
 
 import '../constant.dart';
 import '../constants/text_constants.dart';
-import 'order_list.dart';
+import 'order_list_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});

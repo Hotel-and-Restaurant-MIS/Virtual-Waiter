@@ -9,6 +9,7 @@ import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_st
 import 'controllers/network/web_socket_controller.dart';
 import 'controllers/views/menuScreen/category_button_color_controller.dart';
 import 'controllers/views/menuScreen/category_tab_controller.dart';
+import 'controllers/views/orderList/order_list_controller.dart';
 import 'controllers/views/welcome_screen_controller.dart';
 
 class ControllerInitializer {
@@ -29,6 +30,7 @@ class ControllerInitializer {
       Get.put(CategoryButtonColorController());
       Get.put(SmisStateController());
       Get.put(CheckboxController());
+      Get.put(OrderListController());
 
 
       _isIntialized = true;
