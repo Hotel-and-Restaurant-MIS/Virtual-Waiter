@@ -12,17 +12,21 @@ import 'package:virtual_waiter/views/single_menu_item_screen.dart';
 
 import '../controllers/data/order_data_controller.dart';
 import '../controllers/views/single_menu_item_screen/smis_state_controller.dart';
+import 'order_status_screen.dart';
 
 class OrderList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OrderDataController _orderDataController = OrderDataController.instance;
+    OrderListController _orderListController = OrderListController.instance;
 
     //Data refresh function
-    late OrderListController _orderListController;
+    // late OrderListController _orderListController;
 
     return Scaffold(
       backgroundColor: kBackgroundClour.withOpacity(0.7),
+
+
       body: SafeArea(
         child: OrientationBuilder(
           builder: (context, orientation) {
@@ -105,118 +109,199 @@ class OrderList extends StatelessWidget {
                   ),
                   Obx(
                     () => Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: _orderDataController.reactiveOrderList
                           .map<Widget>((orderItem) {
                         String quantityContTag =
-                            'order-item-${orderItem.menuItemId}-quantity';
+                            'order-item-${orderItem.menuItem.id}-quantity';
                         Get.put(VoqController(quantity: orderItem.quantity),
                             tag: quantityContTag);
+
                         return Padding(
                           padding: const EdgeInsets.only(
-                            left: 25.0,
-                            right: 15.0,
+                            left: 20.0,
+                            right: 10.0,
                             top: 30.0,
                           ),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 400.0,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    CircleAvatar(
-                                      radius: 35.0,
-                                      backgroundImage:
-                                          CachedNetworkImageProvider(
-                                              orderItem.imageURL),
-                                    ),
-                                    SizedBox(
-                                      width: 15.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          orderItem.itemName,
-                                          style: TextConstants.kSmallTextStyle(
-                                              fontSize: 23.0,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          'LKR ${orderItem.unitPrice.toStringAsFixed(2)}',
-                                          style: TextConstants.kSmallTextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 19.0,
+                          child: Container(
+                            padding: EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                              color: kBackgroundClour.withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 400.0,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      CircleAvatar(
+                                        radius: 35.0,
+                                        backgroundImage:
+                                            CachedNetworkImageProvider(
+                                                orderItem.menuItem.imageUrl),
+                                      ),
+                                      SizedBox(
+                                        width: 15.0,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            orderItem.menuItem.name,
+                                            style:
+                                                TextConstants.kSmallTextStyle(
+                                                    fontSize: 23.0,
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 40.0,
-                                child: Text(
-                                  orderItem.quantity.toString(),
-                                  style: TextConstants.kSmallTextStyle(
-                                      fontSize: 25.0),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50.0,
-                              ),
-                              Container(
-                                width: 130.0,
-                                child: Text(
-                                  '${orderItem.totalPrice.toStringAsFixed(2)}',
-                                  style: TextConstants.kSmallTextStyle(
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 40.0,
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  Get.to(() =>SingleMenuItemScreen(menuItem: orderItem.menuItem));
-                                  _orderDataController.removeItem(itemId: orderItem.menuItemId);
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: Colors.lightGreen),
-                                    borderRadius: BorderRadius.circular(7.0),
+                                          Text(
+                                            'LKR ${orderItem.menuItem.price.toStringAsFixed(2)}',
+                                            style:
+                                                TextConstants.kSmallTextStyle(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 19.0,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                  width: 40.0,
-                                  height: 40.0,
-                                  child: Center(child: Icon(Icons.edit)),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 20.0,
-                              ),
-                              GestureDetector(
-                                onTap: () => _orderDataController.removeItem(
-                                    itemId: orderItem.menuItemId),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: kButtonClour),
-                                    borderRadius: BorderRadius.circular(7.0),
+                                Container(
+                                  width: 40.0,
+                                  child: Text(
+                                    orderItem.quantity.toString(),
+                                    style: TextConstants.kSmallTextStyle(
+                                        fontSize: 25.0),
                                   ),
-                                  width: 40.0,
-                                  height: 40.0,
-                                  child:
-                                      Center(child: Icon(Icons.delete_outline)),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 50.0,
+                                ),
+                                Container(
+                                  width: 130.0,
+                                  child: Text(
+                                    '${orderItem.totalPrice.toStringAsFixed(2)}',
+                                    style: TextConstants.kSmallTextStyle(
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 40.0,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => SingleMenuItemScreen(
+                                        menuItem: orderItem.menuItem));
+                                    _orderListController.removeItem(
+                                        orderItemId: orderItem.orderItemId);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Colors.lightGreen),
+                                      borderRadius: BorderRadius.circular(7.0),
+                                    ),
+                                    width: 40.0,
+                                    height: 40.0,
+                                    child: Center(child: Icon(Icons.edit)),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20.0,
+                                ),
+                                GestureDetector(
+                                  // onTap: () => _orderDataController.removeItem(
+                                  //     orderItemId: orderItem.orderItemId),
+                                  onTap: () => _orderListController.removeItem(
+                                      orderItemId: orderItem.orderItemId),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: kButtonClour),
+                                      borderRadius: BorderRadius.circular(7.0),
+                                    ),
+                                    width: 40.0,
+                                    height: 40.0,
+                                    child: Center(
+                                        child: Icon(Icons.delete_outline)),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       }).toList(),
                     ),
                   ),
+                  SizedBox(height: deviceHeight*0.08,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: orientation == Orientation.portrait
+                            ? deviceWidth * 0.07
+                            : deviceWidth * 0.08,
+                      ),
+                      Text(
+                        'Order total :',
+                        style: TextConstants.kSubTextStyle(
+                          fontSize: 28.0,
+                        ),
+                      ),
+                      SizedBox(
+                          width: orientation == Orientation.portrait
+                              ? deviceWidth * 0.4
+                              : deviceWidth * 0.65),
+                      Obx(
+                        () => Text('LKR  '+
+                           _orderListController.orderTotal.toStringAsFixed(2),
+                          style: TextConstants.kSubTextStyle(
+                            fontSize: 28.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 50.0),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => OrderStatusScreen());
+                    },
+                    child: Container(
+                      height: deviceHeight*0.05,
+                      width: deviceWidth*0.8,
+                      margin: EdgeInsets.only(right: 20.0),
+                      decoration: BoxDecoration(
+                          color: kButtonClour,
+                          borderRadius: BorderRadius.circular(10.0),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 15.35),
+                                blurRadius: 30.06,
+                                color: kButtonClour.withOpacity(0.3))
+                          ]),
+                      child: Center(
+                        child: Text(
+                          'Order',
+                          style: TextStyle(
+                              fontFamily: 'Barlow',
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: deviceHeight*0.1,),
                 ],
               ),
             );

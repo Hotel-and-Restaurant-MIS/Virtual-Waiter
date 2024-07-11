@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
 import 'package:virtual_waiter/model/OrderItem.dart';
 import 'package:virtual_waiter/model/menu-item.dart';
+import 'package:uuid/uuid.dart';
 
 class SmisStateController extends GetxController {
   static SmisStateController instance = Get.find();
@@ -112,12 +113,9 @@ class SmisStateController extends GetxController {
     itemNullCheck();
     _orderDataController.addOrderItem(
         orderItem: OrderItem(
+          orderItemId:  '${menuItem.id}${_totalAmount.value}',
           menuItem: menuItem,
-          imageURL: menuItem.imageUrl,
-          unitPrice: menuItem.price,
-          itemName: menuItem.name,
             quantity: _quantity.value,
-            menuItemId: menuItem.id,
             addonList: _selectedAddOnList,
             specialNote: _specialNotes,
             totalPrice: _totalAmount.value));

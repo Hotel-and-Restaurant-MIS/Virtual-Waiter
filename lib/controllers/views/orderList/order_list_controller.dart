@@ -19,20 +19,41 @@ class OrderListController extends GetxController {
   RxList<OrderItem> _itemList = <OrderItem>[].obs;
   List<OrderItem> get itemList => _itemList;
 
+  RxDouble _orderTotal = 1.0.obs;
+  double get orderTotal => _orderTotal.value;
+  set orderTotal(double value) {
+    _orderTotal.value = value;
+  }
+
   void _initController() {
     _itemList.value = [];
-    _itemList.value = _odc.orderList;
+    _itemList = _odc.reactiveOrderList;
+    calculateOrderTotal();
   }
 
   void refreshController() {
     _initController();
+
   }
 
-  void removeItem({required int menuItemId}){
-    if(_odc.orderExists(itemId: menuItemId)){
-      _itemList.removeWhere((order) => order.menuItemId == menuItemId);
-      _odc.removeItem(itemId : menuItemId);
+  void removeItem({required String orderItemId}) {
+    refresh();
+    if (_odc.orderExists(orderItemId: orderItemId)) {
+      print('removeItemId function is accessed.');
+      itemList.removeWhere((order) => order.orderItemId == orderItemId);
+      // _odc.removeItem(orderItemId : menuItemId);
     }
+    calculateOrderTotal();
+  }
+
+  void calculateOrderTotal() {
+    double total = 0.0;
+    for (OrderItem orderItem in itemList) {
+      total+=orderItem.totalPrice;
+      print('orderTotal = ${orderItem.totalPrice}');
+
+    }
+    _orderTotal.value = total;
   }
 
   @override

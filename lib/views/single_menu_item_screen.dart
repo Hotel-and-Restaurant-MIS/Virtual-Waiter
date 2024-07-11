@@ -8,6 +8,7 @@ import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/check_box_controller.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
+import '../controllers/views/orderList/order_list_controller.dart';
 import '../model/menu-item.dart';
 import 'order_list_screen.dart';
 
@@ -16,6 +17,7 @@ class SingleMenuItemScreen extends StatelessWidget {
   late SmisStateController _smisStateController;
   RxBool isChecked = false.obs;
   TextEditingController _textFieldController = TextEditingController();
+  OrderListController _orderListController = OrderListController.instance;
 
   SingleMenuItemScreen({required this.menuItem}) {
     _smisStateController = SmisStateController.instance;
@@ -409,6 +411,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                           _smisStateController.addOrderList();
                           Get.back();
                           _smisStateController.resetData();
+                          _orderListController.calculateOrderTotal();
                            },
                         child: Container(
                           alignment: Alignment.center,

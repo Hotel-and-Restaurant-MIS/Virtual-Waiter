@@ -14,56 +14,22 @@ class OrderDataController extends GetxController{
   List<OrderItem> get orderList => _orderList;
 
 
+
+
+  //RxDouble get orderTotal => _orderTotal;
+
+
+
+
   void addOrderItem({required OrderItem orderItem}){
     _orderList.add(orderItem);
     reactiveOrderList.add(orderItem);
+    print('order item id :${orderItem.orderItemId}');
   }
 
-  bool orderExists({required int itemId}){
-    return _orderList.any((order) => order.menuItemId == itemId);
+  bool orderExists({required String orderItemId}){
+    return _orderList.any((order) => order.orderItemId == orderItemId);
   }
 
-  void incrementQuantity({required itemId}) {
-    if(orderExists(itemId: itemId)){
-      OrderItem item = _orderList.where((order) => order.menuItemId == itemId).toList().first;
-      item.quantity++;
-      _orderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
-       reactiveOrderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
-    }
-  }
-
-
-
-
-  void decrementQuantity({required itemId}) {
-    if(orderExists(itemId: itemId)){
-      OrderItem item = _orderList.where((order) => order.menuItemId == itemId).toList().first;
-      if(item.quantity > 1)
-        {
-          item.quantity--;
-        }
-      _orderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
-       reactiveOrderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
-    }
-  }
-
-  void subTotal({required itemId}) {
-    if(orderExists(itemId: itemId)){
-      OrderItem item = _orderList.where((order) => order.menuItemId == itemId).toList().first;
-      // item.quantity++;
-
-      item.totalPrice=item.totalPrice+item.unitPrice;
-      _orderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
-      //where
-      //indexWhere
-      //removeWhere
-      //updateWhere
-      reactiveOrderList.updateWhere((order) => order.menuItemId == itemId, (result) => result = item);
-    }
-  }
-
-  void removeItem({required int itemId}) {
-    reactiveOrderList.removeWhere((order) => order.menuItemId == itemId);
-  }
 
 }
