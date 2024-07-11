@@ -9,3 +9,5 @@ const Color kBackgroundClour= Color(0xFF252836);
 
 const SizedBox kSizedBoxUnderTitle=SizedBox(height: 15.0);
 const SizedBox kSizedBoxUnderContent=SizedBox(height: 35.0);
+
+

@@ -1,7 +1,7 @@
 
 
 import 'package:get/get.dart';
-import 'package:virtual_waiter/controllers/views/menuScreen/categoryTabController.dart';
+import 'package:virtual_waiter/controllers/views/menuScreen/category_tab_controller.dart';
 
 class CategoryButtonColorController extends GetxController{
 

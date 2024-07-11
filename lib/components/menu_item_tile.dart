@@ -2,23 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/constant.dart';
+import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
 
-import '../views/orderList.dart';
+import '../constants/text_constants.dart';
+import '../views/order_list_screen.dart';
 
 class MenuItemTile extends StatelessWidget {
-  MenuItemTile({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.availableQuantity,
-    required this.imageUrl,
-    required this.onTap,
-    this.outerContainerHeight,
-    this.innerContainerHeight,
-    this.circleRadius,
-    this.width,
-    this.backgroundColor,
-  });
+
 
   double? outerContainerHeight;
   double? innerContainerHeight;
@@ -30,7 +20,24 @@ class MenuItemTile extends StatelessWidget {
   final double price;
   final int availableQuantity;
   final String imageUrl;
+  final List<String> tags;
   final Function() onTap;
+
+  MenuItemTile({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.availableQuantity,
+    required this.imageUrl,
+    required this.onTap,
+    required this.tags,
+
+    this.outerContainerHeight,
+    this.innerContainerHeight,
+    this.circleRadius,
+    this.width,
+    this.backgroundColor,
+  });
 
   String _generateQuantityString() {
     String text = '';
@@ -46,6 +53,8 @@ class MenuItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SmisStateController _smisStateController = SmisStateController.instance;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -78,6 +87,7 @@ class MenuItemTile extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+
                     SizedBox(height: 10.0),
                     Text(
                       'LKR $price',
@@ -99,30 +109,29 @@ class MenuItemTile extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10.0),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(() => OrderList()); //TODO: change this screen to, singleview of item
-                      },
-                      child: Container(
-                        height: 33.0,
-                        width: 145.0,
-                        margin: EdgeInsets.only(right: 20.0),
-                        decoration: BoxDecoration(
-                            color: kButtonClour.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(5.0),
-                            ),
-                        child: Center(
-                          child: Text(
-                            'Add to My Orders',
-                            style: TextStyle(
-                                fontFamily: 'Barlow',
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
+
+                    // GestureDetector(
+                    //   onTap: _smisStateController.addOrderList(),
+                    //   child: Container(
+                    //     height: 33.0,
+                    //     width: 145.0,
+                    //     margin: EdgeInsets.only(right: 20.0),
+                    //     decoration: BoxDecoration(
+                    //         color: kButtonClour.withOpacity(0.9),
+                    //         borderRadius: BorderRadius.circular(5.0),
+                    //         ),
+                    //     child: Center(
+                    //       child: Text(
+                    //         'Add to My Orders',
+                    //         style: TextStyle(
+                    //             fontFamily: 'Barlow',
+                    //             fontSize: 15.0,
+                    //             fontWeight: FontWeight.w500,
+                    //             color: Colors.white),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(height: 10.0),
                   ],
                 )),
@@ -131,7 +140,7 @@ class MenuItemTile extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: CircleAvatar(
-                radius: circleRadius ?? 70,
+                radius: circleRadius ?? 80,
                 backgroundImage: CachedNetworkImageProvider(imageUrl),
               ),
             ),

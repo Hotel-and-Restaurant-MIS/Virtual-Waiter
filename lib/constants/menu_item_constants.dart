@@ -1,4 +1,4 @@
-import '../model/MenuItem.dart';
+import '../model/menu-item.dart';
 
 final List<MenuItem> kMenuItemList = [
   MenuItem(

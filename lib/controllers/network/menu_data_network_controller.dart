@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:virtual_waiter/constants/categoryNames.dart';
+import 'package:virtual_waiter/constants/category_names.dart';
 import 'package:virtual_waiter/constants/menu_item_constants.dart';
 
 class MenuDataNetworkController extends GetxController{

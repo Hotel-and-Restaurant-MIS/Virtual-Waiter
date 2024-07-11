@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:virtual_waiter/components/menu_item_tile.dart';
-import 'package:virtual_waiter/constants/categoryNames.dart';
+import 'package:virtual_waiter/constants/category_names.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
 
 import '../constant.dart';
-import '../constants/textConstants.dart';
-import 'orderList.dart';
+import '../constants/text_constants.dart';
+import 'order_list_screen.dart';
 
-class MenuScreenTest extends StatelessWidget {
-  const MenuScreenTest({super.key});
+class MenuScreen extends StatelessWidget {
+  const MenuScreen({super.key});
   final String tableNumber = '01';
   @override
   Widget build(BuildContext context) {
