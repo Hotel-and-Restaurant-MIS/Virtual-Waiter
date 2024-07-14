@@ -42,6 +42,15 @@ class WebSocketController extends GetxController {
     }
   }
 
+  Future<void> sendOrderList(RxList orderList)async{
+    try{
+      //_socket.emit(orderList);
+    }catch (e){
+      print('Error sending Order List');
+      rethrow;
+    }
+  }
+
   @override
   void onInit() {
     // TODO: implement onInit

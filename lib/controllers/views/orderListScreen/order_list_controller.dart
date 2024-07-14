@@ -10,6 +10,7 @@ import 'package:virtual_waiter/model/OrderItem.dart';
 
 import '../../../components/add_sub_button.dart';
 import '../../../constants/text_constants.dart';
+import '../../network/web_socket_controller.dart';
 
 class OrderListController extends GetxController {
   static OrderListController instance = Get.find();
@@ -54,6 +55,16 @@ class OrderListController extends GetxController {
 
     }
     _orderTotal.value = total;
+  }
+
+  Future<void> sendOrderList(RxList orderList) async{
+    try{
+      WebSocketController webSC = WebSocketController.instance;
+      await webSC.sendOrderList(orderList);
+    }catch(e){
+      print("error occurs send Order List to Order Manager");
+      rethrow;
+    }
   }
 
   @override

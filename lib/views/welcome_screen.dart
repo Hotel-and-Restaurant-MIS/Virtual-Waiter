@@ -7,7 +7,7 @@ import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/views/menu_screen.dart';
 import 'package:virtual_waiter/views/menu_screen.dart';
-import '../controllers/views/welcome_screen_controller.dart';
+import '../controllers/views/welcomeScreen/welcome_screen_controller.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -113,39 +113,41 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               SizedBox(
                 height: 130,
               ),
-              Container(
-                width: 250.0,
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: kButtonClour,
-                  borderRadius: BorderRadius.circular(50.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 3.0,
-                      blurRadius: 5.0,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: GestureDetector(
-                  onTap: (){
-                    Get.to(()=>MenuScreen());
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Proceed to Order',
-                        style: TextConstants.kSubTextStyle(
-                            fontSize: 20, textColour: Colors.white),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.white,
-
+              Center(
+                child: Container(
+                  width: 250.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: kButtonClour,
+                    borderRadius: BorderRadius.circular(50.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 3.0,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 4),
                       ),
                     ],
+                  ),
+                  child: GestureDetector(
+                    onTap: (){
+                      Get.to(()=>MenuScreen());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Proceed to Order',
+                          style: TextConstants.kSubTextStyle(
+                              fontSize: 20, textColour: Colors.white),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Colors.white,
+
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

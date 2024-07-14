@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:virtual_waiter/components/add_sub_button.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
-import 'package:virtual_waiter/controllers/views/orderList/order_list_controller.dart';
-import 'package:virtual_waiter/controllers/views/orderList/view_order_quantity_controller.dart';
 import 'package:virtual_waiter/model/OrderItem.dart';
 import 'package:virtual_waiter/views/single_menu_item_screen.dart';
 
 import '../controllers/data/order_data_controller.dart';
+import '../controllers/views/orderListScreen/order_list_controller.dart';
+import '../controllers/views/orderListScreen/view_order_quantity_controller.dart';
 import '../controllers/views/single_menu_item_screen/smis_state_controller.dart';
 import 'order_status_screen.dart';
 
