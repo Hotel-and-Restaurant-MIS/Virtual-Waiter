@@ -5,16 +5,19 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:virtual_waiter/components/add_sub_button.dart';
 import 'package:virtual_waiter/constant.dart';
-import 'package:virtual_waiter/constants/textConstants.dart';
-import 'package:virtual_waiter/controllers/views/menuScreen/checkBoxController.dart';
+import 'package:virtual_waiter/constants/text_constants.dart';
+import 'package:virtual_waiter/controllers/views/menuScreen/check_box_controller.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
-import '../model/MenuItem.dart';
-import 'orderList.dart';
+import '../controllers/views/orderListScreen/order_list_controller.dart';
+import '../model/menu-item.dart';
+import 'order_list_screen.dart';
 
 class SingleMenuItemScreen extends StatelessWidget {
   final MenuItem menuItem;
   late SmisStateController _smisStateController;
   RxBool isChecked = false.obs;
+  TextEditingController _textFieldController = TextEditingController();
+  OrderListController _orderListController = OrderListController.instance;
 
   SingleMenuItemScreen({required this.menuItem}) {
     _smisStateController = SmisStateController.instance;
@@ -141,15 +144,13 @@ class SingleMenuItemScreen extends StatelessWidget {
                           SizedBox(
                             height: 15.0,
                           ),
-                          Obx(
-                            () => Text(
-                              // 'LKR ${menuItem.price.toStringAsFixed(2)}',
-                              'LKR ${_smisStateController.totalAmount.toStringAsFixed(2)}',
-                              style: TextConstants.kSubTextStyle(
-                                fontWeight: FontWeight.w400,
-                                textColour: Colors.white,
-                                fontSize: 27.0,
-                              ),
+                          Text(
+                            'LKR ${menuItem.price.toStringAsFixed(2)}',
+                            //'LKR ${_smisStateController.totalAmount.toStringAsFixed(2)}',
+                            style: TextConstants.kSubTextStyle(
+                              fontWeight: FontWeight.w400,
+                              textColour: Colors.white,
+                              fontSize: 27.0,
                             ),
                           ),
                           SizedBox(
@@ -302,7 +303,9 @@ class SingleMenuItemScreen extends StatelessWidget {
                                       fontSize: 25.0,
                                       fontWeight: FontWeight.w400),
                                 ),
-                                SizedBox(width: 5.0,),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
                                 Text(
                                   '${addon['price']}',
                                   style: TextConstants.kSubTextStyle(
@@ -324,15 +327,16 @@ class SingleMenuItemScreen extends StatelessWidget {
                                           .isChecked.value) {
                                         _smisStateController.addAddOns(
                                             addOnId: addon['id']);
-                                        Get.snackbar('Add On Added',
+                                        Get.snackbar('Add On Added',duration: Duration(seconds: 1 ),
                                             'Add On ${addon['name']} added.',
                                             snackPosition:
-                                                SnackPosition.BOTTOM);
+                                                SnackPosition.TOP);
+
                                       } else {
                                         _smisStateController.removeAddOns(
                                             addOnId: addon['id']);
                                       }
-                                     _checkboxController.toggleCheckbox(value);
+                                      _checkboxController.toggleCheckbox(value);
                                     },
                                   ),
                                 ),
@@ -369,8 +373,8 @@ class SingleMenuItemScreen extends StatelessWidget {
                               hintStyle: TextConstants.kSubTextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.w400),
                             ),
-
-                            //onSubmitted: (){},
+                            controller: _textFieldController,
+                            onSubmitted: _smisStateController.specialNote,
                           )
                         ],
                       ),
@@ -378,36 +382,61 @@ class SingleMenuItemScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 100.0,
+                  height: 70.0,
                 ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.to(() =>
-                          OrderList()); //TODO: change this screen to, singleview of item
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 70.0,
-                      width: 250.0,
-                      margin: EdgeInsets.only(right: 20.0),
-                      decoration: BoxDecoration(
-                        color: kButtonClour.withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Add to My Orders',
-                          style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          'Total',
+                          style: TextConstants.kSubTextStyle(fontSize: 40.0),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Obx(
+                          () => Text(
+                            'LKR  ${_smisStateController.totalAmount.toStringAsFixed(2)}',
+                            style: TextConstants.kSubTextStyle(
+                                fontSize: 35.0, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          _smisStateController.addOrderList();
+                          Get.back();
+                          _smisStateController.resetData();
+                          _orderListController.calculateOrderTotal();
+                           },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 60.0,
+                          width: 230.0,
+                          margin: EdgeInsets.only(right: 20.0),
+                          decoration: BoxDecoration(
+                            color: kButtonClour.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Add to My Orders',
+                              style: TextStyle(
+                                  fontFamily: 'Barlow',
+                                  fontSize: 23.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
+                  ],
+                ),
               ],
             ),
           );

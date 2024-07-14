@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class OrderList extends StatelessWidget {
+class OrderListItemTile extends StatelessWidget {
 
 
   @override

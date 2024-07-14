@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:get/get.dart';
-import 'package:virtual_waiter/components/alertDialogBox.dart';
-import 'package:virtual_waiter/components/dialogBox.dart';
-import 'package:virtual_waiter/constants/textConstants.dart';
+import 'package:virtual_waiter/components/alert_dialog_box.dart';
+import 'package:virtual_waiter/components/dialog_box.dart';
+import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/constant.dart';
-import 'package:virtual_waiter/views/menuScreen.dart';
-import 'package:virtual_waiter/views/menu_screen_test.dart';
-import '../controllers/views/welcomeScreenController.dart';
+import 'package:virtual_waiter/views/menu_screen.dart';
+import 'package:virtual_waiter/views/menu_screen.dart';
+import '../controllers/views/welcomeScreen/welcome_screen_controller.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -88,7 +88,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       totalRepeatCount: 1,
                       animatedTexts: [
                         TyperAnimatedText(
-                          'I am your \n   virtual waiter',
+                          'I am your \n   Virtual Waiter',
                           textStyle: TextConstants.kMainTextStyle(
                             textColour: Colors.white,
                             fontSize: 45.0,
@@ -113,39 +113,41 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               SizedBox(
                 height: 130,
               ),
-              Container(
-                width: 250.0,
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: kButtonClour,
-                  borderRadius: BorderRadius.circular(50.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 3.0,
-                      blurRadius: 5.0,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: GestureDetector(
-                  onTap: (){
-                    Get.to(()=>MenuScreenTest());
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Proceed to Order',
-                        style: TextConstants.kSubTextStyle(
-                            fontSize: 20, textColour: Colors.white),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.white,
-
+              Center(
+                child: Container(
+                  width: 250.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: kButtonClour,
+                    borderRadius: BorderRadius.circular(50.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 3.0,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 4),
                       ),
                     ],
+                  ),
+                  child: GestureDetector(
+                    onTap: (){
+                      Get.to(()=>MenuScreen());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Proceed to Order',
+                          style: TextConstants.kSubTextStyle(
+                              fontSize: 20, textColour: Colors.white),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Colors.white,
+
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
