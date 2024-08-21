@@ -3,18 +3,21 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:virtual_waiter/components/menu_item_tile.dart';
 import 'package:virtual_waiter/constants/category_names.dart';
+import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
+import 'package:virtual_waiter/views/all_orders_screen.dart';
 import '../constant.dart';
 import '../constants/text_constants.dart';
-import 'order_list_screen.dart';
+import 'order_screen.dart';
 
 class MenuScreen extends StatelessWidget {
-  const MenuScreen({super.key});
+  OrderListDataController _oldc = OrderListDataController.instance;
+
   final String tableNumber = '01';
   @override
   Widget build(BuildContext context) {
     String formattedDate =
-    DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now());
+        DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now());
     return DefaultTabController(
       length: 6,
       child: Scaffold(
@@ -56,7 +59,9 @@ class MenuScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => OrderList());
+                    (_oldc.orderList.length == 0)
+                        ? Get.to(() => OrderScreen())
+                        : Get.to(() => AllOrdersScreen());
                   },
                   child: Container(
                     height: 37.0,
@@ -84,7 +89,7 @@ class MenuScreen extends StatelessWidget {
                   ),
                 ),
               ],
-            ),//end
+            ), //end
           ),
           bottom: TabBar(
             labelColor: kButtonClour,
@@ -94,7 +99,6 @@ class MenuScreen extends StatelessWidget {
             isScrollable: true,
             tabs: kCategoryNameList.map<Widget>((category) {
               return Tab(
-
                 child: Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -110,7 +114,8 @@ class MenuScreen extends StatelessWidget {
         body: TabBarView(
           children: kCategoryNameList
               .map<Widget>(
-                (category) => MenuGridBuilder.instance.buildGridByCategory(category: category),
+                (category) => MenuGridBuilder.instance
+                    .buildGridByCategory(category: category),
               )
               .toList(),
         ),

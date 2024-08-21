@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
 import 'package:virtual_waiter/model/OrderItem.dart';
 import 'package:virtual_waiter/model/menu-item.dart';
-import 'package:uuid/uuid.dart';
+
 
 class SmisStateController extends GetxController {
   static SmisStateController instance = Get.find();
@@ -12,7 +14,7 @@ class SmisStateController extends GetxController {
   MenuItem? _menuItem;
   MenuItem get menuItem => _menuItem!;
 
-  final OrderDataController _orderDataController = OrderDataController.instance;
+  final TestOrderDataController _orderDataController = TestOrderDataController.instance;
 
   set menuItem(MenuItem item) {
     _menuItem = item;
@@ -109,7 +111,7 @@ class SmisStateController extends GetxController {
     print(_totalAmount.value);
   }
 
-  void addOrderList() {
+  void addOrder() {
     itemNullCheck();
     _orderDataController.addOrderItem(
         orderItem: OrderItem(

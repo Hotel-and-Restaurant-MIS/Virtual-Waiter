@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as SIO;
 import 'package:virtual_waiter/constant.dart';
+import 'package:virtual_waiter/model/order.dart';
 
 class WebSocketController extends GetxController {
   static WebSocketController instance =
@@ -42,7 +43,7 @@ class WebSocketController extends GetxController {
     }
   }
 
-  Future<void> sendOrderList(RxList orderList)async{
+  Future<void> sendOrderList(Order order)async{
     try{
       //_socket.emit(orderList);
     }catch (e){

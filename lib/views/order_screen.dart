@@ -2,31 +2,38 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtual_waiter/components/add_sub_button.dart';
+
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
+import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
+import 'package:virtual_waiter/controllers/views/order_screen/test_order_state_controller.dart';
+import 'package:virtual_waiter/controllers/views/order_screen/test_order_state_controller.dart';
+import 'package:virtual_waiter/views/all_orders_screen.dart';
+import 'package:virtual_waiter/views/menu_screen.dart';
+
 import 'package:virtual_waiter/views/single_menu_item_screen.dart';
 
 import '../controllers/data/order_data_controller.dart';
-import '../controllers/views/orderListScreen/order_list_controller.dart';
-import '../controllers/views/orderListScreen/view_order_quantity_controller.dart';
-import '../controllers/views/single_menu_item_screen/smis_state_controller.dart';
+import '../controllers/views/order_screen/order_state_controller.dart';
+import '../controllers/views/order_screen/view_order_quantity_controller.dart';
+
+import '../model/order.dart';
 import 'order_status_screen.dart';
 
-class OrderList extends StatelessWidget {
+class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    OrderDataController _orderDataController = OrderDataController.instance;
-    OrderListController _orderListController = OrderListController.instance;
+    TestOrderDataController _orderDataController =
+        TestOrderDataController.instance;
+    TestOrderStateController _osc = TestOrderStateController.instance;
 
     //Data refresh function
-    // late OrderListController _orderListController;
+    // late OrderListController _osc;
 
     return Scaffold(
       backgroundColor: kBackgroundClour.withOpacity(0.7),
-
-
       body: SafeArea(
         child: OrientationBuilder(
           builder: (context, orientation) {
@@ -110,7 +117,7 @@ class OrderList extends StatelessWidget {
                   Obx(
                     () => Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: _orderDataController.reactiveOrderList
+                      children: _orderDataController.orderItemList
                           .map<Widget>((orderItem) {
                         String quantityContTag =
                             'order-item-${orderItem.menuItem.id}-quantity';
@@ -198,7 +205,7 @@ class OrderList extends StatelessWidget {
                                   onTap: () {
                                     Get.to(() => SingleMenuItemScreen(
                                         menuItem: orderItem.menuItem));
-                                    _orderListController.removeItem(
+                                    _osc.removeItem(
                                         orderItemId: orderItem.orderItemId);
                                   },
                                   child: Container(
@@ -218,7 +225,7 @@ class OrderList extends StatelessWidget {
                                 GestureDetector(
                                   // onTap: () => _orderDataController.removeItem(
                                   //     orderItemId: orderItem.orderItemId),
-                                  onTap: () => _orderListController.removeItem(
+                                  onTap: () => _osc.removeItem(
                                       orderItemId: orderItem.orderItemId),
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -238,7 +245,9 @@ class OrderList extends StatelessWidget {
                       }).toList(),
                     ),
                   ),
-                  SizedBox(height: deviceHeight*0.08,),
+                  SizedBox(
+                    height: deviceHeight * 0.08,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -258,8 +267,11 @@ class OrderList extends StatelessWidget {
                               ? deviceWidth * 0.4
                               : deviceWidth * 0.65),
                       Obx(
-                        () => Text('LKR  '+
-                           _orderListController.orderTotal.toStringAsFixed(2),
+                        () => Text(
+                          'LKR  ${_orderDataController.totalAmount}',
+                          //TODO: calculate total
+                          // _osc.orderTotal
+                          //     .toStringAsFixed(2),
                           style: TextConstants.kSubTextStyle(
                             fontSize: 28.0,
                             fontWeight: FontWeight.w400,
@@ -273,12 +285,18 @@ class OrderList extends StatelessWidget {
                   ),
                   SizedBox(height: 50.0),
                   GestureDetector(
-                    onTap: () {
-                      Get.to(() => OrderStatusScreen());
+                    onTap: () async {
+                      //TODO: send data to backend
+                      // _osc.sendOrderList();
+                      try{
+                        Order order = await _orderDataController.sendOrder();
+                        OrderListDataController.instance.addOrder(order);
+                      }catch(e){}
+                      Get.offAll(() => MenuScreen());
                     },
                     child: Container(
-                      height: deviceHeight*0.05,
-                      width: deviceWidth*0.8,
+                      height: deviceHeight * 0.05,
+                      width: deviceWidth * 0.8,
                       margin: EdgeInsets.only(right: 20.0),
                       decoration: BoxDecoration(
                           color: kButtonClour,
@@ -301,7 +319,9 @@ class OrderList extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: deviceHeight*0.1,),
+                  SizedBox(
+                    height: deviceHeight * 0.1,
+                  ),
                 ],
               ),
             );

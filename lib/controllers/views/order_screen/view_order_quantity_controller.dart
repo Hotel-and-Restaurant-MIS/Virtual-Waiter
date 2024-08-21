@@ -7,7 +7,7 @@ class VoqController extends GetxController{
     _quantity.value = quantity;
   }
 
-  OrderDataController _odc = OrderDataController.instance;
+  // OrderDataController _odc = OrderDataController.instance;
 
   RxInt _quantity = 0.obs;
   int get quantity => _quantity.value;
