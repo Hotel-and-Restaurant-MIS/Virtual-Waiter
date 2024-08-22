@@ -6,6 +6,7 @@ import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/exception/editable_order_not_exists_exception.dart';
 import 'package:virtual_waiter/exception/item_not_found_exception.dart';
 import 'package:virtual_waiter/exception/multiple_editable_orders_exist_exception.dart';
+import 'package:virtual_waiter/extension/list_upsert.dart';
 import 'package:virtual_waiter/extensions.dart';
 import 'package:virtual_waiter/model/OrderItem.dart';
 import 'package:virtual_waiter/model/order.dart';
@@ -21,14 +22,14 @@ class TestOrderDataController extends GetxController {
   RxList<OrderItem> _orderItemList = <OrderItem>[].obs;
   List<OrderItem> get orderItemList => _orderItemList;
 
-  void addOrderItem({required OrderItem orderItem}) {
-    // _addOrUpdateToList(_orderItemList, orderItem);
+  static const String _editableOrderConst = 'EditableOrderConst';
 
+  void addOrderItem({required OrderItem orderItem}) {
     _orderItemList.add(orderItem);
     _calculateTotalAmount();
-    if (!_oldc.editableOrderExists() && _oldc.orderList.isNotEmpty) {
+    if (!_oldc.editableOrderExists()) {
       Order newOrder = Order(
-        orderId: '0',
+        orderId: _editableOrderConst,
         orderItemList: _orderItemList,
         orderStatus: OrderStatus.Editing,
         orderTotal: _totalAmount.value,
@@ -37,32 +38,26 @@ class TestOrderDataController extends GetxController {
       _oldc.addOrder(newOrder);
     } else {
       try {
-        Order editableOrder = _oldc.getEditableOrder();
+        _oldc.updateEditableOrder(orderTotal: _totalAmount.value);
       } on EditableOrderNotExistsException catch (e) {
-      } on MultipleEditableOrdersExistException catch (e) {}
+        rethrow;
+      } on MultipleEditableOrdersExistException catch (e) {
+        rethrow;
+      }
     }
-
     // add to editable
   }
 
-  //check current order List has this orderItem. if exist update the current quantity. else create a new orderItem.
-  // void _testAddOrUpdateToList(List<OrderItem> orderItemList,
-  //     OrderItem newOrderItem,){
-  //   if(orderItemList.any((item)=>item.menuItem.id == newOrderItem.menuItem.id)){
-  //     item.quantity = item.quantity + newOrderItem.quantity;
-  //   }else{}
-  // }
-
-  void removeItem({required String orderItemId}) {
+  void removeItem({required int orderItemId}) {
     try {
       _orderItemList.removeWhere((item) => item.orderItemId == orderItemId);
+      _calculateTotalAmount();
+      _oldc.updateEditableOrder(orderTotal: _totalAmount.value);
       //remove item from editable
     } catch (e) {
       throw ItemNotFoundException(
           message:
               'Order Item $orderItemId does not exists in OrderDataController');
-    } finally {
-      _calculateTotalAmount();
     }
   }
 
@@ -72,22 +67,34 @@ class TestOrderDataController extends GetxController {
 
   void _calculateTotalAmount() {
     double total = 0.0;
-    _orderItemList.forEach((OrderItem item) {
+    for (OrderItem item in _orderItemList) {
       total += item.totalPrice;
-    });
+    }
     _totalAmount.value = total.toPrecision(2);
   }
 
   Future<Order> sendOrder() async {
     //TODO: use network controller to send data
+
+    List<OrderItem> currentItems = [];
+
+    double orderTotal = 0.0;
+
+    for (OrderItem item in _orderItemList) {
+      currentItems.add(item);
+    }
+
+    orderTotal = _totalAmount.value;
+
     Order order = Order(
-      orderId: '0', //TODO: set from network response
-      orderItemList: orderItemList,
+      orderId: '001', //TODO: set from network response
+      orderItemList: currentItems,
       orderStatus: OrderStatus.Pending,
-      orderTotal: _totalAmount.value,
+      orderTotal: orderTotal,
       tableId: 5, //TODO: get from shared preferences
     );
-
+    _oldc.removeEditableOrder();
+    _oldc.addOrder(order);
     _orderItemList.clear();
 
     return order;

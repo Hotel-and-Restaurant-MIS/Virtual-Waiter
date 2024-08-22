@@ -2,36 +2,39 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:virtual_waiter/components/order_item_tile.dart';
 
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
-import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
+
 import 'package:virtual_waiter/controllers/views/order_screen/test_order_state_controller.dart';
-import 'package:virtual_waiter/controllers/views/order_screen/test_order_state_controller.dart';
-import 'package:virtual_waiter/views/all_orders_screen.dart';
+import 'package:virtual_waiter/model/OrderItem.dart';
+
 import 'package:virtual_waiter/views/menu_screen.dart';
 
 import 'package:virtual_waiter/views/single_menu_item_screen.dart';
 
-import '../controllers/data/order_data_controller.dart';
-import '../controllers/views/order_screen/order_state_controller.dart';
 import '../controllers/views/order_screen/view_order_quantity_controller.dart';
 
 import '../model/order.dart';
-import 'order_status_screen.dart';
 
 class OrderScreen extends StatelessWidget {
+  final List<OrderItem>? orderItemList;
+  final bool editMode;
+
+  OrderScreen({this.orderItemList, this.editMode = false}) {
+    assert(editMode == false ? orderItemList != null : orderItemList == null);
+  }
+
+  final TestOrderDataController _orderDataController =
+      TestOrderDataController.instance;
+
+  final TestOrderStateController _osc = TestOrderStateController.instance;
+
   @override
   Widget build(BuildContext context) {
-    TestOrderDataController _orderDataController =
-        TestOrderDataController.instance;
-    TestOrderStateController _osc = TestOrderStateController.instance;
-
-    //Data refresh function
-    // late OrderListController _osc;
-
     return Scaffold(
       backgroundColor: kBackgroundClour.withOpacity(0.7),
       body: SafeArea(
@@ -42,14 +45,14 @@ class OrderScreen extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   Row(
                     children: [
                       GestureDetector(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
+                        child: const Padding(
+                          padding: EdgeInsets.only(left: 15.0),
                           child: Icon(
                             Icons.arrow_back,
                             color: Colors.white,
@@ -65,7 +68,7 @@ class OrderScreen extends StatelessWidget {
                             ? deviceWidth * 0.35
                             : deviceWidth * 0.4,
                       ),
-                      Text(
+                      const Text(
                         'My Orders',
                         style: TextStyle(
                           fontFamily: 'Barlow',
@@ -76,7 +79,7 @@ class OrderScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15.0,
                   ),
                   Row(
@@ -114,137 +117,40 @@ class OrderScreen extends StatelessWidget {
                     decoration:
                         BoxDecoration(color: Colors.white.withOpacity(0.5)),
                   ),
-                  Obx(
-                    () => Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: _orderDataController.orderItemList
-                          .map<Widget>((orderItem) {
-                        String quantityContTag =
-                            'order-item-${orderItem.menuItem.id}-quantity';
-                        Get.put(VoqController(quantity: orderItem.quantity),
-                            tag: quantityContTag);
-
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            left: 20.0,
-                            right: 10.0,
-                            top: 30.0,
+                  !editMode
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: orderItemList!
+                              .map(
+                                (item) => OrderItemTile(
+                                  orderItem: item,
+                                  onEditBtnTap: () {},
+                                  onRemoveBtnTap: () {},
+                                  actionBtnVisibility: false,
+                                ),
+                              )
+                              .toList())
+                      : Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: _orderDataController.orderItemList
+                                .map<Widget>((orderItem) {
+                              return OrderItemTile(
+                                orderItem: orderItem,
+                                onEditBtnTap: () {
+                                  Get.to(() => SingleMenuItemScreen(
+                                      menuItem: orderItem.menuItem));
+                                  _osc.removeItem(
+                                      orderItemId: orderItem.orderItemId);
+                                },
+                                onRemoveBtnTap: () {
+                                  _osc.removeItem(
+                                      orderItemId: orderItem.orderItemId);
+                                },
+                              );
+                            }).toList(),
                           ),
-                          child: Container(
-                            padding: EdgeInsets.all(5.0),
-                            decoration: BoxDecoration(
-                              color: kBackgroundClour.withOpacity(0.9),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 400.0,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      CircleAvatar(
-                                        radius: 35.0,
-                                        backgroundImage:
-                                            CachedNetworkImageProvider(
-                                                orderItem.menuItem.imageUrl),
-                                      ),
-                                      SizedBox(
-                                        width: 15.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            orderItem.menuItem.name,
-                                            style:
-                                                TextConstants.kSmallTextStyle(
-                                                    fontSize: 23.0,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                          ),
-                                          Text(
-                                            'LKR ${orderItem.menuItem.price.toStringAsFixed(2)}',
-                                            style:
-                                                TextConstants.kSmallTextStyle(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: 19.0,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 40.0,
-                                  child: Text(
-                                    orderItem.quantity.toString(),
-                                    style: TextConstants.kSmallTextStyle(
-                                        fontSize: 25.0),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 50.0,
-                                ),
-                                Container(
-                                  width: 130.0,
-                                  child: Text(
-                                    '${orderItem.totalPrice.toStringAsFixed(2)}',
-                                    style: TextConstants.kSmallTextStyle(
-                                        fontSize: 25.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 40.0,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.to(() => SingleMenuItemScreen(
-                                        menuItem: orderItem.menuItem));
-                                    _osc.removeItem(
-                                        orderItemId: orderItem.orderItemId);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Colors.lightGreen),
-                                      borderRadius: BorderRadius.circular(7.0),
-                                    ),
-                                    width: 40.0,
-                                    height: 40.0,
-                                    child: Center(child: Icon(Icons.edit)),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20.0,
-                                ),
-                                GestureDetector(
-                                  // onTap: () => _orderDataController.removeItem(
-                                  //     orderItemId: orderItem.orderItemId),
-                                  onTap: () => _osc.removeItem(
-                                      orderItemId: orderItem.orderItemId),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: kButtonClour),
-                                      borderRadius: BorderRadius.circular(7.0),
-                                    ),
-                                    width: 40.0,
-                                    height: 40.0,
-                                    child: Center(
-                                        child: Icon(Icons.delete_outline)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                        ),
                   SizedBox(
                     height: deviceHeight * 0.08,
                   ),
@@ -266,55 +172,76 @@ class OrderScreen extends StatelessWidget {
                           width: orientation == Orientation.portrait
                               ? deviceWidth * 0.4
                               : deviceWidth * 0.65),
-                      Obx(
-                        () => Text(
-                          'LKR  ${_orderDataController.totalAmount}',
-                          //TODO: calculate total
-                          // _osc.orderTotal
-                          //     .toStringAsFixed(2),
-                          style: TextConstants.kSubTextStyle(
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
+                      editMode
+                          ? Obx(
+                              () => Text(
+                                'LKR  ${_orderDataController.totalAmount}',
+                                //TODO: calculate total
+                                // _osc.orderTotal
+                                //     .toStringAsFixed(2),
+                                style: TextConstants.kSubTextStyle(
+                                  fontSize: 28.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            )
+                          : Builder(builder: (context) {
+                              double total = 0.0;
+                              orderItemList!.forEach(
+                                (item) {
+                                  total += item.totalPrice;
+                                },
+                              );
+                              return Text(
+                                total.toStringAsFixed(2),
+                                style: TextConstants.kSubTextStyle(
+                                  fontSize: 28.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              );
+                            },),
                       SizedBox(
                         width: 20.0,
                       ),
                     ],
                   ),
                   SizedBox(height: 50.0),
-                  GestureDetector(
-                    onTap: () async {
-                      //TODO: send data to backend
-                      // _osc.sendOrderList();
-                      try{
-                        Order order = await _orderDataController.sendOrder();
-                        OrderListDataController.instance.addOrder(order);
-                      }catch(e){}
-                      Get.offAll(() => MenuScreen());
-                    },
-                    child: Container(
-                      height: deviceHeight * 0.05,
-                      width: deviceWidth * 0.8,
-                      margin: EdgeInsets.only(right: 20.0),
-                      decoration: BoxDecoration(
-                          color: kButtonClour,
-                          borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0, 15.35),
-                                blurRadius: 30.06,
-                                color: kButtonClour.withOpacity(0.3))
-                          ]),
-                      child: Center(
-                        child: Text(
-                          'Order',
-                          style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                  Visibility(
+                    visible: editMode,
+                    child: GestureDetector(
+                      onTap: () async {
+                        //TODO: send data to backend
+                        // _osc.sendOrderList();
+                        try {
+                          await _orderDataController.sendOrder();
+                          // _oldc.addOrder(order);
+                          // _oldc.removeEditableOrder();
+                          //TODO:Change edit mode to pending mode/send data to backend server as well
+                        } catch (e) {}
+                        Get.offAll(() => MenuScreen());
+                      },
+                      child: Container(
+                        height: deviceHeight * 0.05,
+                        width: deviceWidth * 0.8,
+                        margin: EdgeInsets.only(right: 20.0),
+                        decoration: BoxDecoration(
+                            color: kButtonClour,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 15.35),
+                                  blurRadius: 30.06,
+                                  color: kButtonClour.withOpacity(0.3))
+                            ]),
+                        child: Center(
+                          child: Text(
+                            'Order',
+                            style: TextStyle(
+                                fontFamily: 'Barlow',
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                     ),

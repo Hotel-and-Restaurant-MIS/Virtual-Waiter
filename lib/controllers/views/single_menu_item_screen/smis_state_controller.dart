@@ -115,7 +115,7 @@ class SmisStateController extends GetxController {
     itemNullCheck();
     _orderDataController.addOrderItem(
         orderItem: OrderItem(
-          orderItemId:  '${menuItem.id}${_totalAmount.value}',
+          orderItemId:  menuItem.id,
           menuItem: menuItem,
             quantity: _quantity.value,
             addonList: _selectedAddOnList,

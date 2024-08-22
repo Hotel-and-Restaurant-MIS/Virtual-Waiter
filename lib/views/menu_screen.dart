@@ -4,7 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:virtual_waiter/components/menu_item_tile.dart';
 import 'package:virtual_waiter/constants/category_names.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
+import 'package:virtual_waiter/enum/order_status.dart';
+import 'package:virtual_waiter/model/OrderItem.dart';
 import 'package:virtual_waiter/views/all_orders_screen.dart';
 import '../constant.dart';
 import '../constants/text_constants.dart';
@@ -12,6 +15,9 @@ import 'order_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   OrderListDataController _oldc = OrderListDataController.instance;
+
+  List<OrderItem> currentOrderItemList =
+      TestOrderDataController.instance.orderItemList;
 
   final String tableNumber = '01';
   @override
@@ -59,8 +65,14 @@ class MenuScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    (_oldc.orderList.length == 0)
-                        ? Get.to(() => OrderScreen())
+                    (_oldc.orderList.length == 1 &&
+                            _oldc.orderList.first.orderStatus ==
+                                OrderStatus.Editing)
+                        ? Get.to(
+                            () => OrderScreen(
+                              editMode: true,
+                            ),
+                          )
                         : Get.to(() => AllOrdersScreen());
                   },
                   child: Container(

@@ -13,7 +13,7 @@ class AllOrdersScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Get.offAll(() => MenuScreen());
           },
           icon: Icon(Icons.arrow_back),
@@ -32,16 +32,17 @@ class AllOrdersScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: OrientationBuilder(
-          builder: (context, orientation) {
-            double deviceWidth = MediaQuery.of(context).size.width;
-            double deviceHeight = MediaQuery.of(context).size.height;
-            return SingleChildScrollView(
-              child: Column(
-                children: OrderListBuilder.instance.buildOrderList(),
-              ),
-            );
-          },
+        child: SingleChildScrollView(
+          child: Obx(
+            () {
+              bool emptyList = OrderListBuilder.instance.children.isEmpty;
+              return !emptyList
+                  ? Column(
+                      children: OrderListBuilder.instance.children,
+                    )
+                  : Column();
+            },
+          ),
         ),
       ),
     );

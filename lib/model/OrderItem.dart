@@ -3,13 +3,13 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:virtual_waiter/model/menu-item.dart';
 
 class OrderItem {
-  final String orderItemId;
+  final int orderItemId;
   final MenuItem menuItem;
 
   int quantity;
   final List<String> addonList;
   String? specialNote;
-  late final double totalPrice;
+  final double totalPrice;
 
   OrderItem(
       {required this.quantity,
@@ -18,6 +18,8 @@ class OrderItem {
       required this.addonList,
       required this.specialNote,
       required this.totalPrice});
+
+  set totalPrice(double value) => totalPrice = value;
 
   @override
   String toString() {

@@ -9,4 +9,6 @@ class Order {
   final int tableId;
 
   Order({required this.orderId,required this.orderItemList, required this.orderStatus,required this.orderTotal,required this.tableId});
+
+  set orderItemList(value) => orderItemList = value;
 }

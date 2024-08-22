@@ -26,7 +26,7 @@ class TestOrderStateController extends GetxController {
     _initController();
   }
 
-  void removeItem({required String orderItemId}) {
+  void removeItem({required int orderItemId}) {
     if(_itemList.any((item) => item.orderItemId == orderItemId))
       {
         _itemList.removeWhere((item) => item.orderItemId == orderItemId);
