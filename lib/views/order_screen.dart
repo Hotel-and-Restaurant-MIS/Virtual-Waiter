@@ -177,29 +177,30 @@ class OrderScreen extends StatelessWidget {
                               () => Text(
                                 'LKR  ${_orderDataController.totalAmount}',
                                 //TODO: calculate total
-                                // _osc.orderTotal
-                                //     .toStringAsFixed(2),
+
                                 style: TextConstants.kSubTextStyle(
                                   fontSize: 28.0,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
                             )
-                          : Builder(builder: (context) {
-                              double total = 0.0;
-                              orderItemList!.forEach(
-                                (item) {
-                                  total += item.totalPrice;
-                                },
-                              );
-                              return Text(
-                                total.toStringAsFixed(2),
-                                style: TextConstants.kSubTextStyle(
-                                  fontSize: 28.0,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              );
-                            },),
+                          : Builder(
+                              builder: (context) {
+                                double total = 0.0;
+                                orderItemList!.forEach(
+                                  (item) {
+                                    total += item.totalPrice;
+                                  },
+                                );
+                                return Text(
+                                  total.toStringAsFixed(2),
+                                  style: TextConstants.kSubTextStyle(
+                                    fontSize: 28.0,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                );
+                              },
+                            ),
                       SizedBox(
                         width: 20.0,
                       ),
@@ -212,13 +213,15 @@ class OrderScreen extends StatelessWidget {
                       onTap: () async {
                         //TODO: send data to backend
                         // _osc.sendOrderList();
-                        try {
-                          await _orderDataController.sendOrder();
-                          // _oldc.addOrder(order);
-                          // _oldc.removeEditableOrder();
-                          //TODO:Change edit mode to pending mode/send data to backend server as well
-                        } catch (e) {}
-                        Get.offAll(() => MenuScreen());
+                        if (_osc.itemList.isNotEmpty) {
+                          try {
+                            await _orderDataController.sendOrder();
+                            // _oldc.addOrder(order);
+                            // _oldc.removeEditableOrder();
+                            //TODO:Change edit mode to pending mode/send data to backend server as well
+                          } catch (e) {}
+                          Get.offAll(() => MenuScreen());
+                        }
                       },
                       child: Container(
                         height: deviceHeight * 0.05,
