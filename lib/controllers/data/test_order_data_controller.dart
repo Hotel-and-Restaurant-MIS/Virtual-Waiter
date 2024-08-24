@@ -8,7 +8,7 @@ import 'package:virtual_waiter/exception/item_not_found_exception.dart';
 import 'package:virtual_waiter/exception/multiple_editable_orders_exist_exception.dart';
 import 'package:virtual_waiter/extension/list_upsert.dart';
 import 'package:virtual_waiter/extensions.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
+import 'package:virtual_waiter/model/order_item.dart';
 import 'package:virtual_waiter/model/order.dart';
 
 class TestOrderDataController extends GetxController {

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
-import 'package:virtual_waiter/model/menu-item.dart';
+import 'package:virtual_waiter/model/order_item.dart';
+import 'package:virtual_waiter/model/menu_item.dart';
 
 
 class SmisStateController extends GetxController {

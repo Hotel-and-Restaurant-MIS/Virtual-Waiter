@@ -1,5 +1,5 @@
 import 'package:virtual_waiter/enum/order_status.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
+import 'package:virtual_waiter/model/order_item.dart';
 
 class Order {
   final List<OrderItem> orderItemList;

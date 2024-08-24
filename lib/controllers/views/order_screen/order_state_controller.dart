@@ -8,7 +8,7 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
+import 'package:virtual_waiter/model/order_item.dart';
 import 'package:virtual_waiter/model/order.dart';
 
 import '../../../components/add_sub_button.dart';

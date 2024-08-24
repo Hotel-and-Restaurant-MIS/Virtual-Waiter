@@ -10,7 +10,7 @@ import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart'
 import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
 
 import 'package:virtual_waiter/controllers/views/order_screen/test_order_state_controller.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
+import 'package:virtual_waiter/model/order_item.dart';
 
 import 'package:virtual_waiter/views/menu_screen.dart';
 
@@ -216,8 +216,7 @@ class OrderScreen extends StatelessWidget {
                         if (_osc.itemList.isNotEmpty) {
                           try {
                             await _orderDataController.sendOrder();
-                            // _oldc.addOrder(order);
-                            // _oldc.removeEditableOrder();
+
                             //TODO:Change edit mode to pending mode/send data to backend server as well
                           } catch (e) {}
                           Get.offAll(() => MenuScreen());

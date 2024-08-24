@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../constant.dart';
 import '../constants/text_constants.dart';
-import '../model/OrderItem.dart';
+import '../model/order_item.dart';
 
 import 'package:get/get.dart';
 

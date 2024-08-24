@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/exception/editable_order_not_exists_exception.dart';
 import 'package:virtual_waiter/exception/multiple_editable_orders_exist_exception.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
+import 'package:virtual_waiter/model/order_item.dart';
 import 'package:virtual_waiter/model/order.dart';
 
 class OrderListDataController extends GetxController {

@@ -7,7 +7,7 @@ import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart'
 import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
+import 'package:virtual_waiter/model/order_item.dart';
 import 'package:virtual_waiter/views/all_orders_screen.dart';
 import '../constant.dart';
 import '../constants/text_constants.dart';

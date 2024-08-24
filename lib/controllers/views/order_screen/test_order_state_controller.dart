@@ -5,7 +5,7 @@ import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart'
 import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/exception/item_not_found_exception.dart';
-import 'package:virtual_waiter/model/OrderItem.dart';
+import 'package:virtual_waiter/model/order_item.dart';
 import 'package:virtual_waiter/model/order.dart';
 import '../../network/web_socket_controller.dart';
 
