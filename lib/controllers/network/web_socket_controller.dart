@@ -43,12 +43,11 @@ class WebSocketController extends GetxController {
     }
   }
 
-  Future<void> sendOrderList(Order order)async{
+  Future<void> updateAllOrderList() async{
     try{
-      //_socket.emit(orderList);
-    }catch (e){
-      print('Error sending Order List');
-      rethrow;
+      _socket.emit('orderListUpdated');
+    }catch(e){
+      print('Error occurs sending update to the order manager about added new order');
     }
   }
 
