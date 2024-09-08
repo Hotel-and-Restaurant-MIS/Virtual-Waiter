@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/table_no_controller.dart';
 import 'package:virtual_waiter/controllers/network/order_network_controller.dart';
 import 'package:virtual_waiter/controllers/network/web_socket_controller.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
@@ -16,6 +16,7 @@ class OrderDataController extends GetxController {
   OrderListDataController _oldc = OrderListDataController.instance;
   OrderNetworkController _onc = OrderNetworkController.instance;
   WebSocketController _websc = WebSocketController.instance;
+  TableNoController _tnc = TableNoController.instance;
 
   RxDouble _totalAmount = 0.0.obs;
   double get totalAmount => _totalAmount.value;
@@ -86,13 +87,13 @@ class OrderDataController extends GetxController {
       orderItemList: currentItems,
       orderStatus: OrderStatus.Pending,
       orderTotal: orderTotal,
-      tableId: 5, //TODO: get from shared preferences
+      tableId: _tnc.tableNo, //TODO: get from shared preferences
     );
     _oldc.removeEditableOrder();
+    //TODO: do not delete below two lines
     //Map<String,dynamic> newOrder = await _onc.addOrder(order: order); // add new order to the db
     //_oldc.addOrder(Order.fromMap(newOrder));
     _oldc.addOrder(order);
-    print('odc send() is called');
     _websc.updateAllOrderList(); //update the order manager app in real time
     _orderItemList.clear();
   }
