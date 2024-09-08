@@ -19,7 +19,7 @@ dependencies:
   uuid: ^4.4.0
   flutter_svg: ^2.0.10+1
   http: ^1.2.2
-
+  numberpicker: ^2.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
