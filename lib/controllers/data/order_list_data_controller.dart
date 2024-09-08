@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:get/get.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/exception/editable_order_not_exists_exception.dart';
@@ -19,6 +21,7 @@ class OrderListDataController extends GetxController {
 
   void addOrder(Order order) {
     _orderList.add(order);
+    print('new order is added length is: ${_orderList.length}');
   }
 
   void removeEditableOrder() {
@@ -49,7 +52,7 @@ class OrderListDataController extends GetxController {
       OrderStatus? orderStatus,
       double? orderTotal,
       int? tableId,
-      String? orderId}) {
+      Long? orderId}) {
     Order editable = getEditableOrder();
     removeEditableOrder();
     _orderList.add(

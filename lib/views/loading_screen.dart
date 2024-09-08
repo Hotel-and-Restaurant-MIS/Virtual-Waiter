@@ -5,7 +5,7 @@ import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controlIer_initializer.dart';
 import 'package:virtual_waiter/views/welcome_screen.dart';
 
-class Loadingscreen extends StatelessWidget {
+class LoadingScreen extends StatelessWidget {
   Future<String> initController() async {
     try {
       if (!ControllerInitializer.isInitialized) {

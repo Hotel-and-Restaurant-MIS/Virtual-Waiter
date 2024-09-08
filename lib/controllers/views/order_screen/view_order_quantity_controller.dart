@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
 
 //view order quantity
 class VoqController extends GetxController{

@@ -28,7 +28,7 @@ class ControllerInitializer {
       Get.put(OrderNetworkController());
       Get.put(OrderListDataController());
       Get.put(OrderDataController());
-      Get.put(TestOrderStateController());
+      Get.put(OrderStateController());
 
 
       Get.put(MenuDataController());

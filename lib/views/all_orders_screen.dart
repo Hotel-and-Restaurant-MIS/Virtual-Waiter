@@ -11,6 +11,7 @@ class AllOrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundClour.withOpacity(0.7),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {

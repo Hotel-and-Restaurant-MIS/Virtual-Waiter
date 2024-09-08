@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
-import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
-import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
 import 'package:virtual_waiter/model/order_item.dart';
 import 'package:virtual_waiter/model/menu_item.dart';
 
@@ -14,7 +13,7 @@ class SmisStateController extends GetxController {
   MenuItem? _menuItem;
   MenuItem get menuItem => _menuItem!;
 
-  final TestOrderDataController _orderDataController = TestOrderDataController.instance;
+  final OrderDataController _orderDataController = OrderDataController.instance;
 
   set menuItem(MenuItem item) {
     _menuItem = item;

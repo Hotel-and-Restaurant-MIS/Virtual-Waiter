@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:virtual_waiter/components/menu_item_tile.dart';
 import 'package:virtual_waiter/constants/category_names.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
-import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/model/order_item.dart';
@@ -17,7 +17,7 @@ class MenuScreen extends StatelessWidget {
   OrderListDataController _oldc = OrderListDataController.instance;
 
   List<OrderItem> currentOrderItemList =
-      TestOrderDataController.instance.orderItemList;
+      OrderDataController.instance.orderItemList;
 
   final String tableNumber = '01';
   @override

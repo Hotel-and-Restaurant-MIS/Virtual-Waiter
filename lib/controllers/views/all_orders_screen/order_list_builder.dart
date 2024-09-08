@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtual_waiter/components/orderTile.dart';
+import 'package:virtual_waiter/components/order_tile.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/views/order_screen.dart';
@@ -41,7 +41,7 @@ class OrderListBuilder extends GetxController {
           }
         }),
         child: OrderTile(
-            orderNo: order.orderId,
+            orderId: order.orderId.toString(),
             orderStatus: order.orderStatus,
             orderTotal: order.orderTotal),
       ));

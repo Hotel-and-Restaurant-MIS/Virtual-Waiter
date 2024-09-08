@@ -8,8 +8,8 @@ class WelcomeScreenController extends GetxController {
 
     Future<void> tapBtnToRequestHelp() async{
         try{
-            WebSocketController webSC = WebSocketController.instance;
-            await webSC.sendCustomerHelp();
+            WebSocketController _webSC = WebSocketController.instance;
+            await _webSC.sendCustomerHelp();
         }catch(e){
             print("error occurs send help request in welcomeScreen");
             rethrow;

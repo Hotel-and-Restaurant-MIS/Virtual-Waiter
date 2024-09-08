@@ -1,24 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/components/order_item_tile.dart';
-
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
-import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
-import 'package:virtual_waiter/controllers/data/test_order_data_controller.dart';
-
-import 'package:virtual_waiter/controllers/views/order_screen/test_order_state_controller.dart';
+import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
+import 'package:virtual_waiter/controllers/views/order_screen/order_state_controller.dart';
 import 'package:virtual_waiter/model/order_item.dart';
-
 import 'package:virtual_waiter/views/menu_screen.dart';
-
 import 'package:virtual_waiter/views/single_menu_item_screen.dart';
 
-import '../controllers/views/order_screen/view_order_quantity_controller.dart';
-
-import '../model/order.dart';
 
 class OrderScreen extends StatelessWidget {
   final List<OrderItem>? orderItemList;
@@ -28,10 +19,10 @@ class OrderScreen extends StatelessWidget {
     assert(editMode == false ? orderItemList != null : orderItemList == null);
   }
 
-  final TestOrderDataController _orderDataController =
-      TestOrderDataController.instance;
+  final OrderDataController _orderDataController =
+      OrderDataController.instance;
 
-  final TestOrderStateController _osc = TestOrderStateController.instance;
+  final OrderStateController _osc = OrderStateController.instance;
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,7 @@ class virtual_waiter extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData.dark(),
-      home: Loadingscreen(),
+      home: LoadingScreen(),
     );
   }
 }
