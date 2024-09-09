@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
+import 'package:money_formatter/money_formatter.dart';
 
 class OrderTile extends StatelessWidget {
   String orderId;
@@ -38,14 +39,14 @@ class OrderTile extends StatelessWidget {
                             fontSize: 22.0, fontWeight: FontWeight.w700,color: Colors.lightGreen),
                       )
                     : Text(
-                        'Order No. $orderId',
+                        'Order No. ${orderId}',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                 Text(
-                  'Total : $orderTotal',
+                  'Total : ${MoneyFormatter(amount: orderTotal).output.nonSymbol}',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:money_formatter/money_formatter.dart';
 
 import '../constant.dart';
 import '../constants/text_constants.dart';
@@ -61,10 +62,10 @@ class OrderItemTile extends StatelessWidget {
                             FontWeight.w400),
                       ),
                       Text(
-                        'LKR ${orderItem.menuItem.price.toStringAsFixed(2)}',
+                        'LKR ${MoneyFormatter(amount:orderItem.menuItem.price).output.nonSymbol}',
                         style:
                         TextConstants.kSmallTextStyle(
-                          fontWeight: FontWeight.w300,
+                          fontWeight: FontWeight.w400,
                           fontSize: 19.0,
                         ),
                       ),
@@ -87,7 +88,7 @@ class OrderItemTile extends StatelessWidget {
             Container(
               width: 130.0,
               child: Text(
-                '${orderItem.totalPrice.toStringAsFixed(2)}',
+                '${MoneyFormatter(amount:orderItem.totalPrice).output.nonSymbol}',
                 style: TextConstants.kSmallTextStyle(
                     fontSize: 25.0,
                     fontWeight: FontWeight.w400),
