@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/exception/editable_order_not_exists_exception.dart';
@@ -14,6 +15,7 @@ class OrderListDataController extends GetxController {
 
   List<Order> get orderList => _orderList;
   RxList<Order> get reactiveOrderList => _orderList;
+
 
   void setOrderList(List<Order> value) {
     _orderList.value = value;
@@ -64,5 +66,13 @@ class OrderListDataController extends GetxController {
         orderStatus: orderStatus ?? editable.orderStatus,
       ),
     );
+  }
+  double calculateAllOrdersTotal(){
+    List<Order> allNonEditableOrders = _orderList.where((order)=>order.orderStatus != OrderStatus.Editing).toList();
+    double allOrdersPrice = 0;
+    for (var order in allNonEditableOrders) {
+        allOrdersPrice+= order.orderTotal;
+    }
+    return allOrdersPrice;
   }
 }
