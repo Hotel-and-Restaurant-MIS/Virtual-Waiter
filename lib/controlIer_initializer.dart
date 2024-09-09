@@ -2,9 +2,10 @@ import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/menu_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
-import 'package:virtual_waiter/controllers/data/table_no_controller.dart';
+import 'package:virtual_waiter/controllers/data/settings_data_controller.dart';
 import 'package:virtual_waiter/controllers/network/menu_data_network_controller.dart';
 import 'package:virtual_waiter/controllers/network/order_network_controller.dart';
+import 'package:virtual_waiter/controllers/network/settings_network_controller.dart';
 import 'package:virtual_waiter/controllers/views/all_orders_screen/all_orders_state_controller.dart';
 import 'package:virtual_waiter/controllers/views/all_orders_screen/order_list_builder.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/check_box_controller.dart';
@@ -27,7 +28,8 @@ class ControllerInitializer {
       await Get.putAsync(() => WebSocketController.create());
 
       await Get.putAsync(() => MenuDataNetworkController.create());
-      Get.put(TableNoController());
+      Get.put(SettingNetworkController());
+      Get.put(SettingsDataController());
       Get.put(OrderNetworkController());
       Get.put(OrderListDataController());
       Get.put(AllOrdersStateController());
