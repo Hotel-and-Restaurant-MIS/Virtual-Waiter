@@ -6,6 +6,7 @@ import 'package:virtual_waiter/controllers/views/all_orders_screen/all_orders_st
 import 'package:virtual_waiter/controllers/views/all_orders_screen/order_list_builder.dart';
 import 'package:virtual_waiter/views/menu_screen.dart';
 import 'package:money_formatter/money_formatter.dart';
+import 'package:virtual_waiter/views/settings_screen.dart';
 import '../constant.dart';
 
 class AllOrdersScreen extends StatelessWidget {
@@ -15,6 +16,27 @@ class AllOrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Obx(
+          ()=> Visibility(
+            visible: _aosc.isGeneratedBill,
+            child: FloatingActionButton(
+              backgroundColor: Colors.white38,
+              onPressed: () {
+                Get.to(() =>SettingsScreen());
+              },
+              child: Center(
+                child: Icon(
+                  Icons.admin_panel_settings_rounded,
+                  size: 40.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
       backgroundColor: kBackgroundClour.withOpacity(0.7),
       appBar: AppBar(
         leading: IconButton(
@@ -79,7 +101,7 @@ class AllOrdersScreen extends StatelessWidget {
               height: 70.0,
             ),
             Obx(
-                  () => Visibility(
+              () => Visibility(
                 visible: !_aosc.isGeneratedBill,
                 child: Center(
                   child: GestureDetector(
@@ -103,7 +125,7 @@ class AllOrdersScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'Editable order will not reserve and \nadd to the bill. Do you want to \ngenerate the bill ?',
+                              'Editable order will not be reserved and \nadded to the bill. Do you want to \ngenerate the bill ?',
                               style: TextConstants.kSubTextStyle(
                                 fontSize: 17.0,
                                 fontWeight: FontWeight.w400,
@@ -140,7 +162,6 @@ class AllOrdersScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     child: Container(
                       alignment: Alignment.center,
                       height: 60.0,
@@ -165,40 +186,6 @@ class AllOrdersScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Obx(
-             ()=> Visibility(
-                visible: _aosc.isGeneratedBill,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 60.0,
-                      width: 230.0,
-                      margin: EdgeInsets.only(right: 20.0),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Reset',
-                          style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontSize: 23.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-
           ],
         ),
       ),
