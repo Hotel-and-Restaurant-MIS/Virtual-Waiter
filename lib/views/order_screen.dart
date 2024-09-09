@@ -9,6 +9,7 @@ import 'package:virtual_waiter/controllers/views/order_screen/order_state_contro
 import 'package:virtual_waiter/model/order_item.dart';
 import 'package:virtual_waiter/views/menu_screen.dart';
 import 'package:virtual_waiter/views/single_menu_item_screen.dart';
+import 'package:money_formatter/money_formatter.dart';
 
 
 class OrderScreen extends StatelessWidget {
@@ -154,7 +155,7 @@ class OrderScreen extends StatelessWidget {
                             : deviceWidth * 0.08,
                       ),
                       Text(
-                        'Order total :',
+                        'Order Total :',
                         style: TextConstants.kSubTextStyle(
                           fontSize: 28.0,
                         ),
@@ -166,7 +167,7 @@ class OrderScreen extends StatelessWidget {
                       editMode
                           ? Obx(
                               () => Text(
-                                'LKR  ${_orderDataController.totalAmount}',
+                                'LKR  ${MoneyFormatter(amount:_orderDataController.totalAmount).output.nonSymbol}',
                                 //TODO: calculate total
 
                                 style: TextConstants.kSubTextStyle(
