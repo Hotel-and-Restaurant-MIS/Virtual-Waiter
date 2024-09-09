@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
-import 'package:virtual_waiter/controllers/data/table_no_controller.dart';
+import 'package:virtual_waiter/controllers/data/settings_data_controller.dart';
 import 'package:virtual_waiter/controllers/network/order_network_controller.dart';
 import 'package:virtual_waiter/controllers/network/web_socket_controller.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
@@ -16,7 +16,7 @@ class OrderDataController extends GetxController {
   OrderListDataController _oldc = OrderListDataController.instance;
   OrderNetworkController _onc = OrderNetworkController.instance;
   WebSocketController _websc = WebSocketController.instance;
-  TableNoController _tnc = TableNoController.instance;
+  SettingsDataController _tnc = SettingsDataController.instance;
 
   RxDouble _totalAmount = 0.0.obs;
   double get totalAmount => _totalAmount.value;
