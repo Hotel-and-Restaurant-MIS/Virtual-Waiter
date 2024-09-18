@@ -5,6 +5,7 @@ import 'package:virtual_waiter/components/menu_item_tile.dart';
 import 'package:virtual_waiter/constants/category_names.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/order_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/settings_data_controller.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/menu_grid_builder.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/model/order_item.dart';
@@ -15,11 +16,13 @@ import 'order_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   OrderListDataController _oldc = OrderListDataController.instance;
+  SettingsDataController _sdc = SettingsDataController.instance;
 
   List<OrderItem> currentOrderItemList =
       OrderDataController.instance.orderItemList;
 
-  final String tableNumber = '01';
+
+
   @override
   Widget build(BuildContext context) {
     String formattedDate =
@@ -41,7 +44,7 @@ class MenuScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Table #${tableNumber}',
+                        'Table #${_sdc.tableNo}',
                         style: TextConstants.kMainTextStyle(
                           fontFamily: 'Barlow',
                           fontWeight: FontWeight.w600,
