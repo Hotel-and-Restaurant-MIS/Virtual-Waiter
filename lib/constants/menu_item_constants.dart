@@ -1,4 +1,4 @@
-import '../model/menu-item.dart';
+import '../model/menu_item.dart';
 
 final List<MenuItem> kMenuItemList = [
   MenuItem(
@@ -16,7 +16,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 1,
+    id: 2,
     name: 'Spring Rolls',
     category: 'Appetizer',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -30,7 +30,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 1,
+    id: 3,
     name: 'Spring Rolls',
     category: 'Cold Dishes',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -44,7 +44,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 1,
+    id: 4,
     name: 'Spring Rolls',
     category: 'Cold Dishes',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -58,7 +58,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 1,
+    id: 5,
     name: 'Spring Rolls',
     category: 'Cold Dishes',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -72,7 +72,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 1,
+    id: 6,
     name: 'Spring Rolls',
     category: 'Cold Dishes',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -86,7 +86,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 2,
+    id: 7,
     name: 'Grilled Chicken Breast',
     category: 'Hot Dishes',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -100,7 +100,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 3,
+    id: 8,
     name: 'Tomato Basil Soup',
     category: 'Soup',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -114,7 +114,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 4,
+    id: 9,
     name: 'Caesar Salad',
     category: 'Cold Dishes',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -128,7 +128,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 5,
+    id: 10,
     name: 'BBQ Ribs',
     category: 'Grill',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -142,7 +142,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 6,
+    id: 11,
     name: 'Chocolate Lava Cake',
     category: 'Dessert',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -156,7 +156,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 7,
+    id: 12,
     name: 'Spicy Tuna Roll',
     category: 'Cold Dishes',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -170,7 +170,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 8,
+    id: 13,
     name: 'Lobster Bisque',
     category: 'Soup',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
@@ -184,8 +184,8 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 9,
-    name: 'Garlic Breadsticks',
+    id: 14,
+    name: 'Garlic BreadsTicks',
     category: 'Appetizer',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
     price: 500.0,
@@ -198,7 +198,7 @@ final List<MenuItem> kMenuItemList = [
     ],
   ),
   MenuItem(
-    id: 10,
+    id: 15,
     name: 'Ice Cream Sundae',
     category: 'Dessert',
     imageUrl: 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',

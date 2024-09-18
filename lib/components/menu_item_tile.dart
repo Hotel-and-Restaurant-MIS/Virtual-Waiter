@@ -1,11 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
 
-import '../constants/text_constants.dart';
-import '../views/order_list_screen.dart';
 
 class MenuItemTile extends StatelessWidget {
 

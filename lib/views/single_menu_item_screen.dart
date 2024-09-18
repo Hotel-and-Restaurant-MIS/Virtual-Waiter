@@ -7,17 +7,16 @@ import 'package:virtual_waiter/components/add_sub_button.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/check_box_controller.dart';
+import 'package:virtual_waiter/controllers/views/order_screen/order_state_controller.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
-import '../controllers/views/orderListScreen/order_list_controller.dart';
-import '../model/menu-item.dart';
-import 'order_list_screen.dart';
+import '../model/menu_item.dart';
 
 class SingleMenuItemScreen extends StatelessWidget {
   final MenuItem menuItem;
   late SmisStateController _smisStateController;
   RxBool isChecked = false.obs;
   TextEditingController _textFieldController = TextEditingController();
-  OrderListController _orderListController = OrderListController.instance;
+  OrderStateController _orderStateController = OrderStateController.instance;
 
   SingleMenuItemScreen({required this.menuItem}) {
     _smisStateController = SmisStateController.instance;
@@ -408,10 +407,10 @@ class SingleMenuItemScreen extends StatelessWidget {
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          _smisStateController.addOrderList();
+                          _smisStateController.addOrder();
                           Get.back();
                           _smisStateController.resetData();
-                          _orderListController.calculateOrderTotal();
+                          // _orderStateController.calculateOrderTotal();
                            },
                         child: Container(
                           alignment: Alignment.center,

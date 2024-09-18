@@ -7,12 +7,12 @@ import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/views/menu_screen.dart';
 import 'package:virtual_waiter/views/menu_screen.dart';
+import 'package:virtual_waiter/views/settings_screen.dart';
 import '../controllers/views/welcomeScreen/welcome_screen_controller.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
-
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
@@ -21,7 +21,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Orientation orientation = MediaQuery.of(context).orientation;
     print(orientation);
     return Scaffold(
-
       backgroundColor: kBackgroundClour.withOpacity(0.4),
       floatingActionButton: TextButton(
         onPressed: () => showDialog<String>(
@@ -30,7 +29,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             alertDialogTitle: 'Need Help ?',
             alertDialogDiscription:
                 'We can provide you help from \nhuman waiter',
-            // backgroundColour: Colors.grey.shade300,
             onOKPresses: () async {
               try {
                 await WelcomeScreenController.instance.tapBtnToRequestHelp();
@@ -52,7 +50,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     return DialogBox(massege: 'An Un Expected error occurs ');
                   },
                 );
-                // DialogBox(massege: 'An unexpected error occurs');
               }
             },
           ),
@@ -75,7 +72,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: SafeArea(
         child: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
+              GestureDetector(
+                  onTap: () {
+                    Get.to(()=>SettingsScreen());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20.0,top: 20.0),
+                    child: Icon(
+                      Icons.settings_outlined,
+                      size: 40.0,
+                      weight: 1.0,
+                    ),
+                  )),
               SizedBox(
                 height: 80,
               ),
@@ -130,8 +140,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ],
                   ),
                   child: GestureDetector(
-                    onTap: (){
-                      Get.to(()=>MenuScreen());
+                    onTap: () {
+                      Get.to(() => MenuScreen());
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -144,14 +154,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Icon(
                           Icons.arrow_forward_ios_rounded,
                           color: Colors.white,
-
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-
             ],
           ),
         ),
