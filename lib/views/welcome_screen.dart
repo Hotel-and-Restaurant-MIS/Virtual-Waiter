@@ -37,7 +37,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return DialogBox(
-                        massege: 'Human waiter will come to your table soon!');
+                        messege: 'Human waiter will come to your table soon!');
                   },
                 );
                 print('help is coming');
@@ -47,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return DialogBox(massege: 'An Un Expected error occurs ');
+                    return DialogBox(messege: 'An Un Expected error occurs ');
                   },
                 );
               }
