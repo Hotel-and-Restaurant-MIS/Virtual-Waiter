@@ -7,7 +7,7 @@ class OrderItem {
   final MenuItem menuItem;
 
   int quantity;
-  final List<String> addonList;
+  final List<int> addonList;
   String? specialNote;
   final double totalPrice;
 

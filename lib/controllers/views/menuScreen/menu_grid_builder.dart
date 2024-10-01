@@ -17,7 +17,6 @@ class MenuGridBuilder extends GetxController {
           id: menuItem.id,
           name: menuItem.name,
           price: menuItem.price,
-          availableQuantity: menuItem.availableQuantity,
           imageUrl: menuItem.imageUrl,
           onTap: (){
             Get.to(() =>SingleMenuItemScreen(menuItem: menuItem));

@@ -5,7 +5,6 @@ class MenuItem {
   final String category;
   final String imageUrl;
   final String description;
-  final int availableQuantity;
   final List<String> tags;
   List<Map<String, dynamic>> addOns;
 
@@ -17,20 +16,22 @@ class MenuItem {
     required this.price,
     required this.category,
     required this.imageUrl,
-    required this.availableQuantity,
     required this.addOns,
   });
 
   // Factory constructor to create an instance of MenuItem from a map
   factory MenuItem.fromMap(Map<String, dynamic> map) {
+    List<String> tagNames = (map['tags'] as List)
+        .map((tag) => tag['tagName'] as String)
+        .toList();
+
     return MenuItem(
-      id: map['id'],
-      name: map['name'],
-      price: map['price'],
-      category: map['category'],
+      id: map['menuItemId'],
+      name: map['menuItemName'],
+      price: map['menuItemPrice'],
+      category: map['category']['categoryName'],
       imageUrl: map['imageUrl'] ?? 'https://saltedmint.com/wp-content/uploads/2024/01/Vegetable-Spring-Rolls-3.jpg',
-      availableQuantity: map['availableQuantity'],
-      tags: List<String>.from(map['tags']),
+      tags: tagNames,
       description: map['description'],
       addOns: List<Map<String, dynamic>>.from(map['addOns'] ?? []),
     );
@@ -44,7 +45,6 @@ class MenuItem {
       'price': price,
       'category': category,
       'imageUrl': imageUrl,
-      'availableQuantity': availableQuantity,
       'tags':tags,
       'description':description,
       'addOns':addOns,

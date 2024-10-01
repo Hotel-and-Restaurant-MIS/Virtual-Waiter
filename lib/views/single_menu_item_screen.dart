@@ -252,7 +252,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                       Column(
                         children: menuItem.addOns.map<Widget>((addon) {
                           String checkBoxContTag =
-                              'add-on-check-box-cont-${menuItem.id}-${addon['id']}';
+                              'add-on-check-box-cont-${menuItem.id}-${addon['addOnId']}';
                           Get.put(CheckboxController(), tag: checkBoxContTag);
                           CheckboxController _checkboxController =
                               Get.find(tag: checkBoxContTag);
@@ -263,7 +263,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                               left: 20.0,
                             ),
                             margin: EdgeInsets.all(10.0),
-                            width: deviceWidth * 0.8,
+                            width: deviceWidth * 0.9,
                             height: 60.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7.0),
@@ -278,7 +278,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                                 Container(
                                   width: 250.0,
                                   child: Text(
-                                    addon['name'],
+                                    addon['addOnName'],
                                     style: TextConstants.kSubTextStyle(
                                       fontSize: 23.0,
                                     ),
@@ -306,7 +306,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                                   width: 5.0,
                                 ),
                                 Text(
-                                  '${addon['price']}',
+                                  '${addon['addOnPrice']}',
                                   style: TextConstants.kSubTextStyle(
                                       fontSize: 25.0,
                                       fontWeight: FontWeight.w400),
@@ -325,15 +325,16 @@ class SingleMenuItemScreen extends StatelessWidget {
                                       if (!_checkboxController
                                           .isChecked.value) {
                                         _smisStateController.addAddOns(
-                                            addOnId: addon['id']);
+                                            addOnId: addon['addOnId']);
+                                        print('AddOnId: ${addon['addOnId'].toString()}');
                                         Get.snackbar('Add On Added',duration: Duration(seconds: 1 ),
-                                            'Add On ${addon['name']} added.',
+                                            'Add On ${addon['addOnName']} added.',
                                             snackPosition:
                                                 SnackPosition.TOP);
 
                                       } else {
                                         _smisStateController.removeAddOns(
-                                            addOnId: addon['id']);
+                                            addOnId: addon['addOnId']);
                                       }
                                       _checkboxController.toggleCheckbox(value);
                                     },
