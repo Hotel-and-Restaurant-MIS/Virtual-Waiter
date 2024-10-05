@@ -11,6 +11,7 @@ class MenuDataController extends GetxController {
   Map<String, List<MenuItem>> _menuDataMap = {};
   Map<String, List<MenuItem>> get menuDataMap => _menuDataMap;
 
+  RxBool isGettingData = true.obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -23,6 +24,7 @@ class MenuDataController extends GetxController {
   }
 
   Future<void> _getMenuItemsList() async {
+    isGettingData.value = true;
     List<MenuItem> menuItemList = [];
     try {
       List<Map<String, dynamic>> menuItemsMapList = await _mdnc.getMenuItems();
@@ -41,6 +43,7 @@ class MenuDataController extends GetxController {
       print('error occurs getting menu data');
       print(e);
     }
+    isGettingData.value = false;
   }
 }
 
