@@ -5,7 +5,6 @@ import 'package:virtual_waiter/model/menu_item.dart';
 class OrderItem {
   final int orderItemId;
   final MenuItem menuItem;
-
   int quantity;
   final List<int> addonList;
   String? specialNote;
@@ -20,6 +19,29 @@ class OrderItem {
       required this.totalPrice});
 
   set totalPrice(double value) => totalPrice = value;
+
+  // Method to convert OrderItem to Map
+  Map<String, dynamic> toMap() {
+    return {
+      'menuItemId': menuItem.id.toString(), // Assuming menuItem has an 'id' field
+      'specialNote': specialNote ?? '',
+      'totalPrice': totalPrice.toStringAsFixed(2),
+      'quantity': quantity.toString(),
+      'addonList': addonList.map((e) => e.toString()).toList(),
+    };
+  }
+  factory OrderItem.fromMap(Map<String, dynamic> map) {
+    return OrderItem(
+      orderItemId: map['orderItemId'],
+      quantity: map['quantity'],
+      specialNote: map['specialNote'],
+      totalPrice: map['totalPrice'].toDouble(),
+      menuItem: MenuItem.fromMap(map['menuItem']), // Map the nested menuItem
+      addonList: map['selectedAddOns'] != null
+          ? List<int>.from(map['selectedAddOns']) // Assuming add-ons are integers
+          : [],
+    );
+  }
 
   @override
   String toString() {

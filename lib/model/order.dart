@@ -7,7 +7,7 @@ class Order {
   final List<OrderItem> orderItemList;
   final OrderStatus orderStatus;
   final double orderTotal;
-  Long? orderId;
+  int? orderId;
   final int tableId;
 
   Order(
@@ -23,19 +23,20 @@ class Order {
   factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
         orderId: map['orderId'],
-        orderItemList: map['orderItemList'],
-        orderStatus: map['orderStatus'],
-        orderTotal: map['orderTotal'],
+        orderItemList: List<OrderItem>.from(
+            map['orderItems'].map((item) => OrderItem.fromMap(item))
+        ),
+        orderStatus: getOrderStatusFromString(map['status']['statusName']),
+        orderTotal: map['totalPrice'],
         tableId: map['tableId']);
   }
+
 // Method to convert an instance of Order to a map
   Map<String,dynamic> toMap(){
     return{
-      'orderId':orderId,
-      'orderItemList':orderItemList,
-      'orderStatus':orderStatus,
-      'orderTotal':orderTotal,
-      'tableId':tableId
+      'orderItemList': orderItemList.map((item) => item.toMap()).toList(),
+      'orderTotal':orderTotal.toString(),
+      'tableId':tableId.toString()
     };
   }
 }
