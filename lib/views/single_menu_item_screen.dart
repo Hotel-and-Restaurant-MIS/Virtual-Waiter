@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:money_formatter/money_formatter.dart';
 import 'package:virtual_waiter/components/add_sub_button.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
@@ -398,7 +399,8 @@ class SingleMenuItemScreen extends StatelessWidget {
                         ),
                         Obx(
                           () => Text(
-                            'LKR  ${_smisStateController.totalAmount.toStringAsFixed(2)}',
+                            'LKR  ${MoneyFormatter(amount:_smisStateController.totalAmount).output.nonSymbol}',
+
                             style: TextConstants.kSubTextStyle(
                                 fontSize: 35.0, fontWeight: FontWeight.w400),
                           ),
