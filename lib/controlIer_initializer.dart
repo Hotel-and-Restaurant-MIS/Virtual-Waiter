@@ -26,22 +26,24 @@ class ControllerInitializer {
   static Future<void> initAllControllers() async {
     try {
       await Get.putAsync(() => WebSocketController.create());
+      Get.put(MenuDataNetworkController());
+      Get.put(MenuDataController());
+      Get.put(MenuGridBuilder());
 
-      await Get.putAsync(() => MenuDataNetworkController.create());
+      Get.put(WelcomeScreenController());
+
       Get.put(SettingNetworkController());
       Get.put(SettingsDataController());
+
       Get.put(OrderNetworkController());
       Get.put(OrderListDataController());
       Get.put(AllOrdersStateController());
       Get.put(OrderDataController());
       Get.put(OrderStateController());
-
-
-      Get.put(MenuDataController());
-
-      Get.put(MenuGridBuilder());
       Get.put(OrderListBuilder());
-      Get.put(WelcomeScreenController());
+
+
+
       Get.put(CategoryTabController());
       Get.put(CategoryButtonColorController());
       Get.put(SmisStateController());
