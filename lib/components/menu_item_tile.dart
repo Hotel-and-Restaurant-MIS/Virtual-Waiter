@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:money_formatter/money_formatter.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
 
@@ -105,7 +106,7 @@ class MenuItemTile extends StatelessWidget {
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      'LKR $price',
+                      'LKR ${MoneyFormatter(amount:price).output.nonSymbol}',
                       style: TextStyle(
                         fontFamily: 'Barlow',
                         fontSize: 18.0,
