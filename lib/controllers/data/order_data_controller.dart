@@ -13,6 +13,12 @@ import 'package:virtual_waiter/model/order.dart';
 class OrderDataController extends GetxController {
   static OrderDataController instance = Get.find();
 
+  RxBool _isAddingOrder = false.obs;
+  bool get isAddingOrder => _isAddingOrder.value;
+  void setIsAddingOrder(bool value){
+    _isAddingOrder.value = value;
+  }
+
   OrderListDataController _oldc = OrderListDataController.instance;
   OrderNetworkController _onc = OrderNetworkController.instance;
   WebSocketController _websc = WebSocketController.instance;
@@ -75,27 +81,36 @@ class OrderDataController extends GetxController {
   }
 
   Future<void> sendOrder() async {
-    List<OrderItem> currentItems = [];
-    double orderTotal = 0.0;
-    orderTotal = _totalAmount.value;
+    setIsAddingOrder(true);
+    try{
+      List<OrderItem> currentItems = [];
+      double orderTotal = 0.0;
+      orderTotal = _totalAmount.value;
+      for (OrderItem item in _orderItemList) {
+        currentItems.add(item);
+      }
 
-    for (OrderItem item in _orderItemList) {
-      currentItems.add(item);
+      Order order = Order(
+        orderItemList: currentItems,
+        orderStatus: OrderStatus.Pending,
+        orderTotal: orderTotal,
+        tableId: _tnc.tableNo,
+      );
+      _oldc.removeEditableOrder();
+      print('before${_oldc.orderList.length}');
+      Map<String,dynamic> newOrder = await _onc.addOrder(order: order); // add new order to the db
+      print(newOrder.toString());
+      _oldc.addOrder(Order.fromMap(newOrder));
+      print('after${_oldc.orderList.length}');
+      //_oldc.addOrder(order);
+      _websc.updateAllOrderList(); //update the order manager app in real time
+      _orderItemList.clear();
+      print('order list length: ${_oldc.orderList.length}');
+    }catch(e){
+      print(e.toString());
     }
+    setIsAddingOrder(false);
 
-    Order order = Order(
-      orderItemList: currentItems,
-      orderStatus: OrderStatus.Pending,
-      orderTotal: orderTotal,
-      tableId: _tnc.tableNo, //TODO: get from shared preferences
-    );
-    _oldc.removeEditableOrder();
-    //TODO: do not delete below two lines
-    //Map<String,dynamic> newOrder = await _onc.addOrder(order: order); // add new order to the db
-    //_oldc.addOrder(Order.fromMap(newOrder));
-    _oldc.addOrder(order);
-    _websc.updateAllOrderList(); //update the order manager app in real time
-    _orderItemList.clear();
   }
 
   //TODO: Item update/delete error

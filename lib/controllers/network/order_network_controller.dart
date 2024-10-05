@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:virtual_waiter/constants/network_constants.dart';
@@ -5,29 +7,37 @@ import 'package:virtual_waiter/exception/network_exception.dart';
 
 import '../../model/order.dart';
 
-class OrderNetworkController extends GetxController{
+class OrderNetworkController extends GetxController {
+  static OrderNetworkController instance = Get.find();
 
-   static OrderNetworkController instance = Get.find();
+  Future<Map<String, dynamic>> addOrder({required Order order}) async {
+    try {
+      Uri uri = Uri.parse('${NetworkConstants.baseUrl}/vw/singleTableOrder/add');
+      var body = jsonEncode(order.toMap());
 
-   Future<Map<String, dynamic>> addOrder({required Order order}) async{
+      var response = await http.post(uri,
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: body);
 
-     Map<String,dynamic> orderMap ={};
-
-     Uri uri = Uri.parse('${NetworkConstants.baseUrl}/order/add');
-     var response = await http.post(uri,body: order);
-
-     if(response.statusCode == 200){
-       try{
-         orderMap = response as Map<String,dynamic>;
-         return orderMap;
-       }catch(e){
-            print(e);
-       }
-     }
-     else{
-       throw NetworkException(message: 'Network error due to : status ${response.statusCode},${response.body}');
-     }
-     return orderMap;
-   }
-
+      if (response.statusCode == 201) {
+        try {
+          Map<String, dynamic> orderMap = jsonDecode(response.body) as Map<String,dynamic>;
+          return orderMap;
+        } catch (e) {
+          print('add order request fail with status: ${response.statusCode}');
+          throw NetworkException(message: 'error in jason decode in the add order');
+        }
+      } else {
+        throw NetworkException(
+            message:
+                'Network error due to : status ${response.statusCode},${response.body}');
+      }
+    } catch (e) {
+      print('Error adding new order');
+      print(e.toString());
+      throw NetworkException(message: e.toString());
+    }
   }
+}
