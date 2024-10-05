@@ -59,10 +59,10 @@ class AllOrdersScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              child: Obx(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Obx(
                 () {
                   bool emptyList = OrderListBuilder.instance.children.isEmpty;
                   return !emptyList
@@ -72,121 +72,122 @@ class AllOrdersScreen extends StatelessWidget {
                       : Column();
                 },
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 40.0,
-                top: 50.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total price :',
-                    style: TextConstants.kMainTextStyle(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 35.0),
-                    child: Text(
-                      MoneyFormatter(amount: _oldc.calculateAllOrdersTotal())
-                          .output
-                          .nonSymbol,
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 40.0,
+                  top: 50.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total price :',
                       style: TextConstants.kMainTextStyle(),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 70.0,
-            ),
-            Obx(
-              () => Visibility(
-                visible: !_aosc.isGeneratedBill,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () => showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        elevation: 2.0,
-                        backgroundColor: kBackgroundClour,
-                        title: Text(
-                          'Generate Bill ?',
-                          style: TextConstants.kSubTextStyle(
-                            fontSize: 26.0,
-                          ),
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Editable order will not be reserved and \nadded to the bill. Do you want to \ngenerate the bill ?',
-                              style: TextConstants.kSubTextStyle(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  child: Text(
-                                    'No',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    _aosc.generateBill();
-                                    Get.back();
-                                  },
-                                  child: Text(
-                                    'Yes',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 35.0),
+                      child: Text(
+                        MoneyFormatter(amount: _oldc.calculateAllOrdersTotal())
+                            .output
+                            .nonSymbol,
+                        style: TextConstants.kMainTextStyle(),
                       ),
                     ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 60.0,
-                      width: 230.0,
-                      margin: EdgeInsets.only(right: 20.0),
-                      decoration: BoxDecoration(
-                        color: kButtonClour.withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(10.0),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 70.0,
+              ),
+              Obx(
+                () => Visibility(
+                  visible: !_aosc.isGeneratedBill,
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 2.0,
+                          backgroundColor: kBackgroundClour,
+                          title: Text(
+                            'Generate Bill ?',
+                            style: TextConstants.kSubTextStyle(
+                              fontSize: 26.0,
+                            ),
+                          ),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Editable order will not be reserved and \nadded to the bill. Do you want to \ngenerate the bill ?',
+                                style: TextConstants.kSubTextStyle(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: Text(
+                                      'No',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      _aosc.generateBill();
+                                      Get.back();
+                                    },
+                                    child: Text(
+                                      'Yes',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Center(
-                        child: Text(
-                          'Generate Bill',
-                          style: TextStyle(
-                              fontFamily: 'Barlow',
-                              fontSize: 23.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 60.0,
+                        width: 230.0,
+                        margin: EdgeInsets.only(right: 20.0),
+                        decoration: BoxDecoration(
+                          color: kButtonClour.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Generate Bill',
+                            style: TextStyle(
+                                fontFamily: 'Barlow',
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 100.0,),
+            ],
+          ),
         ),
       ),
     );
