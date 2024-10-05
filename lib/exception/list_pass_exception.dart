@@ -5,7 +5,6 @@ class ListPassException extends BaseException{
 
   @override
   String toString() {
-    // TODO: implement toString
     return message ?? super.toString();
   }
 }

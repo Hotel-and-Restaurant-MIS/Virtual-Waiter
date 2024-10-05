@@ -5,7 +5,6 @@ import 'package:virtual_waiter/controllers/network/web_socket_controller.dart';
 class WelcomeScreenController extends GetxController {
     static WelcomeScreenController instance = Get.find();
 
-
     Future<void> tapBtnToRequestHelp() async{
         try{
             WebSocketController _webSC = WebSocketController.instance;
