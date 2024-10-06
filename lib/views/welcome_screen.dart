@@ -10,12 +10,8 @@ import 'package:virtual_waiter/views/menu_screen.dart';
 import 'package:virtual_waiter/views/settings_screen.dart';
 import '../controllers/views/welcomeScreen/welcome_screen_controller.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class WelcomeScreen extends StatelessWidget {
+  WelcomeScreenController _wsc = WelcomeScreenController.instance;
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
@@ -31,13 +27,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 'We can provide you help from \nhuman waiter',
             onOKPresses: () async {
               try {
-                await WelcomeScreenController.instance.tapBtnToRequestHelp();
+                await _wsc.tapBtnToRequestHelp();
                 Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return DialogBox(
-                        massege: 'Human waiter will come to your table soon!');
+                        messege: 'Human waiter will come to your table soon!');
                   },
                 );
                 print('help is coming');
@@ -47,7 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return DialogBox(massege: 'An Un Expected error occurs ');
+                    return DialogBox(messege: 'An Un Expected error occurs ');
                   },
                 );
               }

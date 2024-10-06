@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:money_formatter/money_formatter.dart';
+import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
 
-
 class MenuItemTile extends StatelessWidget {
-
-
   double? outerContainerHeight;
   double? innerContainerHeight;
   double? width;
@@ -14,7 +13,6 @@ class MenuItemTile extends StatelessWidget {
   final int id;
   final String name;
   final double price;
-  final int availableQuantity;
   final String imageUrl;
   final List<String> tags;
   final Function() onTap;
@@ -23,29 +21,15 @@ class MenuItemTile extends StatelessWidget {
     required this.id,
     required this.name,
     required this.price,
-    required this.availableQuantity,
     required this.imageUrl,
     required this.onTap,
     required this.tags,
-
     this.outerContainerHeight,
     this.innerContainerHeight,
     this.circleRadius,
     this.width,
     this.backgroundColor,
   });
-
-  String _generateQuantityString() {
-    String text = '';
-    if (availableQuantity == 1) {
-      text = '1 Bowl Available';
-    } else if (availableQuantity == 0) {
-      text = 'Out of Stock';
-    } else {
-      text = '$availableQuantity Bowls availabe';
-    }
-    return text;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +55,10 @@ class MenuItemTile extends StatelessWidget {
                 width: width ?? 270,
                 child: Container(
                     child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SizedBox(height: 35.0),
+                    SizedBox(height: 10.0),
                     Text(
                       name,
                       style: TextStyle(
@@ -83,10 +68,45 @@ class MenuItemTile extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-
+                    Visibility(
+                      visible: tags.isEmpty,
+                      child: SizedBox(
+                        height: 20.0,
+                      ),
+                    ),
+                    Visibility(
+                      visible: tags.isNotEmpty,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: tags.map<Widget>((tag) {
+                          return Container(
+                            margin: EdgeInsets.all(5.0),
+                            padding: EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  '#$tag',
+                                  style: TextConstants.kSubTextStyle(
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                const SizedBox(
+                                  width: 5.0,
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                     SizedBox(height: 10.0),
                     Text(
-                      'LKR $price',
+                      'LKR ${MoneyFormatter(amount:price).output.nonSymbol}',
                       style: TextStyle(
                         fontFamily: 'Barlow',
                         fontSize: 18.0,
@@ -94,41 +114,13 @@ class MenuItemTile extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 5.0),
-                    Text(
-                      '$availableQuantity Bowls are Available',
-                      style: TextStyle(
-                        fontFamily: 'Barlow',
-                        fontSize: 17.0,
-                        color: Color(0xFFABBBC2),
-                        fontWeight: FontWeight.w500,
+                    SizedBox(height: 20.0),
+                    Visibility(
+                      visible: tags.isEmpty,
+                      child: SizedBox(
+                        height: 20.0,
                       ),
                     ),
-                    SizedBox(height: 10.0),
-
-                    // GestureDetector(
-                    //   onTap: _smisStateController.addOrderList(),
-                    //   child: Container(
-                    //     height: 33.0,
-                    //     width: 145.0,
-                    //     margin: EdgeInsets.only(right: 20.0),
-                    //     decoration: BoxDecoration(
-                    //         color: kButtonClour.withOpacity(0.9),
-                    //         borderRadius: BorderRadius.circular(5.0),
-                    //         ),
-                    //     child: Center(
-                    //       child: Text(
-                    //         'Add to My Orders',
-                    //         style: TextStyle(
-                    //             fontFamily: 'Barlow',
-                    //             fontSize: 15.0,
-                    //             fontWeight: FontWeight.w500,
-                    //             color: Colors.white),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    SizedBox(height: 10.0),
                   ],
                 )),
               ),

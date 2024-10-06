@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_waiter/constant.dart';
 
 class AlertDialogBox extends StatelessWidget {
   final String alertDialogTitle;
@@ -26,11 +27,11 @@ class AlertDialogBox extends StatelessWidget {
       // contentTextStyle: TextStyle(color: Colors.black),
       // backgroundColor: backgroundColour,
       title: Text(alertDialogTitle),
-      content: Text(alertDialogDiscription),
+      content: Text(alertDialogDiscription,style: TextStyle(fontSize: 17.0),),
       actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.pop(context, 'Cancel'),
-          child: const Text('Cancel'),
+          child: const Text('Cancel',style: TextStyle(fontSize: 16.0,color: kButtonClour,),),
         ),
         TextButton(
           onPressed: () {
@@ -40,7 +41,7 @@ class AlertDialogBox extends StatelessWidget {
               Navigator.pop(context, 'OK');
             }
           },
-          child: const Text('OK'),
+          child: const Text('OK',style: TextStyle(fontSize: 16.0,color: kButtonClour,),),
         ),
       ],
     );

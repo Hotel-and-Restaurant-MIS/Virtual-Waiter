@@ -18,6 +18,8 @@ dependencies:
   reward_popup: ^0.0.7
   uuid: ^4.4.0
   flutter_svg: ^2.0.10+1
+  flutter_shimmer: ^2.0.0
+  shimmer: ^2.0.0
   http: ^1.2.2
   numberpicker: ^2.1.2
   money_formatter: ^0.0.3

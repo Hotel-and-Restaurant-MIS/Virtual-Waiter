@@ -1,34 +1,54 @@
+import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:virtual_waiter/constants/category_names.dart';
-import 'package:virtual_waiter/constants/menu_item_constants.dart';
+import 'package:http/http.dart' as http;
+import 'package:virtual_waiter/constants/network_constants.dart';
+import 'package:virtual_waiter/exception/list_pass_exception.dart';
+import 'package:virtual_waiter/exception/network_exception.dart';
 
 class MenuDataNetworkController extends GetxController {
   static MenuDataNetworkController instance = Get.find();
 
-  Map<String, dynamic> _menuMap = {};
-  Map<String, dynamic> get menuMap => _menuMap;
+  Future<List<Map<String, dynamic>>> getMenuItems() async {
+    List<Map<String, dynamic>> menuItemsMapList = [];
+    try {
+      Uri uri = Uri.parse('${NetworkConstants.baseUrl}/vw/menuItem/all');
+      var response = await http.get(uri);
 
-  MenuDataNetworkController._();
-
-  static Future<MenuDataNetworkController> create() async {
-    MenuDataNetworkController controller = MenuDataNetworkController._();
-    await controller._initController();
-    return controller;
-  }
-
-  Future<void> _initController() async {
-    //To simulate network delay
-    await Future.delayed(
-      Duration(
-        milliseconds: 500,
-      ),
-    );
-
-    kCategoryNameList.forEach((category) => _menuMap[category] = []);
-    kMenuItemList.forEach((item) {
-      List currentList = _menuMap[item.category];
-      currentList.add(item.toMap());
-      _menuMap[item.category] = currentList;
-    });
+      if (response.statusCode == 200) {
+        try {
+          var jsonResponse = jsonDecode(response.body) as List;
+          menuItemsMapList = jsonResponse
+              .map((menuItem) => menuItem as Map<String, dynamic>)
+              .toList();
+          return menuItemsMapList;
+        } catch (e) {
+          throw ListPassException(
+              message: 'List Passing error at getting menu items list ');
+        }
+      }else{
+        throw NetworkException(
+            message:
+            'Network Error due to : Status ${response.statusCode}, ${response.body}');
+      }
+    } catch (e) {
+      print('Error getting/parsing menu item data');
+      print(e.toString());
+      throw NetworkException(message: e.toString());
+    }
   }
 }
+
+//
+//
+// await Future.delayed(
+//   Duration(
+//     milliseconds: 500,
+//   ),
+// );
+//
+// kCategoryNameList.forEach((category) => _menuMap[category] = []);
+// kMenuItemList.forEach((item) {
+//   List currentList = _menuMap[item.category];
+//   currentList.add(item.toMap());
+//   _menuMap[item.category] = currentList;
+// });

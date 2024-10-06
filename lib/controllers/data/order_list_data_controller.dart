@@ -54,7 +54,7 @@ class OrderListDataController extends GetxController {
       OrderStatus? orderStatus,
       double? orderTotal,
       int? tableId,
-      Long? orderId}) {
+      int? orderId}) {
     Order editable = getEditableOrder();
     removeEditableOrder();
     _orderList.add(

@@ -8,7 +8,7 @@ import 'package:virtual_waiter/model/menu_item.dart';
 
 class SmisStateController extends GetxController {
   static SmisStateController instance = Get.find();
-  List<String> _selectedAddOnList = [];
+  List<int> _selectedAddOnList = [];
 
   MenuItem? _menuItem;
   MenuItem get menuItem => _menuItem!;
@@ -57,14 +57,14 @@ class SmisStateController extends GetxController {
     _calculateTotal();
   }
 
-  void addAddOns({required String addOnId}) {
+  void addAddOns({required int addOnId}) {
     itemNullCheck();
     _selectedAddOnList.add(addOnId);
-    print(_selectedAddOnList);
+    print('selected addon list : $_selectedAddOnList');
     _calculateTotal();
   }
 
-  void removeAddOns({required String addOnId}) {
+  void removeAddOns({required int addOnId}) {
     itemNullCheck();
     if (_selectedAddOnList.any((currAddOn) => currAddOn == addOnId)) {
       _selectedAddOnList.remove(addOnId);
@@ -99,11 +99,11 @@ class SmisStateController extends GetxController {
     itemNullCheck();
     double total = menuItem.price * _quantity.value;
 
-    for (String addOnId in _selectedAddOnList) {
+    for (int addOnId in _selectedAddOnList) {
       double addOnPrice = menuItem.addOns
-          .where((addOn) => addOn['id'] == addOnId)
+          .where((addOn) => addOn['addOnId'] == addOnId)
           .toList()
-          .first['price'];
+          .first['addOnPrice'];
       total += addOnPrice;
     }
     _totalAmount.value = total;
@@ -117,7 +117,7 @@ class SmisStateController extends GetxController {
           orderItemId:  menuItem.id,
           menuItem: menuItem,
             quantity: _quantity.value,
-            addonList: _selectedAddOnList,
+            selectedAddonList: _selectedAddOnList,
             specialNote: _specialNotes,
             totalPrice: _totalAmount.value));
   }
