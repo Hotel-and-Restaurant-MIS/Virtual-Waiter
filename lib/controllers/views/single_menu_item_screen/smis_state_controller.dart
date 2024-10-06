@@ -117,7 +117,7 @@ class SmisStateController extends GetxController {
           orderItemId:  menuItem.id,
           menuItem: menuItem,
             quantity: _quantity.value,
-            addonList: _selectedAddOnList,
+            selectedAddonList: _selectedAddOnList,
             specialNote: _specialNotes,
             totalPrice: _totalAmount.value));
   }

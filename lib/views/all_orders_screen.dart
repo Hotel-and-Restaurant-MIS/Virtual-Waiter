@@ -124,7 +124,7 @@ class AllOrdersScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Order items in the cart will not be added and \nadded to the bill. Do you want to \ngenerate the bill ?',
+                                'Order items in the cart will not be added to \nthe bill. Do you want to generate the bill ?',
                                 style: TextConstants.kSubTextStyle(
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.w400,

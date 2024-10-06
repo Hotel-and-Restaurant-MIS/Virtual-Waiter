@@ -14,7 +14,7 @@ class OrderNetworkController extends GetxController {
     try {
       Uri uri = Uri.parse('${NetworkConstants.baseUrl}/vw/singleTableOrder/add');
       var body = jsonEncode(order.toMap());
-
+      print(body.toString());
       var response = await http.post(uri,
           headers: {
             'content-type': 'application/json',

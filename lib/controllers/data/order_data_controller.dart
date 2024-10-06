@@ -102,7 +102,6 @@ class OrderDataController extends GetxController {
       print(newOrder.toString());
       _oldc.addOrder(Order.fromMap(newOrder));
       print('after${_oldc.orderList.length}');
-      //_oldc.addOrder(order);
       _websc.updateAllOrderList(); //update the order manager app in real time
       _orderItemList.clear();
       print('order list length: ${_oldc.orderList.length}');

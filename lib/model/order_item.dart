@@ -6,7 +6,7 @@ class OrderItem {
   final int orderItemId;
   final MenuItem menuItem;
   int quantity;
-  final List<int> addonList;
+  final List<int> selectedAddonList;
   String? specialNote;
   final double totalPrice;
 
@@ -14,7 +14,7 @@ class OrderItem {
       {required this.quantity,
       required this.orderItemId,
       required this.menuItem,
-      required this.addonList,
+      required this.selectedAddonList,
       required this.specialNote,
       required this.totalPrice});
 
@@ -27,7 +27,7 @@ class OrderItem {
       'specialNote': specialNote ?? '',
       'totalPrice': totalPrice.toStringAsFixed(2),
       'quantity': quantity.toString(),
-      'addonList': addonList.map((e) => e.toString()).toList(),
+      'addonList': selectedAddonList.map((e) => e.toString()).toList(),
     };
   }
   factory OrderItem.fromMap(Map<String, dynamic> map) {
@@ -37,14 +37,14 @@ class OrderItem {
       specialNote: map['specialNote'],
       totalPrice: map['totalPrice'].toDouble(),
       menuItem: MenuItem.fromMap(map['menuItem']), // Map the nested menuItem
-      addonList: map['selectedAddOns'] != null
-          ? List<int>.from(map['selectedAddOns']) // Assuming add-ons are integers
+      selectedAddonList: map['selectedAddOns'] != null
+          ? List<int>.from(map['selectedAddOns'].map((selectedAddOn) => selectedAddOn['addOn']['addOnId']))
           : [],
     );
   }
 
   @override
   String toString() {
-    return 'OrderItem{menuItemId: ${menuItem.id}.,itemQuantity: $quantity total price: $totalPrice special note: $specialNote addon list: $addonList}';
+    return 'OrderItem{menuItemId: ${menuItem.id}.,itemQuantity: $quantity total price: $totalPrice special note: $specialNote addon list: $selectedAddonList}';
   }
 }
