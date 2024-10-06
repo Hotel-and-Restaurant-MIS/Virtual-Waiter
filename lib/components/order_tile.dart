@@ -34,7 +34,7 @@ class OrderTile extends StatelessWidget {
               children: [
                 orderStatus == OrderStatus.Editing
                     ? Text(
-                        'Editable Order',
+                        'My Cart',
                         style: TextStyle(
                             fontSize: 22.0, fontWeight: FontWeight.w700,color: Colors.lightGreen),
                       )

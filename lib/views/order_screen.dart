@@ -61,9 +61,9 @@ class OrderScreen extends StatelessWidget {
                                   ? deviceWidth * 0.35
                                   : deviceWidth * 0.4,
                             ),
-                            const Text(
-                              'My Orders',
-                              style: TextStyle(
+                            Text(
+                              editMode?'My Cart':'My Orders',
+                              style: const TextStyle(
                                 fontFamily: 'Barlow',
                                 fontSize: 28.0,
                                 fontWeight: FontWeight.w500,
