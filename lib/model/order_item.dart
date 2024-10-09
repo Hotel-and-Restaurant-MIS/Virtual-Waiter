@@ -24,7 +24,7 @@ class OrderItem {
   Map<String, dynamic> toMap() {
     return {
       'menuItemId': menuItem.id.toString(), // Assuming menuItem has an 'id' field
-      'specialNote': specialNote ?? '',
+      'specialNote': specialNote,
       'totalPrice': totalPrice.toStringAsFixed(2),
       'quantity': quantity.toString(),
       'addonList': selectedAddonList.map((e) => e.toString()).toList(),
@@ -41,10 +41,5 @@ class OrderItem {
           ? List<int>.from(map['selectedAddOns'].map((selectedAddOn) => selectedAddOn['addOn']['addOnId']))
           : [],
     );
-  }
-
-  @override
-  String toString() {
-    return 'OrderItem{menuItemId: ${menuItem.id}.,itemQuantity: $quantity total price: $totalPrice special note: $specialNote addon list: $selectedAddonList}';
   }
 }

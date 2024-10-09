@@ -73,7 +73,7 @@ class SmisStateController extends GetxController {
     _calculateTotal();
   }
 
-  String? _specialNotes = 'first as init';
+  String? _specialNotes ;
   String? get specialNotes => _specialNotes;
 
   //set specialNotes(String? value) => _specialNotes = value;
