@@ -418,7 +418,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                         child: Container(
                           alignment: Alignment.center,
                           height: 60.0,
-                          width: 230.0,
+                          width: 210.0,
                           margin: EdgeInsets.only(right: 20.0),
                           decoration: BoxDecoration(
                             color: kButtonClour.withOpacity(0.9),
@@ -426,7 +426,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              'Add to My Orders',
+                              'Add to My Cart',
                               style: TextStyle(
                                   fontFamily: 'Barlow',
                                   fontSize: 23.0,
