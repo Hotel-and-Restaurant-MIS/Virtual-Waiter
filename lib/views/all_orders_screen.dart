@@ -40,10 +40,11 @@ class AllOrdersScreen extends StatelessWidget {
       backgroundColor: kBackgroundClour.withOpacity(0.7),
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-            Get.offAll(() => MenuScreen());
-          },
+          iconSize: 35.0, // Increase the size here
           icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back();
+          },
         ),
         backgroundColor: Colors.black38,
         shadowColor: Colors.grey,

@@ -439,6 +439,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 100.0,),
               ],
             ),
           );
