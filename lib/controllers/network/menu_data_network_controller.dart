@@ -37,18 +37,3 @@ class MenuDataNetworkController extends GetxController {
     }
   }
 }
-
-//
-//
-// await Future.delayed(
-//   Duration(
-//     milliseconds: 500,
-//   ),
-// );
-//
-// kCategoryNameList.forEach((category) => _menuMap[category] = []);
-// kMenuItemList.forEach((item) {
-//   List currentList = _menuMap[item.category];
-//   currentList.add(item.toMap());
-//   _menuMap[item.category] = currentList;
-// });
