@@ -6,6 +6,12 @@ class SettingsDataController extends GetxController{
 
   SettingNetworkController _snc = SettingNetworkController.instance;
 
+  RxBool _isBillRequested = false.obs;
+  bool get isBillRequested => _isBillRequested.value;
+  void setIsBillRequested(bool value){
+    _isBillRequested.value = value;
+  }
+
   bool _firstTry =true;
 
   bool get firstTry => _firstTry;
