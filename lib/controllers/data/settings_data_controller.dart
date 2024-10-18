@@ -50,4 +50,12 @@ class SettingsDataController extends GetxController{
     setFirstTry(true);
   }
 
+  bool validateTableNo(int newTableNo){
+    if(tableNo == newTableNo){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }
