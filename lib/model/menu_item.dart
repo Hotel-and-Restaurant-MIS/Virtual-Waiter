@@ -50,4 +50,25 @@ class MenuItem {
       'addOns':addOns,
     };
   }
+  Map<String, dynamic> toMapWS() {
+    return {
+      'menuItemId': id,  // Assuming 'id' is a property of MenuItem
+      'menuItemName': name,
+      'description': description,
+      'imageUrl': imageUrl,
+      'menuItemPrice': price,
+      'category': {
+        'categoryName': category
+      },
+      'tags': tags.map((tag) => {
+        'tagName': tag  // Each tag is a string
+      }).toList(),
+      'addOns': addOns.map((addOn) => {
+        'addOnId': addOn['addOnId'],  // Accessing the values in the map
+        'addOnName': addOn['addOnName'],
+        'addOnPrice': (addOn['addOnPrice'] as double).toStringAsFixed(2)
+      }).toList()
+    };
+  }
+
 }
