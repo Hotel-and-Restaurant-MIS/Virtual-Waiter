@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as SIO;
 import 'package:virtual_waiter/constants/network_constants.dart';
+import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/settings_data_controller.dart';
 import 'package:virtual_waiter/model/order.dart';
 
@@ -37,6 +38,14 @@ class WebSocketController extends GetxController {
 
       _socket.onError((error) {
         print('WebSocket Error: $error');
+      });
+      
+      _socket.on("readUpdatedOrderStatus", (data){
+        Map<String, dynamic> dataMap = jsonDecode(data);
+        bool isCorrectTable = SettingsDataController.instance.validateTableNo(dataMap['tableNo']);
+        if(isCorrectTable){
+          OrderListDataController.instance.updateOrderStatus(dataMap['orderId'],dataMap['newStatus']);
+        }
       });
 
     } catch (e) {

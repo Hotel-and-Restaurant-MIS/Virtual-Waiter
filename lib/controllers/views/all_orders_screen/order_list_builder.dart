@@ -50,14 +50,12 @@ class OrderListBuilder extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     buildOrderList();
   }
 
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
     ever(_oldc.reactiveOrderList, (list) {
       _orderList = list;

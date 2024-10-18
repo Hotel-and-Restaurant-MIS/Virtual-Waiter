@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:money_formatter/money_formatter.dart';
+import 'package:get/get.dart';
 
 class OrderTile extends StatelessWidget {
   String orderId;
-  OrderStatus orderStatus;
+  Rx<OrderStatus> orderStatus;
   double orderTotal;
 
   OrderTile(
@@ -60,14 +61,16 @@ class OrderTile extends StatelessWidget {
                   'Order Status: ',
                   style: TextStyle(fontSize: 21.0, fontWeight: FontWeight.w600),
                 ),
-                Text(
-                  ' ${orderStatus.name}',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w600,
-                      color: orderStatus == OrderStatus.Editing
-                          ? Colors.lightGreen
-                          : kButtonClour),
+                Obx(
+                  ()=> Text(
+                    ' ${orderStatus.value.name}',
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w600,
+                        color: orderStatus == OrderStatus.Editing
+                            ? Colors.lightGreen
+                            : kButtonClour),
+                  ),
                 ),
               ],
             ),
