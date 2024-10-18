@@ -1,12 +1,12 @@
 import 'dart:ffi';
-
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/model/order_item.dart';
 
 class Order {
   final List<OrderItem> orderItemList;
-  final OrderStatus orderStatus;
+   Rx<OrderStatus> orderStatus;
   final double orderTotal;
   int? orderId;
   final int tableId;
@@ -50,7 +50,7 @@ class Order {
       'dateTime': DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(dateTime!),  // Adjusted to match your format
       'totalPrice': orderTotal,
       'status': {
-                'statusName': orderStatus.name
+                'statusName': orderStatus.value.name
       },
       'orderItems': orderItemList.map((item) => item.toMapWS()).toList(),
     };
