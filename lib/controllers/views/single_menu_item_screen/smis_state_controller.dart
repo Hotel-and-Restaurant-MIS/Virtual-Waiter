@@ -9,6 +9,7 @@ import 'package:virtual_waiter/model/menu_item.dart';
 class SmisStateController extends GetxController {
   static SmisStateController instance = Get.find();
   List<int> _selectedAddOnList = [];
+  List<String> _selectedAddonNames =[];
 
   MenuItem? _menuItem;
   MenuItem get menuItem => _menuItem!;
@@ -57,17 +58,19 @@ class SmisStateController extends GetxController {
     _calculateTotal();
   }
 
-  void addAddOns({required int addOnId}) {
+  void addAddOns({required int addOnId, required String addonName}) {
     itemNullCheck();
     _selectedAddOnList.add(addOnId);
+    _selectedAddonNames.add(addonName);
     print('selected addon list : $_selectedAddOnList');
     _calculateTotal();
   }
 
-  void removeAddOns({required int addOnId}) {
+  void removeAddOns({required int addOnId,required String addonName}) {
     itemNullCheck();
     if (_selectedAddOnList.any((currAddOn) => currAddOn == addOnId)) {
       _selectedAddOnList.remove(addOnId);
+      _selectedAddonNames.remove(addonName);
     }
 
     _calculateTotal();
@@ -118,8 +121,8 @@ class SmisStateController extends GetxController {
           menuItem: menuItem,
             quantity: _quantity.value,
             selectedAddonList: _selectedAddOnList,
+            selectedAddonNames:_selectedAddonNames,
             specialNote: _specialNotes,
             totalPrice: _totalAmount.value));
   }
-
 }

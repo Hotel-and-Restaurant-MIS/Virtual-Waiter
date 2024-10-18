@@ -326,16 +326,19 @@ class SingleMenuItemScreen extends StatelessWidget {
                                       if (!_checkboxController
                                           .isChecked.value) {
                                         _smisStateController.addAddOns(
-                                            addOnId: addon['addOnId']);
-                                        print('AddOnId: ${addon['addOnId'].toString()}');
-                                        Get.snackbar('Add On Added',duration: Duration(seconds: 1 ),
+                                            addOnId: addon['addOnId'],
+                                            addonName: addon['addOnName']);
+                                        print(
+                                            'AddOnId: ${addon['addOnId'].toString()}');
+                                        Get.snackbar(
+                                            'Add On Added',
+                                            duration: Duration(seconds: 1),
                                             'Add On ${addon['addOnName']} added.',
-                                            snackPosition:
-                                                SnackPosition.TOP);
-
+                                            snackPosition: SnackPosition.TOP);
                                       } else {
                                         _smisStateController.removeAddOns(
-                                            addOnId: addon['addOnId']);
+                                            addOnId: addon['addOnId'],
+                                            addonName: addon['addOnName']);
                                       }
                                       _checkboxController.toggleCheckbox(value);
                                     },
@@ -399,8 +402,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                         ),
                         Obx(
                           () => Text(
-                            'LKR  ${MoneyFormatter(amount:_smisStateController.totalAmount).output.nonSymbol}',
-
+                            'LKR  ${MoneyFormatter(amount: _smisStateController.totalAmount).output.nonSymbol}',
                             style: TextConstants.kSubTextStyle(
                                 fontSize: 35.0, fontWeight: FontWeight.w400),
                           ),
@@ -414,7 +416,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                           Get.back();
                           _smisStateController.resetData();
                           // _orderStateController.calculateOrderTotal();
-                           },
+                        },
                         child: Container(
                           alignment: Alignment.center,
                           height: 60.0,
@@ -439,7 +441,9 @@ class SingleMenuItemScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 100.0,),
+                SizedBox(
+                  height: 100.0,
+                ),
               ],
             ),
           );
