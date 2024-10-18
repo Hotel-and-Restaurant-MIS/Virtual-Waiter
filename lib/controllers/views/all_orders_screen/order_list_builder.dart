@@ -21,7 +21,8 @@ class OrderListBuilder extends GetxController {
       _children.add(
         const Center(
           child: Text(
-            'No Order ar placed',
+            'No Orders are placed',
+            style: TextStyle(fontSize: 18.0,color: Colors.white),
           ),
         ),
       );
@@ -30,7 +31,7 @@ class OrderListBuilder extends GetxController {
     for (Order order in _orderList) {
       _children.add(GestureDetector(
         onTap: () => Get.to(() {
-          if (order.orderStatus == OrderStatus.Editing) {
+          if (order.orderStatus == getOrderStatusFromString(OrderStatus.Editing.name)) {
             return OrderScreen(
               editMode: true,
             );

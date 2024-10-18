@@ -16,14 +16,15 @@ import 'package:virtual_waiter/components/menu_shimmer.dart';
 
 class MenuScreen extends StatelessWidget {
   // Initialize the MenuController
-    OrderListDataController _oldc = OrderListDataController.instance;
+  OrderListDataController _oldc = OrderListDataController.instance;
   SettingsDataController _sdc = SettingsDataController.instance;
   MenuDataController _mdc = MenuDataController.instance;
   final MenuController menuController = Get.put(MenuController());
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now());
+    String formattedDate =
+        DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now());
 
     return DefaultTabController(
       length: 6,
@@ -65,7 +66,9 @@ class MenuScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     (_oldc.orderList.length == 1 &&
-                        _oldc.orderList.first.orderStatus == OrderStatus.Editing)
+                            _oldc.orderList.first.orderStatus ==
+                                getOrderStatusFromString(
+                                    OrderStatus.Editing.name))
                         ? Get.to(() => OrderScreen(editMode: true))
                         : Get.to(() => AllOrdersScreen());
                   },
@@ -74,14 +77,15 @@ class MenuScreen extends StatelessWidget {
                     width: 140.0,
                     margin: EdgeInsets.only(right: 20.0),
                     decoration: BoxDecoration(
-                        color: kButtonClour,
-                        borderRadius: BorderRadius.circular(5.0),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(0, 15.35),
-                              blurRadius: 30.06,
-                              color: kButtonClour.withOpacity(0.3))
-                        ]),
+                      color: kButtonClour,
+                      borderRadius: BorderRadius.circular(5.0),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 15.35),
+                            blurRadius: 30.06,
+                            color: kButtonClour.withOpacity(0.3))
+                      ],
+                    ),
                     child: Center(
                       child: Text(
                         'My Orders',
@@ -117,15 +121,16 @@ class MenuScreen extends StatelessWidget {
           ),
         ),
         body: Obx(
-              () {
+          () {
             // Check if loading, show shimmer grid, otherwise show actual menu
             return _mdc.isGettingData.value
                 ? MenuShimmerGrid() // Show shimmer
                 : TabBarView(
-              children: kCategoryNameList.map<Widget>((category) {
-                return MenuGridBuilder.instance.buildGridByCategory(category: category);
-              }).toList(),
-            );
+                    children: kCategoryNameList.map<Widget>((category) {
+                      return MenuGridBuilder.instance
+                          .buildGridByCategory(category: category);
+                    }).toList(),
+                  );
           },
         ),
       ),

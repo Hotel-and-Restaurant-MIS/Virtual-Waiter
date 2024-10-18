@@ -49,6 +49,21 @@ class OrderListDataController extends GetxController {
     }
   }
 
+  void clearOrdersListData(){
+    _orderList.clear();
+  }
+
+  bool isAllOrdersCompleted() {
+    for (Order order in orderList) {
+      if (order.orderStatus.value == OrderStatus.Preparing || order.orderStatus.value == OrderStatus.Pending || orderList.isEmpty) {
+        return false; // Return false if any order is still Preparing or Pending
+      }
+    }
+    // If no Preparing or Pending orders were found, return true
+    return true;
+  }
+
+
   void updateEditableOrder(
       {List<OrderItem>? orderItemList,
       Rx<OrderStatus>? orderStatus,
