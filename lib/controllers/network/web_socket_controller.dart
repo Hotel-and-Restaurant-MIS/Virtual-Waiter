@@ -39,15 +39,16 @@ class WebSocketController extends GetxController {
       _socket.onError((error) {
         print('WebSocket Error: $error');
       });
-      
-      _socket.on("readUpdatedOrderStatus", (data){
+
+      _socket.on("readUpdatedOrderStatus", (data) {
         Map<String, dynamic> dataMap = jsonDecode(data);
-        bool isCorrectTable = SettingsDataController.instance.validateTableNo(dataMap['tableNo']);
-        if(isCorrectTable){
-          OrderListDataController.instance.updateOrderStatus(dataMap['orderId'],dataMap['newStatus']);
+        bool isCorrectTable =
+            SettingsDataController.instance.validateTableNo(dataMap['tableNo']);
+        if (isCorrectTable) {
+          OrderListDataController.instance
+              .updateOrderStatus(dataMap['orderId'], dataMap['newStatus']);
         }
       });
-
     } catch (e) {
       print("error occurs establishing the websocket");
       rethrow;
@@ -57,7 +58,7 @@ class WebSocketController extends GetxController {
   Future<void> sendCustomerHelp() async {
     try {
       _socket.emit(
-        'customerHelpAlert',
+        'RequestCustomerHelp',
         jsonEncode(
           {
             'tableNo': _sdc.tableNo,
@@ -67,6 +68,19 @@ class WebSocketController extends GetxController {
     } catch (e) {
       print('Error sending Customer Help');
       rethrow;
+    }
+  }
+
+  Future<void> updatePayment() async {
+    try {
+      _socket.emit(
+        'completeTablePayment',
+        jsonEncode(
+          {'tableNo': _sdc.tableNo},
+        ),
+      );
+    } catch (e) {
+      print('Error updating payment completed orders');
     }
   }
 
@@ -83,13 +97,27 @@ class WebSocketController extends GetxController {
     }
   }
 
+  Future<void> requestBill() async {
+    try {
+      _socket.emit(
+        'requestBill',
+        jsonEncode(
+          {'tableNo': _sdc.tableNo},
+        ),
+      );
+    } catch (e) {
+      print('Error requesting bill');
+    }
+  }
+
   @override
   void onInit() {
     if (!_socket.connected) {
-      _socket.connect();  // Ensure socket is only connected if it's not already
+      _socket.connect(); // Ensure socket is only connected if it's not already
     }
     super.onInit();
   }
+
   @override
   void dispose() {
     _socket.disconnect();
