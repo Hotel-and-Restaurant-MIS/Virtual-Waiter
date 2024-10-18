@@ -25,6 +25,8 @@ class ControllerInitializer {
 
   static Future<void> initAllControllers() async {
     try {
+      Get.put(SettingNetworkController());
+      Get.put(SettingsDataController());
       await Get.putAsync(() => WebSocketController.create());
       Get.put(MenuDataNetworkController());
       Get.put(MenuDataController());
@@ -32,8 +34,7 @@ class ControllerInitializer {
 
       Get.put(WelcomeScreenController());
 
-      Get.put(SettingNetworkController());
-      Get.put(SettingsDataController());
+
 
       Get.put(OrderNetworkController());
       Get.put(OrderListDataController());
