@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/settings_data_controller.dart';
 import 'package:virtual_waiter/controllers/views/all_orders_screen/all_orders_state_controller.dart';
 import 'package:virtual_waiter/controllers/views/all_orders_screen/order_list_builder.dart';
-import 'package:virtual_waiter/views/menu_screen.dart';
 import 'package:money_formatter/money_formatter.dart';
 import 'package:virtual_waiter/views/settings_screen.dart';
 import '../constant.dart';
@@ -19,12 +19,12 @@ class AllOrdersScreen extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Obx(
-          ()=> Visibility(
-            visible: _aosc.isGeneratedBill,
+          () => Visibility(
+            visible: SettingsDataController.instance.isBillRequested,
             child: FloatingActionButton(
               backgroundColor: Colors.white38,
               onPressed: () {
-                Get.to(() =>SettingsScreen());
+                Get.to(() => SettingsScreen());
               },
               child: Center(
                 child: Icon(
@@ -102,66 +102,89 @@ class AllOrdersScreen extends StatelessWidget {
               ),
               Obx(
                 () => Visibility(
-                  visible: !_aosc.isGeneratedBill,
+                  visible: !SettingsDataController.instance.isBillRequested,
                   child: Center(
                     child: GestureDetector(
-                      onTap: () => showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          elevation: 2.0,
-                          backgroundColor: kBackgroundClour,
-                          title: Text(
-                            'Generate Bill ?',
-                            style: TextConstants.kSubTextStyle(
-                              fontSize: 26.0,
-                            ),
-                          ),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Order items in the cart will not be added to \nthe bill. Do you want to generate the bill ?',
+                      onTap: () async {
+                        bool allOrdersCompleted = _oldc.isAllOrdersCompleted();
+
+                        if (allOrdersCompleted) {
+
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              elevation: 2.0,
+                              backgroundColor: kBackgroundClour,
+                              title: Text(
+                                'Generate Bill?',
                                 style: TextConstants.kSubTextStyle(
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.w400,
+                                  fontSize: 26.0,
                                 ),
                               ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    child: Text(
-                                      'No',
-                                      style: TextStyle(fontSize: 17.0),
+                                  Text(
+                                    'Order items in the cart will not be added to \nthe bill. Do you want to generate the bill?',
+                                    style: TextConstants.kSubTextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      _aosc.generateBill();
-                                      Get.back();
-                                    },
-                                    child: Text(
-                                      'Yes',
-                                      style: TextStyle(fontSize: 17.0),
-                                    ),
+                                  SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Get.back(); // Close the dialog
+                                        },
+                                        child: Text(
+                                          'No',
+                                          style: TextStyle(fontSize: 17.0),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          await _aosc
+                                              .generateBill(); // Call your generateBill function
+                                          Get.back(); // Close the dialog
+                                        },
+                                        child: Text(
+                                          'Yes',
+                                          style: TextStyle(fontSize: 17.0),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
+                            ),
+                          );
+                        } else {
+                          // Show the Get.defaultDialog if not all orders are completed
+                          Get.defaultDialog(
+                            title: 'Cannot Generate Bill',
+                            content: Text(
+                              'Some orders are still being prepared or pending. Please wait until all orders are\n completed before generating the bill.',
+                            ),
+                            confirm: ElevatedButton(
+                              onPressed: () {
+                                Get.back(); // Close the dialog
+                              },
+                              child: Text('OK'),
+                            ),
+                          );
+                        }
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         height: 60.0,
@@ -175,10 +198,11 @@ class AllOrdersScreen extends StatelessWidget {
                           child: Text(
                             'Generate Bill',
                             style: TextStyle(
-                                fontFamily: 'Barlow',
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
+                              fontFamily: 'Barlow',
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -186,7 +210,9 @@ class AllOrdersScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 100.0,),
+              SizedBox(
+                height: 100.0,
+              ),
             ],
           ),
         ),
