@@ -1,11 +1,14 @@
 import 'package:get/get.dart';
 import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
+import 'package:virtual_waiter/controllers/data/settings_data_controller.dart';
+import 'package:virtual_waiter/controllers/network/web_socket_controller.dart';
 
 class AllOrdersStateController extends GetxController{
 
   static AllOrdersStateController instance = Get.find();
 
   OrderListDataController _oldc = OrderListDataController.instance;
+  SettingsDataController _sdc = SettingsDataController.instance;
 
   bool _hasEditableOrder = false;
 
@@ -24,11 +27,13 @@ class AllOrdersStateController extends GetxController{
     _isGeneratedBill.value = value;
   }
 
-  void generateBill(){
+  Future<void> generateBill()async{
     setIsGeneratedBill(true);
+    _sdc.setIsBillRequested(true);
     _oldc.calculateAllOrdersTotal();
+    await WebSocketController.instance.requestBill();
     setHasEditableOrder(_oldc.editableOrderExists());
     _oldc.removeEditableOrder();
-
+    setIsGeneratedBill(false);
   }
 }

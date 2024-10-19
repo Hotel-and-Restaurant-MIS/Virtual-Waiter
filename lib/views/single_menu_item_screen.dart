@@ -6,7 +6,9 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:money_formatter/money_formatter.dart';
 import 'package:virtual_waiter/components/add_sub_button.dart';
 import 'package:virtual_waiter/constant.dart';
+import 'package:virtual_waiter/constants/colours_constants.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
+import 'package:virtual_waiter/controllers/data/settings_data_controller.dart';
 import 'package:virtual_waiter/controllers/views/menuScreen/check_box_controller.dart';
 import 'package:virtual_waiter/controllers/views/order_screen/order_state_controller.dart';
 import 'package:virtual_waiter/controllers/views/single_menu_item_screen/smis_state_controller.dart';
@@ -17,7 +19,7 @@ class SingleMenuItemScreen extends StatelessWidget {
   late SmisStateController _smisStateController;
   RxBool isChecked = false.obs;
   TextEditingController _textFieldController = TextEditingController();
-  OrderStateController _orderStateController = OrderStateController.instance;
+  SettingsDataController _sdc = SettingsDataController.instance;
 
   SingleMenuItemScreen({required this.menuItem}) {
     _smisStateController = SmisStateController.instance;
@@ -326,16 +328,19 @@ class SingleMenuItemScreen extends StatelessWidget {
                                       if (!_checkboxController
                                           .isChecked.value) {
                                         _smisStateController.addAddOns(
-                                            addOnId: addon['addOnId']);
-                                        print('AddOnId: ${addon['addOnId'].toString()}');
-                                        Get.snackbar('Add On Added',duration: Duration(seconds: 1 ),
+                                            addOnId: addon['addOnId'],
+                                            addonName: addon['addOnName']);
+                                        print(
+                                            'AddOnId: ${addon['addOnId'].toString()}');
+                                        Get.snackbar(
+                                            'Add On Added',
+                                            duration: Duration(seconds: 1),
                                             'Add On ${addon['addOnName']} added.',
-                                            snackPosition:
-                                                SnackPosition.TOP);
-
+                                            snackPosition: SnackPosition.TOP);
                                       } else {
                                         _smisStateController.removeAddOns(
-                                            addOnId: addon['addOnId']);
+                                            addOnId: addon['addOnId'],
+                                            addonName: addon['addOnName']);
                                       }
                                       _checkboxController.toggleCheckbox(value);
                                     },
@@ -399,8 +404,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                         ),
                         Obx(
                           () => Text(
-                            'LKR  ${MoneyFormatter(amount:_smisStateController.totalAmount).output.nonSymbol}',
-
+                            'LKR  ${MoneyFormatter(amount: _smisStateController.totalAmount).output.nonSymbol}',
                             style: TextConstants.kSubTextStyle(
                                 fontSize: 35.0, fontWeight: FontWeight.w400),
                           ),
@@ -410,15 +414,49 @@ class SingleMenuItemScreen extends StatelessWidget {
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          _smisStateController.addOrder();
-                          Get.back();
-                          _smisStateController.resetData();
-                          // _orderStateController.calculateOrderTotal();
-                           },
+                          if (_sdc.isBillRequested) {
+                            Get.defaultDialog(
+                              radius: 10.0,
+                              title: 'Cannot Proceed !',
+                              titleStyle:
+                                  TextConstants.kMainTextStyle(fontSize: 27.0),
+                              titlePadding: EdgeInsets.all(10.0),
+                              content: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 15.0,
+                                    right: 15.0,
+                                    top: 10.0,
+                                    bottom: 10.0),
+                                child: Text(
+                                  'Complete payment before add order items to My Cart.',
+                                  style: TextConstants.kSubTextStyle(
+                                      fontSize: 18.0),
+                                ),
+                              ),
+                              backgroundColor: kBackgroundColour,
+                              confirm: ElevatedButton(
+                                onPressed: () {
+                                  Get.back(); // Close dialog when 'OK' is pressed
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            _smisStateController.addOrder();
+                            Get.back();
+                            _smisStateController.resetData();
+                          }
+                        },
                         child: Container(
                           alignment: Alignment.center,
                           height: 60.0,
-                          width: 230.0,
+                          width: 210.0,
                           margin: EdgeInsets.only(right: 20.0),
                           decoration: BoxDecoration(
                             color: kButtonClour.withOpacity(0.9),
@@ -426,7 +464,7 @@ class SingleMenuItemScreen extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              'Add to My Orders',
+                              'Add to My Cart',
                               style: TextStyle(
                                   fontFamily: 'Barlow',
                                   fontSize: 23.0,
@@ -438,6 +476,9 @@ class SingleMenuItemScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 100.0,
                 ),
               ],
             ),

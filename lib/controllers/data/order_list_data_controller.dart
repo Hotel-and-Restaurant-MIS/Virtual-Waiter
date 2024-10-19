@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:virtual_waiter/controllers/views/all_orders_screen/order_list_builder.dart';
 import 'package:virtual_waiter/enum/order_status.dart';
 import 'package:virtual_waiter/exception/editable_order_not_exists_exception.dart';
 import 'package:virtual_waiter/exception/multiple_editable_orders_exist_exception.dart';
@@ -15,7 +16,6 @@ class OrderListDataController extends GetxController {
 
   List<Order> get orderList => _orderList;
   RxList<Order> get reactiveOrderList => _orderList;
-
 
   void setOrderList(List<Order> value) {
     _orderList.value = value;
@@ -36,7 +36,7 @@ class OrderListDataController extends GetxController {
 
   Order getEditableOrder() {
     List<Order> possibleEditableOrders = _orderList
-        .where((order) => order.orderStatus == OrderStatus.Editing)
+        .where((order) => order.orderStatus == getOrderStatusFromString(OrderStatus.Editing.name))
         .toList();
     if (possibleEditableOrders.isEmpty) {
       //throw error
@@ -49,9 +49,25 @@ class OrderListDataController extends GetxController {
     }
   }
 
+  void clearOrdersListData() {
+    _orderList.clear();
+  }
+
+  bool isAllOrdersCompleted() {
+    for (Order order in orderList) {
+      if (order.orderStatus.value == OrderStatus.Preparing ||
+          order.orderStatus.value == OrderStatus.Pending ||
+          orderList.isEmpty) {
+        return false; // Return false if any order is still Preparing or Pending
+      }
+    }
+    // If no Preparing or Pending orders were found, return true
+    return true;
+  }
+
   void updateEditableOrder(
       {List<OrderItem>? orderItemList,
-      OrderStatus? orderStatus,
+      Rx<OrderStatus>? orderStatus,
       double? orderTotal,
       int? tableId,
       int? orderId}) {
@@ -67,12 +83,25 @@ class OrderListDataController extends GetxController {
       ),
     );
   }
-  double calculateAllOrdersTotal(){
-    List<Order> allNonEditableOrders = _orderList.where((order)=>order.orderStatus != OrderStatus.Editing).toList();
+
+  double calculateAllOrdersTotal() {
+    List<Order> allNonEditableOrders = _orderList
+        .where((order) => order.orderStatus != OrderStatus.Editing)
+        .toList();
     double allOrdersPrice = 0;
     for (var order in allNonEditableOrders) {
-        allOrdersPrice+= order.orderTotal;
+      allOrdersPrice += order.orderTotal;
     }
     return allOrdersPrice;
+  }
+
+  void updateOrderStatus(int orderId, String newStatus) {
+    for (Order order in _orderList) {
+      if (order.orderId == orderId) {
+        order.orderStatus = getOrderStatusFromString(newStatus);
+        print('order id: $orderId');
+      }
+    }
+    OrderListBuilder.instance.buildOrderList();
   }
 }

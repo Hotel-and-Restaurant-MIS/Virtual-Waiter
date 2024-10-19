@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:virtual_waiter/controllers/data/order_list_data_controller.dart';
 import 'package:virtual_waiter/controllers/data/settings_data_controller.dart';
 import 'package:get/get.dart';
+import 'package:virtual_waiter/controllers/network/web_socket_controller.dart';
 import 'package:virtual_waiter/views/welcome_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -163,7 +165,63 @@ class SettingsScreen extends StatelessWidget {
               ),
               Obx(
                 () => Visibility(
-                  visible: _sdc.isValidUser,
+                  visible: _sdc.isValidUser && _sdc.isBillRequested,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Payment Process',
+                        style: TextConstants.kSubTextStyle(fontSize: 23.0),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          'Does the customer finished the payment ?',
+                          style: TextConstants.kSmallTextStyle(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () async{
+                            await WebSocketController.instance.updatePayment();
+                            _sdc.setIsBillRequested(false);
+                            OrderListDataController.instance.clearOrdersListData();
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 60.0,
+                            width: 270.0,
+                            margin: EdgeInsets.only(right: 20.0),
+                            decoration: BoxDecoration(
+                              color: kButtonClour.withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Payment Successfull',
+                                style: TextStyle(
+                                    fontFamily: 'Barlow',
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 80.0,
+              ),
+              Obx(
+                () => Visibility(
+                  visible: _sdc.isValidUser && !_sdc.isBillRequested,
                   child: Column(
                     children: [
                       Row(

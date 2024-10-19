@@ -24,20 +24,53 @@ class MenuGridBuilder extends GetxController {
         ),
       );
     });
-    return CustomScrollView(
-      primary: false,
-      slivers: <Widget>[
-        SliverPadding(
-          padding: const EdgeInsets.all(20),
-          sliver: SliverGrid.count(
-            crossAxisSpacing: 10,
-            childAspectRatio: 320/270,
-            mainAxisSpacing: 30,
-            crossAxisCount: 2,
-            children: children,
-          ),
-        ),
-      ],
-    );
+    // return CustomScrollView(
+    //   primary: false,
+    //   slivers: <Widget>[
+    //     SliverPadding(
+    //       padding: const EdgeInsets.all(20),
+    //       // sliver: SliverGrid.count(
+    //       //   crossAxisSpacing: 10,
+    //       //   childAspectRatio: 320/270,
+    //       //   mainAxisSpacing: 30,
+    //       //   crossAxisCount: 2,
+    //       //   children: children,
+    //       // ),
+    //       sliver: SliverGrid.count(
+    //         crossAxisSpacing: 10,
+    //         childAspectRatio: 320/220,
+    //         mainAxisSpacing: 30,
+    //         crossAxisCount: 3,
+    //         children: children,
+    //       ),
+    //     ),
+    //   ],
+    // );
+
+
+      return OrientationBuilder(
+        builder: (context, orientation) {
+          int crossAxisCount = orientation == Orientation.portrait ? 2 : 3;
+          double childAspectRatio = orientation == Orientation.portrait ? 320 / 270 : 320 / 220;
+
+          return CustomScrollView(
+            primary: false,
+            slivers: <Widget>[
+              SliverPadding(
+                padding: const EdgeInsets.all(20),
+                sliver: SliverGrid.count(
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 30,
+                  crossAxisCount: crossAxisCount,
+                  childAspectRatio: childAspectRatio,
+                  children: children,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
   }
-}
+

@@ -17,6 +17,7 @@ class virtual_waiter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: LoadingScreen(),
     );

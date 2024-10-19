@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtual_waiter/components/loading_dialog.dart';
 import 'package:virtual_waiter/components/order_item_tile.dart';
 import 'package:virtual_waiter/constant.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
@@ -166,14 +165,12 @@ class OrderScreen extends StatelessWidget {
                             ),
                             SizedBox(
                                 width: orientation == Orientation.portrait
-                                    ? deviceWidth * 0.4
+                                    ? deviceWidth * 0.1
                                     : deviceWidth * 0.65),
                             editMode
                                 ? Obx(
                                     () => Text(
                                       'LKR  ${MoneyFormatter(amount: _orderDataController.totalAmount).output.nonSymbol}',
-                                      //TODO: calculate total
-
                                       style: TextConstants.kSubTextStyle(
                                         fontSize: 28.0,
                                         fontWeight: FontWeight.w400,

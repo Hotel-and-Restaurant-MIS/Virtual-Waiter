@@ -15,7 +15,7 @@ class OrderDataController extends GetxController {
 
   RxBool _isAddingOrder = false.obs;
   bool get isAddingOrder => _isAddingOrder.value;
-  void setIsAddingOrder(bool value){
+  void setIsAddingOrder(bool value) {
     _isAddingOrder.value = value;
   }
 
@@ -30,15 +30,13 @@ class OrderDataController extends GetxController {
   RxList<OrderItem> _orderItemList = <OrderItem>[].obs;
   List<OrderItem> get orderItemList => _orderItemList;
 
-  static const String _editableOrderConst = 'Editable Order';
-
   void addOrderItem({required OrderItem orderItem}) {
     _orderItemList.add(orderItem);
     _calculateTotalAmount();
     if (!_oldc.editableOrderExists()) {
       Order newOrder = Order(
         orderItemList: _orderItemList,
-        orderStatus: OrderStatus.Editing,
+        orderStatus: Rx<OrderStatus>(OrderStatus.Editing),
         orderTotal: _totalAmount.value,
         tableId: 5,
       );
@@ -82,7 +80,7 @@ class OrderDataController extends GetxController {
 
   Future<void> sendOrder() async {
     setIsAddingOrder(true);
-    try{
+    try {
       List<OrderItem> currentItems = [];
       double orderTotal = 0.0;
       orderTotal = _totalAmount.value;
@@ -92,29 +90,21 @@ class OrderDataController extends GetxController {
 
       Order order = Order(
         orderItemList: currentItems,
-        orderStatus: OrderStatus.Pending,
+        orderStatus: Rx<OrderStatus>(OrderStatus.Pending),
         orderTotal: orderTotal,
         tableId: _tnc.tableNo,
       );
       _oldc.removeEditableOrder();
-      print('before${_oldc.orderList.length}');
-      Map<String,dynamic> newOrder = await _onc.addOrder(order: order); // add new order to the db
-      print(newOrder.toString());
+
+      Map<String, dynamic> newOrder =
+          await _onc.addOrder(order: order); // add new order to the db
       _oldc.addOrder(Order.fromMap(newOrder));
-      print('after${_oldc.orderList.length}');
-      _websc.updateAllOrderList(); //update the order manager app in real time
+      await _websc.updateAllOrderList(
+          Order.fromMap(newOrder)); //update the order manager app in real time
       _orderItemList.clear();
-      print('order list length: ${_oldc.orderList.length}');
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
     setIsAddingOrder(false);
-
   }
-
-  //TODO: Item update/delete error
-  /*
-  Two items are separately added for order item list. Need to update that
-  When removing a single item from the above case, only one is removed while the other still remains. Need to fix that
-   */
 }
