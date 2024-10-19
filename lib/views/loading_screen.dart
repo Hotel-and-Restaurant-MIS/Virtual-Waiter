@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:virtual_waiter/constants/text_constants.dart';
 import 'package:virtual_waiter/controlIer_initializer.dart';
+import 'package:virtual_waiter/views/menu_screen.dart';
 import 'package:virtual_waiter/views/welcome_screen.dart';
 
 class LoadingScreen extends StatelessWidget {

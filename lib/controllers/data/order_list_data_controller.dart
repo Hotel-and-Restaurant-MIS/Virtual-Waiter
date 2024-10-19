@@ -36,7 +36,7 @@ class OrderListDataController extends GetxController {
 
   Order getEditableOrder() {
     List<Order> possibleEditableOrders = _orderList
-        .where((order) => order.orderStatus == OrderStatus.Editing)
+        .where((order) => order.orderStatus == getOrderStatusFromString(OrderStatus.Editing.name))
         .toList();
     if (possibleEditableOrders.isEmpty) {
       //throw error
@@ -49,20 +49,21 @@ class OrderListDataController extends GetxController {
     }
   }
 
-  void clearOrdersListData(){
+  void clearOrdersListData() {
     _orderList.clear();
   }
 
   bool isAllOrdersCompleted() {
     for (Order order in orderList) {
-      if (order.orderStatus.value == OrderStatus.Preparing || order.orderStatus.value == OrderStatus.Pending || orderList.isEmpty) {
+      if (order.orderStatus.value == OrderStatus.Preparing ||
+          order.orderStatus.value == OrderStatus.Pending ||
+          orderList.isEmpty) {
         return false; // Return false if any order is still Preparing or Pending
       }
     }
     // If no Preparing or Pending orders were found, return true
     return true;
   }
-
 
   void updateEditableOrder(
       {List<OrderItem>? orderItemList,

@@ -109,7 +109,6 @@ class AllOrdersScreen extends StatelessWidget {
                         bool allOrdersCompleted = _oldc.isAllOrdersCompleted();
 
                         if (allOrdersCompleted) {
-
                           showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(

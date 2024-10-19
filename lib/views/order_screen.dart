@@ -165,14 +165,12 @@ class OrderScreen extends StatelessWidget {
                             ),
                             SizedBox(
                                 width: orientation == Orientation.portrait
-                                    ? deviceWidth * 0.4
+                                    ? deviceWidth * 0.1
                                     : deviceWidth * 0.65),
                             editMode
                                 ? Obx(
                                     () => Text(
                                       'LKR  ${MoneyFormatter(amount: _orderDataController.totalAmount).output.nonSymbol}',
-                                      //TODO: calculate total
-
                                       style: TextConstants.kSubTextStyle(
                                         fontSize: 28.0,
                                         fontWeight: FontWeight.w400,

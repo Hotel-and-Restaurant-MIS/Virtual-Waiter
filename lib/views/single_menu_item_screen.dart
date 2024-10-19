@@ -414,17 +414,23 @@ class SingleMenuItemScreen extends StatelessWidget {
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          if(_sdc.isBillRequested){
-                            Get.defaultDialog(radius: 10.0,
+                          if (_sdc.isBillRequested) {
+                            Get.defaultDialog(
+                              radius: 10.0,
                               title: 'Cannot Proceed !',
-                              titleStyle: TextConstants.kMainTextStyle(fontSize: 27.0),
+                              titleStyle:
+                                  TextConstants.kMainTextStyle(fontSize: 27.0),
                               titlePadding: EdgeInsets.all(10.0),
                               content: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
+                                    left: 15.0,
+                                    right: 15.0,
+                                    top: 10.0,
+                                    bottom: 10.0),
                                 child: Text(
                                   'Complete payment before add order items to My Cart.',
-                                  style: TextConstants.kSubTextStyle(fontSize: 18.0),
+                                  style: TextConstants.kSubTextStyle(
+                                      fontSize: 18.0),
                                 ),
                               ),
                               backgroundColor: kBackgroundColour,
@@ -439,8 +445,9 @@ class SingleMenuItemScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                              ),);
-                          }else{
+                              ),
+                            );
+                          } else {
                             _smisStateController.addOrder();
                             Get.back();
                             _smisStateController.resetData();
