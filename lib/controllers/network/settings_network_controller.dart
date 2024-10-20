@@ -4,8 +4,7 @@ class SettingNetworkController extends GetxController{
   static SettingNetworkController instance = Get.find();
 
   bool checkPassword(String password){
-    String hardCordedPassword = 'ash';
-    return (password == hardCordedPassword)? true:false;
-    //TODO: check with the backend
+    String Password = '1234';
+    return (password == Password)? true:false;
   }
 }

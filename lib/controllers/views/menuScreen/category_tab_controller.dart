@@ -14,7 +14,6 @@ class CategoryTabController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     _buildCategoryTab();
   }
