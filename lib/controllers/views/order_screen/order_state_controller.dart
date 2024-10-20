@@ -39,7 +39,6 @@ class OrderStateController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     _initController();
   }

@@ -148,7 +148,7 @@ class AllOrdersScreen extends StatelessWidget {
                                         },
                                         child: Text(
                                           'No',
-                                          style: TextStyle(fontSize: 17.0),
+                                          style: TextStyle(fontSize: 19.0,color: kButtonClour),
                                         ),
                                       ),
                                       TextButton(
@@ -159,7 +159,7 @@ class AllOrdersScreen extends StatelessWidget {
                                         },
                                         child: Text(
                                           'Yes',
-                                          style: TextStyle(fontSize: 17.0),
+                                          style: TextStyle(fontSize: 19.0,color: kButtonClour),
                                         ),
                                       ),
                                     ],
@@ -172,14 +172,22 @@ class AllOrdersScreen extends StatelessWidget {
                           // Show the Get.defaultDialog if not all orders are completed
                           Get.defaultDialog(
                             title: 'Cannot Generate Bill',
-                            content: Text(
-                              'Some orders are still being prepared or pending. Please wait until all orders are\n completed before generating the bill.',
+                            titleStyle: TextConstants.kSubTextStyle(fontSize: 23.0),
+                            radius: 10.0,
+                            backgroundColor: Color(0xFF252836),
+                            content: Padding(
+                              padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0,bottom: 10.0
+                              ),
+                              child: Text(
+                                'Some orders are still being prepared or pending. Please wait until \nall orders are completed before generating the bill.',
+                                style: TextConstants.kSubTextStyle(fontSize: 17.0,fontWeight: FontWeight.w400),
+                              ),
                             ),
                             confirm: ElevatedButton(
                               onPressed: () {
                                 Get.back(); // Close the dialog
                               },
-                              child: Text('OK'),
+                              child: Text('OK',style: TextStyle(color: kButtonClour,fontSize: 16.0),),
                             ),
                           );
                         }

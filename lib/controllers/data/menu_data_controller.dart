@@ -14,7 +14,6 @@ class MenuDataController extends GetxController {
   RxBool isGettingData = true.obs;
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     _initController();
   }
